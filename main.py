@@ -160,7 +160,7 @@ class BaiduSpider(BaseSpider):
                         'results': [
                             {
                                 'cover': 'str, 视频封面图片链接',
-                                'from': 'str, 视频来源',
+                                'origin': 'str, 视频来源',
                                 'length': 'str, 视频时长',
                                 'title': 'str, 视频标题',
                                 'url': 'str, 视频链接'
@@ -175,7 +175,7 @@ class BaiduSpider(BaseSpider):
                     },
                     {
                         'des': 'str, 搜索结果简介',
-                        'from': 'str, 搜索结果的来源，可能是域名，也可能是名称',
+                        'origin': 'str, 搜索结果的来源，可能是域名，也可能是名称',
                         'title': 'str, 搜索结果标题',
                         'type': 'result',  # 正经的搜索结果
                         'url': 'str, 搜索结果链接'
@@ -269,7 +269,7 @@ class BaiduSpider(BaseSpider):
                         'url': v_url,
                         'cover': v_img,
                         'length': v_len,
-                        'from': v_from
+                        'origin': v_from
                     })
                 video_results += row_res
         else:
@@ -377,7 +377,7 @@ class BaiduSpider(BaseSpider):
                 res.append({
                     'title': title,
                     'des': des,
-                    'from': domain,
+                    'origin': domain,
                     'url': href,
                     'type': 'result'})
         soup = BeautifulSoup(text, 'html.parser')
