@@ -1,3 +1,3 @@
-# 各大网站爬虫
+# GSSpider
 
-目前仅支持爬取百度，文档正在跟进中，请先阅读注释
+GSSpider，全称为GuangSoSpider，是一个爬取百度搜索结果的Python爬虫。详情请参见`main.py`
