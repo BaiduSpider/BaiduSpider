@@ -12,6 +12,7 @@ theme:
   logo: assets/icons/logo.png
 repo_name: samzhangjy/BaiduSpider
 repo_url: https://github.com/samzhangjy/BaiduSpider
+edit_uri: ''
 markdown_extensions:
   - codehilite
   - admonition
