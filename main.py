@@ -85,7 +85,7 @@ class BaiduSpider(BaseSpider):
                 'total': <一个正整数，表示搜索结果的最大页数，可能会因为搜索结果页码的变化而变化，因为百度不提供总共的搜索结果页数>
             }
 
-        目前支持百度搜索，百度图片，百度知道，百度视频，百度资讯，百度文库和百度经验，并且返回的搜索结果无广告。继承自``BaseSpider``。
+        目前支持百度搜索，百度图片，百度知道，百度视频，百度资讯，百度文库，百度经验和百度百科，并且返回的搜索结果无广告。继承自``BaseSpider``。
 
         BaiduSpider.`search_web(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度网页搜索
 
@@ -100,6 +100,8 @@ class BaiduSpider(BaseSpider):
         BaiduSpider.`search_wenku(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度文库搜索
 
         BaiduSpider.`search_jingyan(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度经验搜索
+
+        BaiduSpider.`search_baike(self: BaiduSpider, word: str) -> dict`: 百度百科搜索
         """
         super().__init__()
         # 爬虫名称（不是请求的，只是用来表识）
@@ -911,6 +913,67 @@ class BaiduSpider(BaseSpider):
             # 获取尾页并加一
             total = int(int(pages_['href'].split(
                 '&')[-1].strip('pn=')) / 10) + 1
+        return {
+            'results': results,
+            'total': total
+        }
+
+    def search_baike(self, word: str) -> dict:
+        r"""百度百科搜索
+
+        - 使用方法：
+            >>> BaiduSpider().search_baike('搜索词')
+            {
+                'results': {
+                    [
+                        'title': 'str, 百科标题',
+                        'des': 'str, 百科简介',
+                        'date': 'str, 百科最后更新时间',
+                        'url': 'str, 百科链接'
+                    ],
+                    [ ... ],
+                    [ ... ],
+                    [ ... ]
+                },
+                'total': int, 搜索结果总数
+            }
+
+        Args:
+            word (str): 要搜索的关键词
+
+        Returns:
+            dict: 搜索结果和总页数
+        """
+        # 获取源码
+        source = requests.get(
+            'https://baike.baidu.com/search?word=%s' % quote(word), headers=self.headers)
+        code = minify(source.text)
+        # 创建BeautifulSoup对象
+        soup = BeautifulSoup(code, 'html.parser').find(
+            'div', class_='body-wrapper').find('div', class_='searchResult')
+        # 获取百科总数
+        total = int(
+            soup.find('div', class_='result-count').text.strip('百度百科为您找到相关词条约').strip('个'))
+        # 获取所有结果
+        container = soup.findAll('dd')
+        results = []
+        for res in container:
+            # 链接
+            url = 'https://baike.baidu.com' + \
+                self._format(res.find('a', class_='result-title')['href'])
+            # 标题
+            title = self._format(res.find('a', class_='result-title').text)
+            # 简介
+            des = self._format(res.find('p', class_='result-summary').text)
+            # 更新日期
+            date = self._format(res.find('span', class_='result-date').text)
+            # 生成结果
+            results.append({
+                'title': title,
+                'des': des,
+                'date': date,
+                'url': url
+            })
         return {
             'results': results,
             'total': total
