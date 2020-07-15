@@ -1,0 +1,28 @@
+site_name: BaiduSpider
+theme:
+  name: material
+  features:
+    - instant
+  language: zh
+  palette:
+    scheme: preference
+    primary: blue
+    accent: light blue
+  favicon: assets/icons/favicon.png
+  logo: assets/icons/logo.png
+repo_name: samzhangjy/BaiduSpider
+repo_url: https://github.com/samzhangjy/BaiduSpider
+markdown_extensions:
+  - codehilite
+  - admonition
+  - extra
+nav:
+  - 首页: index.md
+  - 起步: get-started.md
+  - 使用: usage.md
+
+extra_css:
+- assets/css/termynal.css
+extra_javascript:
+- assets/js/termynal.js
+- assets/js/custom.js

@@ -1,0 +1,528 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/icons/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>起步 - BaiduSpider</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#2196f3">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../assets/css/termynal.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="preference" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+      <script>matchMedia("(prefers-color-scheme: dark)").matches&&document.body.setAttribute("data-md-color-scheme","slate")</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="BaiduSpider" class="md-header-nav__button md-logo" aria-label="BaiduSpider">
+      
+  <img src="../assets/icons/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            BaiduSpider
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              起步
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/samzhangjy/BaiduSpider/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    samzhangjy/BaiduSpider
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="BaiduSpider" class="md-nav__button md-logo" aria-label="BaiduSpider">
+      
+  <img src="../assets/icons/logo.png" alt="logo">
+
+    </a>
+    BaiduSpider
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/samzhangjy/BaiduSpider/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    samzhangjy/BaiduSpider
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        起步
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="起步" class="md-nav__link md-nav__link--active">
+      起步
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    简单使用
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../usage/" title="使用" class="md-nav__link">
+      使用
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    简单使用
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/samzhangjy/BaiduSpider/edit/master/docs/get-started.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="_1">起步</h1>
+<h3 id="_2">简介</h3>
+<p>BaiduSpider是一个用Python的requests库编写的网络爬虫，可以爬取百度搜索，百度图片，百度知道，百度视频，百度资讯，百度文库，百度经验和百度百科，并且返回的搜索结果无广告。</p>
+<h3 id="_3">安装</h3>
+<p>BaiduSpider目前还没有发布PyPi包，暂时仅提供GitHub下载。你可以访问<a href="https://github.com/samzhangjy/BaiduSpider">GitHub仓库</a>来下载zip压缩包，或者直接clone：
+<div class="termy"></p>
+<div class="codehilite"><pre><span></span><code>$ git clone https://github.com/samzhangjy/BaiduSpider.git
+
+---&gt; <span class="m">100</span>%
+</code></pre></div>
+
+
+</div>
+
+<h3 id="_4">简单使用</h3>
+<p>安装好了之后，打开BaiduSpider所在的文件夹，创建一个Python文件，输入下面的代码：</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">main</span> <span class="kn">import</span> <span class="n">BaiduSpider</span>  <span class="c1"># 导入BaiduSpider</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>  <span class="c1"># 导入pretty-print</span>
+
+<span class="c1"># 获取百度的搜索结果，搜索关键词是&#39;爬虫&#39;</span>
+<span class="hll"><span class="n">pprint</span><span class="p">(</span><span class="n">BaiduSpider</span><span class="p">()</span><span class="o">.</span><span class="n">search_web</span><span class="p">(</span><span class="s1">&#39;爬虫&#39;</span><span class="p">))</span>
+</span></code></pre></div>
+
+
+<p>运行完之后，你会得到类似下面的搜索结果：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="mi">68400000</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;total&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;python为什么叫爬虫&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;爬虫python&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;学python要多久&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;python值得学吗&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;python基础教程&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;普通人学python有意义吗&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;python编程入门&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;python爬虫是干嘛的&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;python爬虫怎么挣钱&#39;</span><span class="p">],</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;related&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;baike.baidu.com/&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;爬虫(自动获取网页内容的程序)_百度百科&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=005sdTKm5kDkkDo4sZ9QATTGHbeTAZeqnu1CmqK289cg99VBjmzvCjS1LzDLbMVk_N7BPkGERAn8uygNwSvbUMiU3pspebefDsHhj8svGnne1E9T0QJKH-UHzazESaoMUiCvQTN4lhm4iGskJwQLX5gGcNcGEn1N0yoYSdQ2LuIFMKFsMxpEihrKpLyxpVQc&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="s1">&#39;在互联网领域,爬虫一般指抓取众多公开网站网页上数据的相关技术。... 1 很多学习 python &#39;</span>
+                     <span class="s1">&#39;的同学应该都听说过“网络爬虫”的概念,也可能听说过用python 写网络爬虫很...&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;知乎&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;爬虫(计算机网络) - 知乎&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=37zUAtoTZXibCGV_ghTS7xg78XQqYx8IJVBvG-Lg5ATyn7rXvuKICu68R8f8RDOw&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="s1">&#39;2020年5月6日-谈谈网络爬虫最近很多人都用爬虫技术爬喜欢博主的微博,然后把内容总结出来供大家看,我自己也爬过。但是大部分人即使用过爬虫,也不一定很了解它。所以...&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;www.uuhttp.com/index/news/det....&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;...代理网站,服务器,socks5,网络爬虫,高并发,数据采集-昌明信息科技&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=5QWDBrCbuY6bBoyD1ArZC7LxzrMqL1cQFmcbsHMmMUUlmHopm_OdCk68_EgZLu6RPVJde1KRwl-Lvc3yPw-ICK&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="s1">&#39;2019年4月13日-这篇文章已经过去很久了,有一些学习资源链接已经失效了,还一直有小伙伴在Python的路上摸索。所以我根据自己的学习和工作经历整理了一套Python学习电子...&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;知乎&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;如何学习Python爬虫[入门篇]? - 知乎&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=IsaPRe7f2CPvy72AVRxg8XTq6M0whS_yP5V_aQDn2gfVMeOw8t3BN3q0NvB4ZAqh&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="s1">&#39;我们的目标是,爬爬爬爬完知乎爬简书爬完豆瓣爬京东爬完网站,爬移动端 爬完数据,搞分析 收录分享优质爬虫学习文章 &#39;</span>
+                     <span class="s1">&#39;加微信 yong164647 (暗号 py) 进入爬...&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;简书社区&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;爬虫专题 - 专题 - 简书&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=TpFN1fX5q-hGCbJl6Xp6bWSXSxADuH3To1P0XGpic1bM66UdkfAsYZMoii32D0nZ&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="s1">&#39;2018年10月16日-问题的由来</span><span class="se">\u2003\u2003</span><span class="s1">&#39;</span>
+                     <span class="s1">&#39;前几天,在微信公众号(Python爬虫及算法)上有个人问了笔者一个问题,如何利用爬虫来实现如下的需求,需要爬取的网页如下(网址为:https://www...&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;CSDN技术社区&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Python爬虫的N种姿势_山阴少年-CSDN博客_python爬虫&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=rOzUP_gsxOoHlPqztsjnE0XR5a1ldFEX8Hc3_VLhYrRPgp2BPxhDjGfAH1itXsmyDX5kKNyAYnZoWRTc4B8WlkcTkKZe55g9lBLFNsxmB8e&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="s1">&#39;2019年10月18日-张强,在一家大数据风控公司担任爬虫工程师,每当看到网上的段子,爬虫学得好,监狱进得早,他总是莞尔一笑,心想:关我毛事啊,我只是个程序员,要坐牢也是老...&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;CSDN技术社区&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;“来我公司写爬虫吗?会坐牢的那种!”_技术领导力-CSDN博客_爬虫&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=ppM2uEB9v01U_C4N6f238Aken-56LUY7B1HZPfdgw14LM736FYO-kVt6ZzpW_XAvCBTqiRjh6KHIR9_yRi_LT88nS5GDFYWm77Y3aDKh8bm&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="s1">&#39;2020年3月25日-网络爬虫是一种按照一定的规则,自动地抓取万维网信息的程序或者脚本,网络爬虫是一个自动提取网页的程序,它为搜索引擎从万维网上下载网页,是搜索引擎的...&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;www.pc6.com/pc/pacho...&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;【爬虫软件】爬虫软件哪个好用_爬虫工具哪个好&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=qtISm1DQ2qBipKqTuUKAH0MUDS76n7pO_rwwqAB3SNzIF90ge2U4r6K79re1z3jO&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="s1">&#39;GooSeeker网络爬虫软件-免费网页抓取软件,抓取网页上的数据,存成excel表格,用于行业研究,市场分析,电商竞争分析,抓取商品价格和图片,自动分词软件用于毕业设计和文本挖掘&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;www.gooseeker.com/&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;免费网页抓取软件-网络爬虫工具-集搜客GooSeeker网络爬虫&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=goBy2sYHlafzUVff7iVvATZmFztaI6JUBQKnzpqO__HMEALpWhh1VtZKujrzhuO6&#39;</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="s1">&#39;GooSeeker网络爬虫软件-免费网页抓取软件,抓取网页上的数据,存成excel表格,用于行业研究,市场分析,电商竞争分析,抓取商品价格和图片,自动分词软件用于毕业设计和文本挖掘&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;爬虫_百度汉语&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;result&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://www.baidu.com/link?url=fnGr2l7GvSLWLO1lrJqG_NHIxflu_e2A9TozMeVulZU06SVyrXk_1xQtD2cbuusu9IXMwg_9gHjoehNLLjPjZMc3ienyBCXmnOKqzRTQbP1bGE0BC4y--7MCom_4aL2TGldkps6P4x7me2tN3oOC7_&#39;</span><span class="p">}],</span>
+ <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+</code></pre></div>
+
+
+<p>对比一下百度的搜索结果，发现准确度还是不错的：</p>
+<p><img alt="百度搜索结果" src="../assets/images/get-started-baidu-spider.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>百度的搜索结果可能会随着时间而变化，所以搜索结果与上面的搜索结果不一致也不要紧。</p>
+</div>
+<p>除此之外，BaiduSpider还提供百度图片，百度知道，百度视频，百度资讯，百度文库，百度经验和百度百科的搜索结果，并且会持续添加新的爬虫搜索。在下一篇里，你将学会如何使用BaiduSpider（其实非常简单）。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href=".." title="首页" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                首页
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../usage/" title="使用" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                使用
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["instant"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../assets/js/termynal.js"></script>
+      
+        <script src="../assets/js/custom.js"></script>
+      
+    
+  </body>
+</html>

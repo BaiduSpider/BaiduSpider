@@ -222,7 +222,10 @@ class BaiduSpider(BaseSpider):
         # 定义预结果（运算以及相关搜索）
         pre_results = []
         # 预处理相关搜索
-        _related = soup.find('div', id='rs').find('table').find_all('th')
+        try:
+            _related = soup.find('div', id='rs').find('table').find_all('th')
+        except:
+            _related = []
         related = []
         # 预处理新闻
         news = soup.find('div', class_='result-op',
