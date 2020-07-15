@@ -24,7 +24,7 @@ __all__ = ['BaiduSpider']
 
 class BaseSpider(object):
     def __init__(self) -> None:
-        """所有爬虫的基类
+        r"""所有爬虫的基类
 
         此类包括了常用的util和自定义方法，继承自`object`。
         """
@@ -33,7 +33,7 @@ class BaseSpider(object):
         self.headers = {}
 
     def _format(self, s: str) -> str:
-        """去除字符串中不必要的成分并返回
+        r"""去除字符串中不必要的成分并返回
 
         Args:
             s (str): 要整理的字符串
@@ -44,7 +44,7 @@ class BaseSpider(object):
         return s.replace('\n', '').strip().replace('\n\r    \xa0', '').replace('  ', '').replace('\xa0', '')
 
     def _remove_html(self, s: str) -> str:
-        """从字符串中去除HTML标签
+        r"""从字符串中去除HTML标签
 
         Args:
             s (str): 要处理的字符串
@@ -57,7 +57,7 @@ class BaseSpider(object):
         return removed
 
     def _minify(self, html: str) -> str:
-        """压缩HTML代码
+        r"""压缩HTML代码
 
         Args:
             html (str): 要压缩的代码
@@ -76,7 +76,7 @@ class BaseSpider(object):
 
 class BaiduSpider(BaseSpider):
     def __init__(self) -> None:
-        """爬取百度的搜索结果
+        r"""爬取百度的搜索结果
 
         本类的所有成员方法都遵循下列格式：
 
@@ -115,7 +115,7 @@ class BaiduSpider(BaseSpider):
         }
 
     def search_web(self, word: str, pn: int = 1) -> dict:
-        """百度网页搜索
+        r"""百度网页搜索
 
         - 简单搜索：
             >>> BaiduSpider().search_web('搜索词')
@@ -398,7 +398,7 @@ class BaiduSpider(BaseSpider):
         }
 
     def search_pic(self, word: str, pn: int = 1) -> dict:
-        """百度图片搜索
+        r"""百度图片搜索
 
         - 实例：
             >>> BaiduSpider().search_pic('搜索词')
@@ -472,7 +472,7 @@ class BaiduSpider(BaseSpider):
         }
 
     def search_zhidao(self, word: str, pn: int = 1) -> dict:
-        """百度知道搜索
+        r"""百度知道搜索
 
         - 普通搜索：
             >>> BaiduSpider().search_zhidao('搜索词')
@@ -556,7 +556,7 @@ class BaiduSpider(BaseSpider):
         }
 
     def search_video(self, word: str, pn: int = 1) -> dict:
-        """百度视频搜索
+        r"""百度视频搜索
 
         - 普通搜索：
             >>> BaiduSpider().search_video('搜索词')
@@ -628,7 +628,7 @@ class BaiduSpider(BaseSpider):
         }
 
     def search_news(self, word: str, pn: int = 1) -> dict:
-        """百度资讯搜索
+        r"""百度资讯搜索
 
         - 获取资讯搜索结果：
             >>> BaiduSpider().search_news('搜索词')
@@ -725,7 +725,7 @@ class BaiduSpider(BaseSpider):
         }
 
     def search_wenku(self, word: str, pn: int = 1) -> dict:
-        """百度文库搜索
+        r"""百度文库搜索
 
         - 普通搜索：
             >>> BaiduSpider().search_wenku('搜索词')
@@ -822,7 +822,7 @@ class BaiduSpider(BaseSpider):
         }
 
     def search_jingyan(self, word: str, pn: int = 1) -> dict:
-        """百度经验搜索
+        r"""百度经验搜索
 
         - 例如：
             >>> BaiduSpider().search_jingyan('关键词')
