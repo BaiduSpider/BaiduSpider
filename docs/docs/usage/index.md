@@ -1,6 +1,6 @@
 # 使用BaiduSpider
 
-使用BaiduSpider其实非常简单，正如你在[上一篇](/get-started)文章中看到的一样，只需要一个命令，即可爬取百度的搜索结果。在这一系列中，你将学会如何使用BaiduSpider。
+使用BaiduSpider其实非常简单，正如你在[上一篇](/BaiduSpider/get-started)文章中看到的一样，只需要一个命令，即可爬取百度的搜索结果。在这一系列中，你将学会如何使用BaiduSpider。
 
 ### 返回格式
 BaiduSpider包括了百度网页搜索，百度图片搜索，百度知道搜索，百度视频搜索，百度资讯搜索，百度文库搜索，百度经验搜索和百度百科搜索，并且都在类`BaiduSpider`中。它们返回的信息格式都是差不多的：
