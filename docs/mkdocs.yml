@@ -20,7 +20,16 @@ markdown_extensions:
 nav:
   - 首页: index.md
   - 起步: get-started.md
-  - 使用: usage.md
+  - 使用:
+      - 介绍: usage/index.md
+      - 网页搜索: usage/search-web.md
+      - 图片搜索: usage/search-pic.md
+      - 知道搜索: usage/search-zhidao.md
+      - 视频搜索: usage/search-video.md
+      - 资讯搜索: usage/search-news.md
+      - 文库搜索: usage/search-wenku.md
+      - 经验搜索: usage/search-jingyan.md
+      - 百科搜索: usage/search-baike.md
 
 extra_css:
 - assets/css/termynal.css
