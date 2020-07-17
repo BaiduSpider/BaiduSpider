@@ -31,6 +31,10 @@ nav:
       - 经验搜索: usage/search-jingyan.md
       - 百科搜索: usage/search-baike.md
 
+google_analytics:
+  - UA-172934693-1
+  - auto
+
 extra_css:
 - assets/css/termynal.css
 extra_javascript:
