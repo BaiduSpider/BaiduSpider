@@ -87,21 +87,21 @@ class BaiduSpider(BaseSpider):
 
         目前支持百度搜索，百度图片，百度知道，百度视频，百度资讯，百度文库，百度经验和百度百科，并且返回的搜索结果无广告。继承自``BaseSpider``。
 
-        BaiduSpider.`search_web(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度网页搜索
+        BaiduSpider.`search_web(self: BaiduSpider, query: str, pn: int = 1) -> dict`: 百度网页搜索
 
-        BaiduSpider.`search_pic(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度图片搜索
+        BaiduSpider.`search_pic(self: BaiduSpider, query: str, pn: int = 1) -> dict`: 百度图片搜索
 
-        BaiduSpider.`search_zhidao(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度知道搜索
+        BaiduSpider.`search_zhidao(self: BaiduSpider, query: str, pn: int = 1) -> dict`: 百度知道搜索
 
-        BaiduSpider.`search_video(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度视频搜索
+        BaiduSpider.`search_video(self: BaiduSpider, query: str, pn: int = 1) -> dict`: 百度视频搜索
 
-        BaiduSpider.`search_news(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度资讯搜索
+        BaiduSpider.`search_news(self: BaiduSpider, query: str, pn: int = 1) -> dict`: 百度资讯搜索
 
-        BaiduSpider.`search_wenku(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度文库搜索
+        BaiduSpider.`search_wenku(self: BaiduSpider, query: str, pn: int = 1) -> dict`: 百度文库搜索
 
-        BaiduSpider.`search_jingyan(self: BaiduSpider, word: str, pn: int = 1) -> dict`: 百度经验搜索
+        BaiduSpider.`search_jingyan(self: BaiduSpider, query: str, pn: int = 1) -> dict`: 百度经验搜索
 
-        BaiduSpider.`search_baike(self: BaiduSpider, word: str) -> dict`: 百度百科搜索
+        BaiduSpider.`search_baike(self: BaiduSpider, query: str) -> dict`: 百度百科搜索
         """
         super().__init__()
         # 爬虫名称（不是请求的，只是用来表识）
@@ -116,7 +116,7 @@ class BaiduSpider(BaseSpider):
             'Cookie': 'BAIDUID=BB66E815C068DD2911DB67F3F84E9AA5:FG=1; BIDUPSID=BB66E815C068DD2911DB67F3F84E9AA5; PSTM=1592390872; BD_UPN=123253; BDUSS=RQa2c4eEdKMkIySjJ0dng1ZDBLTDZEbVNHbmpBLU1rcFJkcVViaTM5NUdNaDFmRVFBQUFBJCQAAAAAAAAAAAEAAAAPCkwAZGF5ZGF5dXAwNgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEal9V5GpfVebD; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; BD_HOME=1; delPer=0; BD_CK_SAM=1; PSINO=2; COOKIE_SESSION=99799_0_5_2_8_0_1_0_5_0_0_0_99652_0_3_0_1593609921_0_1593609918%7C9%230_0_1593609918%7C1; H_PS_PSSID=1457_31326_32139_31660_32046_32231_32091_32109_31640; sug=3; sugstore=0; ORIGIN=0; bdime=0; BDRCVFR[feWj1Vr5u3D]=I67x6TjHwwYf0; H_PS_645EC=1375sSQTgv84OSzYM3CN5w5Whp9Oy7MkdGdBcw5umqOIFr%2FeFZO4D952XrS0pC1kVwPI; BDSVRTM=223'
         }
 
-    def search_web(self, word: str, pn: int = 1) -> dict:
+    def search_web(self, query: str, pn: int = 1) -> dict:
         r"""百度网页搜索
 
         - 简单搜索：
@@ -198,13 +198,13 @@ class BaiduSpider(BaseSpider):
             }
 
         Args:
-            word (str): 要爬取的query
+            query (str): 要爬取的query
             pn (int, optional): 爬取的页码. Defaults to 1.
 
         Returns:
             dict: 爬取的返回值和搜索结果
         """
-        text = quote(word, 'utf-8')
+        text = quote(query, 'utf-8')
         url = 'https://www.baidu.com/s?&wd=%s&pn=%d' % (
             text, (pn - 1) * 10)
         # 获取响应
@@ -402,7 +402,7 @@ class BaiduSpider(BaseSpider):
             'total': max(pages)
         }
 
-    def search_pic(self, word: str, pn: int = 1) -> dict:
+    def search_pic(self, query: str, pn: int = 1) -> dict:
         r"""百度图片搜索
 
         - 实例：
@@ -430,14 +430,14 @@ class BaiduSpider(BaseSpider):
             }
 
         Args:
-            word (str): 要爬取的query
+            query (str): 要爬取的query
             pn (int, optional): 爬取的页码. Defaults to 1.
 
         Returns:
             dict: 爬取的搜索结果
         """
         url = 'http://image.baidu.com/search/flip?tn=baiduimage&word=%s&pn=%d' % (
-            quote(word), (pn - 1) * 20)
+            quote(query), (pn - 1) * 20)
         source = requests.get(url, headers=self.headers)
         code = source.text
         # 从JavaScript中加载数据
@@ -476,7 +476,7 @@ class BaiduSpider(BaseSpider):
             'total': max(pages)
         }
 
-    def search_zhidao(self, word: str, pn: int = 1) -> dict:
+    def search_zhidao(self, query: str, pn: int = 1) -> dict:
         r"""百度知道搜索
 
         - 普通搜索：
@@ -506,14 +506,14 @@ class BaiduSpider(BaseSpider):
             }
 
         Args:
-            word (str): 要搜索的query
+            query (str): 要搜索的query
             pn (int, optional): 搜索结果的页码. Defaults to 1.
 
         Returns:
             dict: 搜索结果以及总页码
         """
         url = 'https://zhidao.baidu.com/search?pn=%d&tn=ikaslis&word=%s' % (
-            (pn - 1) * 10, quote(word))
+            (pn - 1) * 10, quote(query))
         source = requests.get(url, headers=self.headers)
         # 转化编码
         source.encoding = 'gb2312'
@@ -560,7 +560,7 @@ class BaiduSpider(BaseSpider):
             'total': max(pages)
         }
 
-    def search_video(self, word: str, pn: int = 1) -> dict:
+    def search_video(self, query: str, pn: int = 1) -> dict:
         r"""百度视频搜索
 
         - 普通搜索：
@@ -588,14 +588,14 @@ class BaiduSpider(BaseSpider):
             }
 
         Args:
-            word (str): 要搜索的query
+            query (str): 要搜索的query
             pn (int, optional): 搜索结果的页码. Defaults to 1.
 
         Returns:
             dict: 搜索结果及总页码
         """
         url = 'http://v.baidu.com/v?no_al=1&word=%s&pn=%d' % (
-            quote(word), (60 if pn == 2 else (pn - 1) * 20))
+            quote(query), (60 if pn == 2 else (pn - 1) * 20))
         # 获取源码
         source = requests.get(url, headers=self.headers)
         code = self._minify(source.text)
@@ -632,7 +632,7 @@ class BaiduSpider(BaseSpider):
             'total': max(pages)
         }
 
-    def search_news(self, word: str, pn: int = 1) -> dict:
+    def search_news(self, query: str, pn: int = 1) -> dict:
         r"""百度资讯搜索
 
         - 获取资讯搜索结果：
@@ -662,14 +662,14 @@ class BaiduSpider(BaseSpider):
             }
 
         Args:
-            word (str): 搜索query
+            query (str): 搜索query
             pn (int, optional): 搜索结果的页码. Defaults to 1.
 
         Returns:
             dict: 爬取的搜索结果与总页码。
         """
         url = 'https://www.baidu.com/s?rtt=1&tn=news&word=%s&pn=%d' % (
-            quote(word), (pn - 1) * 10)
+            quote(query), (pn - 1) * 10)
         # 源码
         source = requests.get(url, headers=self.headers)
         # 压缩
@@ -729,7 +729,7 @@ class BaiduSpider(BaseSpider):
             'total': max(pages)
         }
 
-    def search_wenku(self, word: str, pn: int = 1) -> dict:
+    def search_wenku(self, query: str, pn: int = 1) -> dict:
         r"""百度文库搜索
 
         - 普通搜索：
@@ -761,14 +761,14 @@ class BaiduSpider(BaseSpider):
             }
 
         Args:
-            word (str): 要搜索的query
+            query (str): 要搜索的query
             pn (int, optional): 搜索的页码. Defaults to 1.
 
         Returns:
             dict: 搜索结果和总计页数
         """
         url = 'https://wenku.baidu.com/search?word=%s&pn=%d' % (
-            quote(word), (pn - 1) * 10)
+            quote(query), (pn - 1) * 10)
         source = requests.get(url, headers=self.headers)
         source.encoding = 'gb2312'
         code = self._minify(source.text)
@@ -826,7 +826,7 @@ class BaiduSpider(BaseSpider):
             'total': total
         }
 
-    def search_jingyan(self, word: str, pn: int = 1) -> dict:
+    def search_jingyan(self, query: str, pn: int = 1) -> dict:
         r"""百度经验搜索
 
         - 例如：
@@ -857,14 +857,14 @@ class BaiduSpider(BaseSpider):
             }
 
         Args:
-            word (str): 要搜索的关键词
+            query (str): 要搜索的关键词
             pn (int, optional): 搜索结果的页码. Defaults to 1.
 
         Returns:
             dict: 搜索结果以及总计的页码.
         """
         url = 'https://jingyan.baidu.com/search?word=%s&pn=%d&lm=0' % (
-            quote(word), (pn - 1) * 10)
+            quote(query), (pn - 1) * 10)
         # 获取网页源代码
         source = requests.get(url, headers=self.headers)
         # 最小化代码
@@ -921,7 +921,7 @@ class BaiduSpider(BaseSpider):
             'total': total
         }
 
-    def search_baike(self, word: str) -> dict:
+    def search_baike(self, query: str) -> dict:
         r"""百度百科搜索
 
         - 使用方法：
@@ -942,14 +942,14 @@ class BaiduSpider(BaseSpider):
             }
 
         Args:
-            word (str): 要搜索的关键词
+            query (str): 要搜索的关键词
 
         Returns:
             dict: 搜索结果和总页数
         """
         # 获取源码
         source = requests.get(
-            'https://baike.baidu.com/search?word=%s' % quote(word), headers=self.headers)
+            'https://baike.baidu.com/search?word=%s' % quote(query), headers=self.headers)
         code = minify(source.text)
         # 创建BeautifulSoup对象
         soup = BeautifulSoup(code, 'html.parser').find(
