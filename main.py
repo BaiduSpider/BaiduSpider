@@ -523,6 +523,9 @@ class BaiduSpider(BaseSpider):
         list_ = bs.find('div', class_='list').findAll('dl')
         results = []
         for item in list_:
+            # 屏蔽企业回答
+            if 'ec-oad' in item['class']:
+                continue
             # 标题
             title = item.find('dt').text
             # 链接
