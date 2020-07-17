@@ -29,6 +29,7 @@ pprint(spider.search_web(word=input('要搜索的关键词：')))
 ```
 
 - 指定页码
+
 ```python
 from main import BaiduSpider
 from pprint import pprint

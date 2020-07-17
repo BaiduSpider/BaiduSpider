@@ -43,6 +43,10 @@
     
     
       
+        
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-172934693-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -271,9 +275,62 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        图片搜索
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
     <a href="./" title="图片搜索" class="md-nav__link md-nav__link--active">
       图片搜索
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    参数
+  </a>
+  
+    <nav class="md-nav" aria-label="参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实例
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    返回值
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -372,6 +429,43 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    参数
+  </a>
+  
+    <nav class="md-nav" aria-label="参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实例
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    返回值
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -387,7 +481,82 @@
                 
                 
                 <h1 id="_1">图片搜索</h1>
-<p>此页正在编写中……</p>
+<div class="codehilite"><pre><span></span><code><span class="n">BaiduSpider</span><span class="o">.</span><span class="n">search_pic</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">BaiduSpider</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pn</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span>
+</code></pre></div>
+
+
+<h3 id="_2">参数</h3>
+<ul>
+<li>
+<p>self: BaiduSpider，即必须实例化<code>BaiduSpider</code>对象后才可调用。</p>
+</li>
+<li>
+<p>query: str，搜索关键字</p>
+</li>
+<li>
+<p>pn: int，要爬取的页码，默认为1，为可选参数</p>
+</li>
+</ul>
+<h4 id="_3">实例</h4>
+<ul>
+<li>基本的调用</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">main</span> <span class="kn">import</span> <span class="n">BaiduSpider</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="n">spider</span> <span class="o">=</span> <span class="n">BaiduSpider</span><span class="p">()</span>
+
+<span class="c1"># 搜索图片</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">spider</span><span class="o">.</span><span class="n">search_pic</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;要搜索的关键词：&#39;</span><span class="p">)))</span>
+</code></pre></div>
+
+
+<ul>
+<li>指定页码</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">main</span> <span class="kn">import</span> <span class="n">BaiduSpider</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="n">spider</span> <span class="o">=</span> <span class="n">BaiduSpider</span><span class="p">()</span>
+
+<span class="c1"># 搜索图片，并传入页码参数</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">spider</span><span class="o">.</span><span class="n">search_pic</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;要搜索的关键词：&#39;</span><span class="p">),</span> <span class="n">pn</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;页码：&#39;</span><span class="p">))))</span>
+</code></pre></div>
+
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>传入页码参数的时候一定要小心，务必不要传入过大的页码，因为寻找不到合适的element，BaiduSpider会报错<code>AttributeError</code></p>
+</div>
+<h3 id="_4">返回值</h3>
+<p><code>BaiduSpider.search_pic</code>的返回值类型是<code>dict</code>，大致返回模版如下：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="c1"># 搜索结果列表</span>
+    <span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># 图片来源域名</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># 图片标题</span>
+            <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># 图片链接</span>
+        <span class="p">},</span>
+        <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+        <span class="o">...</span>
+    <span class="p">],</span>
+    <span class="c1"># 搜索结果总计页码，可能会变化</span>
+    <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>图片的来源不一定是准确的，因为百度有时不提供图片来源</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>不要将总计页码存到一个变量后不再变动，因为它是动态的，可能随时变化</p>
+</div>
                 
               
               

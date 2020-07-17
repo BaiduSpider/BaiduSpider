@@ -438,6 +438,7 @@ class BaiduSpider(BaseSpider):
         """
         url = 'http://image.baidu.com/search/flip?tn=baiduimage&word=%s&pn=%d' % (
             quote(query), (pn - 1) * 20)
+        print(url)
         source = requests.get(url, headers=self.headers)
         code = source.text
         # 从JavaScript中加载数据
