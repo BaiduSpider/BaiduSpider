@@ -4,3 +4,6 @@
 test.py
 zhihu.py
 /.idea/
+/web/node_modules
+/web/dist
+.DS_Store
