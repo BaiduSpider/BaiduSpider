@@ -2,12 +2,24 @@
 
 TODO: 添加关于API的文档
 """
-from fastapi import FastAPI
 import os
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from main import BaiduSpider
 
 app = FastAPI()
 spider = BaiduSpider()
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    # 允许所有CORS访问
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
 
 
 @app.get('/web')
@@ -71,4 +83,11 @@ async def search_baike(query: str):
     return {
         'status': 'success',
         'results': spider.search_baike(query)
+    }
+
+
+@app.get('/status')
+async def get_status():
+    return {
+        'status': 'online'
     }
