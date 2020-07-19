@@ -600,6 +600,7 @@ class BaiduSpider(BaseSpider):
         """
         url = 'http://v.baidu.com/v?no_al=1&word=%s&pn=%d' % (
             quote(query), (60 if pn == 2 else (pn - 1) * 20))
+        print(url)
         # 获取源码
         source = requests.get(url, headers=self.headers)
         code = self._minify(source.text)
@@ -626,7 +627,7 @@ class BaiduSpider(BaseSpider):
             results.append(result)  # 加入结果
         # 分页
         wrap = bs.find('div', class_='page-wrap')
-        pages_ = wrap.findAll('a', class_='filter-item')[1:-1]
+        pages_ = wrap.findAll('a', class_='filter-item')[:-1]
         pages = []
         for _ in pages_:
             pages.append(int(_.text))
