@@ -25,7 +25,7 @@ from pprint import pprint
 spider = BaiduSpider()
 
 # 搜索网页
-pprint(spider.search_web(word=input('要搜索的关键词：')))
+pprint(spider.search_web(query=input('要搜索的关键词：')))
 ```
 
 - 指定页码
@@ -37,7 +37,7 @@ from pprint import pprint
 spider = BaiduSpider()
 
 # 搜索网页，并传入页码参数
-pprint(spider.search_web(word=input('要搜索的关键词：'), pn=int(input('页码：'))))
+pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('页码：'))))
 ```
 
 !!! warning
