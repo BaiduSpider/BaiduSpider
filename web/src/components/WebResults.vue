@@ -41,6 +41,7 @@ export default {
     getResults: async function () {
       await SearchService.searchWeb(this.query).then((data) => {
         this.resultsNormal = []
+        this.resultsCalc = {}
         this.results = data.data.results
         var i
         for (i = 0; i < this.results.results.length; i++) {

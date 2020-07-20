@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="results.result">
     <v-card elevation="0">
       <v-list-item three-line>
         <v-list-item-content>
@@ -9,6 +9,7 @@
         </v-list-item-content>
       </v-list-item>
     </v-card>
+    <v-divider/>
   </div>
 </template>
 
