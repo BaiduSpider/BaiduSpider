@@ -6,6 +6,7 @@
         BaiduSpider共找到搜索结果约{{ results.results[0].result }}条
       </small>
       <p/>
+      <WebCalc :results="resultsCalc"/>
       <WebResult :results="resultsNormal" :key="resultId"/>
     </v-container>
   </div>
@@ -15,6 +16,7 @@
 import ResultsNavbar from '@/components/ResultsNavbar'
 import SearchService from '@/services/SearchService'
 import WebResult from '@/components/WebResult'
+import WebCalc from '@/components/WebCalc'
 
 export default {
   name: 'WebResults',
@@ -23,7 +25,8 @@ export default {
       query: '',
       results: null,
       resultsNormal: [],
-      resultId: 0
+      resultId: 0,
+      resultsCalc: {}
     }
   },
   methods: {
@@ -36,12 +39,18 @@ export default {
       })
     },
     getResults: async function () {
-      await SearchService.searchWeb(this.query, 5).then((data) => {
+      await SearchService.searchWeb(this.query).then((data) => {
         this.resultsNormal = []
         this.results = data.data.results
-        for (var i = 0; i < this.results.results.length; i++) {
+        var i
+        for (i = 0; i < this.results.results.length; i++) {
           if (this.results.results[i].type === 'result') {
             this.resultsNormal.push(this.results.results[i])
+          }
+        }
+        for (i = 0; i < this.results.results.length; i++) {
+          if (this.results.results[i].type === 'calc') {
+            this.resultsCalc = this.results.results[i]
           }
         }
         this.resultId += 1
@@ -50,7 +59,8 @@ export default {
   },
   components: {
     ResultsNavbar,
-    WebResult
+    WebResult,
+    WebCalc
   },
   created: function () {
     this.query = this.$route.query.q
