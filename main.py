@@ -309,9 +309,10 @@ class BaiduSpider(BaseSpider):
                 'results': None,
                 'total': None
             }
-        results = soup.findAll(class_='c-container')
+        results = BeautifulSoup(self._minify(response.text), 'html.parser').findAll(class_='c-container')
         res = []
         for result in results:
+            des = None
             soup = BeautifulSoup(self._minify(
                 result.prettify()), 'html.parser')
             # 链接
