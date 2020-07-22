@@ -35,12 +35,19 @@ export default {
     }
   },
   created: function () {
-    this.$vuetify.theme.dark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    window.matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', event => {
-        this.$vuetify.theme.dark = event.matches
-      })
     this.getStatus()
+    console.log(window.matchMedia('(prefers-color-scheme: dark)'))
+    try {
+      this.$vuetify.theme.dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      if (window.matchMedia('(prefers-color-scheme: dark)').addEventListener) {
+        window.matchMedia('(prefers-color-scheme: dark)')
+          .addEventListener('change', event => {
+            this.$vuetify.theme.dark = event.matches
+          })
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 </script>
