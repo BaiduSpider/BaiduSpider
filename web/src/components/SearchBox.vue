@@ -1,20 +1,6 @@
 <template>
-  <v-main>
+  <div>
     <v-container>
-      <v-dialog v-model="offline" max-width="600px">
-        <v-card>
-          <v-card-title class="headline">
-            无法连接到API
-          </v-card-title>
-          <v-card-text>
-            请开启API后，刷新此页。
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue" text @click="offline = false">知道了</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
       <v-tabs
         v-model="tab"
         grow
@@ -66,12 +52,10 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-main>
+  </div>
 </template>
 
 <script>
-import StatusService from '@/services/StatusService'
-
 export default {
   name: 'SearchBox',
 
@@ -96,19 +80,7 @@ export default {
           q: this.query
         }
       })
-    },
-    getStatus: async function () {
-      let online
-      await StatusService.getStatus().then((data) => {
-        online = true
-      }).catch(() => {
-        online = false
-      })
-      this.offline = !online
     }
-  },
-  created: function () {
-    this.getStatus()
   }
 }
 </script>

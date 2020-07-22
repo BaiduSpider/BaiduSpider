@@ -23,7 +23,11 @@ export default {
   data: () => {
     return {
       query: '',
-      results: null,
+      results: {
+        results: [
+          { result: 0 }
+        ]
+      },
       resultsNormal: [],
       resultId: 0,
       resultsCalc: {}
