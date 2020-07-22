@@ -7,6 +7,7 @@
       </small>
       <p/>
       <WebCalc :results="resultsCalc"/>
+      <WebNews :results="resultsNews"/>
       <WebResult :results="resultsNormal" :key="resultId"/>
       <v-pagination
         v-model="currentPage"
@@ -22,6 +23,7 @@ import ResultsNavbar from '@/components/ResultsNavbar'
 import SearchService from '@/services/SearchService'
 import WebResult from '@/components/WebResult'
 import WebCalc from '@/components/WebCalc'
+import WebNews from '@/components/WebNews'
 
 export default {
   name: 'WebResults',
@@ -36,7 +38,8 @@ export default {
       resultsNormal: [],
       resultId: 0,
       resultsCalc: {},
-      currentPage: 1
+      currentPage: 1,
+      resultsNews: []
     }
   },
   methods: {
@@ -52,16 +55,16 @@ export default {
       await SearchService.searchWeb(this.query, this.page).then((data) => {
         this.resultsNormal = []
         this.resultsCalc = {}
+        this.resultsNews = []
         this.results = data.data.results
         var i
         for (i = 0; i < this.results.results.length; i++) {
           if (this.results.results[i].type === 'result') {
             this.resultsNormal.push(this.results.results[i])
-          }
-        }
-        for (i = 0; i < this.results.results.length; i++) {
-          if (this.results.results[i].type === 'calc') {
+          } else if (this.results.results[i].type === 'calc') {
             this.resultsCalc = this.results.results[i]
+          } else if (this.results.results[i].type === 'news') {
+            this.resultsNews = this.results.results[i].results
           }
         }
         this.resultId += 1
@@ -71,7 +74,8 @@ export default {
   components: {
     ResultsNavbar,
     WebResult,
-    WebCalc
+    WebCalc,
+    WebNews
   },
   created: function () {
     this.query = this.$route.query.q
