@@ -14,6 +14,11 @@ export default {
   },
   created: function () {
     document.title = `${this.$route.query.q} - BaiduSpider`
+  },
+  watch: {
+    '$route.query.q': function () {
+      document.title = `${this.$route.query.q} - BaiduSpider`
+    }
   }
 }
 </script>
