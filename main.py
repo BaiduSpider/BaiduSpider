@@ -148,7 +148,8 @@ class BaiduSpider(BaseSpider):
                             {
                                 'author': 'str, 新闻来源',
                                 'time': 'str, 新闻发布时间',
-                                'title': 'str, 新闻标题'
+                                'title': 'str, 新闻标题',
+                                'url': 'str, 新闻链接'
                             },
                             { ... },
                             { ... },
@@ -246,10 +247,12 @@ class BaiduSpider(BaseSpider):
                     row.find('span', style='color:#666;float:right').text)
                 row_author = self._format(
                     row.find('span', style='color:#008000').text)
+                row_url = self._format(row.find('a')['href'])
                 news_detail.append({
                     'title': row_title,
                     'time': row_time,
-                    'author': row_author
+                    'author': row_author,
+                    'url': row_url
                 })
         # 预处理短视频
         video = soup.find('div', class_='op-short-video-pc')
