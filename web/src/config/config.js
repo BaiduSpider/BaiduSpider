@@ -1,3 +1,3 @@
 export default {
-  serverURL: 'http://localhost:8000'
+  serverURL: process.env.serverURL || 'http://localhost:8000'
 }
