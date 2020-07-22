@@ -8,7 +8,7 @@ export default {
    * @returns {Promise} 搜索结果
    */
   searchWeb: function (query, page = 1) {
-    return Api().get(`/web?query=${encodeURIComponent(query)}&pn=${page}`).then((data) => {
+    return Api().get(`/web?query=${encodeURIComponent(query)}&page=${page}`).then((data) => {
       return data
     })
   }

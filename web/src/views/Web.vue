@@ -11,6 +11,9 @@ export default {
   name: 'Web',
   components: {
     WebResults
+  },
+  created: function () {
+    document.title = `${this.$route.query.q} - BaiduSpider`
   }
 }
 </script>

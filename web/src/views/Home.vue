@@ -9,6 +9,9 @@ export default {
   name: 'Home',
   components: {
     SearchBox
+  },
+  created: function () {
+    document.title = 'BaiduSpider'
   }
 }
 </script>

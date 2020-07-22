@@ -8,6 +8,11 @@
       <p/>
       <WebCalc :results="resultsCalc"/>
       <WebResult :results="resultsNormal" :key="resultId"/>
+      <v-pagination
+        v-model="currentPage"
+        :length="results.total"
+        :total-visible="10"
+      ></v-pagination>
     </v-container>
   </div>
 </template>
@@ -30,7 +35,8 @@ export default {
       },
       resultsNormal: [],
       resultId: 0,
-      resultsCalc: {}
+      resultsCalc: {},
+      currentPage: 1
     }
   },
   methods: {
@@ -43,7 +49,7 @@ export default {
       })
     },
     getResults: async function () {
-      await SearchService.searchWeb(this.query).then((data) => {
+      await SearchService.searchWeb(this.query, this.page).then((data) => {
         this.resultsNormal = []
         this.resultsCalc = {}
         this.results = data.data.results
@@ -69,11 +75,17 @@ export default {
   },
   created: function () {
     this.query = this.$route.query.q
+    this.page = this.$route.query.pn
     this.getResults()
   },
   watch: {
     '$route.query.q': function () {
       this.query = this.$route.query.q
+      this.page = 1
+      this.getResults()
+    },
+    currentPage: function () {
+      this.page = this.currentPage
       this.getResults()
     }
   }
