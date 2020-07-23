@@ -8,11 +8,13 @@
         <p>请开启API后，刷新此页。</p>
       </div>
     </v-overlay>
+    <Footer/>
   </v-app>
 </template>
 
 <script>
 import StatusService from '@/services/StatusService'
+import Footer from '@/components/Footer'
 
 export default {
   name: 'App',
@@ -21,6 +23,9 @@ export default {
       offline: false,
       loading: true
     }
+  },
+  components: {
+    Footer
   },
   methods: {
     getStatus: async function () {

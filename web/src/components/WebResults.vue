@@ -7,8 +7,10 @@
       </small>
       <p/>
       <WebCalc :results="resultsCalc"/>
+      <WebVideo :results="resultsVideo"/>
       <WebNews :results="resultsNews"/>
       <WebResult :results="resultsNormal" :key="resultId"/>
+      <div style="margin-top: 35px"/>
       <v-pagination
         v-model="currentPage"
         :length="results.total"
@@ -24,6 +26,7 @@ import SearchService from '@/services/SearchService'
 import WebResult from '@/components/WebResult'
 import WebCalc from '@/components/WebCalc'
 import WebNews from '@/components/WebNews'
+import WebVideo from '@/components/WebVideo'
 
 export default {
   name: 'WebResults',
@@ -39,7 +42,8 @@ export default {
       resultId: 0,
       resultsCalc: {},
       currentPage: 1,
-      resultsNews: []
+      resultsNews: [],
+      resultsVideo: []
     }
   },
   methods: {
@@ -56,6 +60,7 @@ export default {
         this.resultsNormal = []
         this.resultsCalc = {}
         this.resultsNews = []
+        this.resultsVideo = []
         this.results = data.data.results
         var i
         for (i = 0; i < this.results.results.length; i++) {
@@ -65,6 +70,8 @@ export default {
             this.resultsCalc = this.results.results[i]
           } else if (this.results.results[i].type === 'news') {
             this.resultsNews = this.results.results[i].results
+          } else if (this.results.results[i].type === 'video') {
+            this.resultsVideo = this.results.results[i].results
           }
         }
         this.resultId += 1
@@ -75,7 +82,8 @@ export default {
     ResultsNavbar,
     WebResult,
     WebCalc,
-    WebNews
+    WebNews,
+    WebVideo
   },
   created: function () {
     this.query = this.$route.query.q
