@@ -4,10 +4,13 @@
     dark
   >
 
-    <v-toolbar-title
-      class="d-none d-lg-block d-sm-block d-md-block"
-    >
-      <router-link to="/" class="title">BaiduSpider</router-link>
+    <v-toolbar-title>
+      <router-link to="/" class="title d-none d-lg-block d-sm-block d-md-block">BaiduSpider</router-link>
+      <router-link to="/" class="title d-flex d-sm-none">
+        <v-icon>
+          mdi-home
+        </v-icon>
+      </router-link>
     </v-toolbar-title>
     <v-spacer/>
     <v-form
@@ -17,13 +20,13 @@
       <v-text-field
         label="搜索"
         solo-inverted
-        clearable
-        hide-details
+        style="margin-top: 30px"
         flat
-        clear-icon="mdi-close"
         autocomplete="off"
         v-model="queryData"
         class="search"
+        append-icon="mdi-magnify"
+        @click:append="search(queryData)"
       ></v-text-field>
     </v-form>
   </v-app-bar>
@@ -48,15 +51,8 @@ export default {
 </script>
 
 <style scoped>
-@media screen and ( max-width: 400px ) {
-  .search {
-    width: 330px;
-  }
-}
-@media screen and ( min-width: 1000px ) {
-  .search {
-    width: 950px;
-  }
+.search {
+  width: 80vw;
 }
 .title {
   cursor: hand;
