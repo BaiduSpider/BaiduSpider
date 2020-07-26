@@ -242,18 +242,23 @@ class BaiduSpider(BaseSpider):
             news_rows = news.findAll('div', class_='c-row')
             news_detail = []
             for row in news_rows:
-                row_title = self._format(row.find('a').text)
-                row_time = self._format(
-                    row.find('span', style='color:#666;float:right').text)
-                row_author = self._format(
-                    row.find('span', style='color:#008000').text)
-                row_url = self._format(row.find('a')['href'])
-                news_detail.append({
-                    'title': row_title,
-                    'time': row_time,
-                    'author': row_author,
-                    'url': row_url
-                })
+                # 因为新闻会有介绍，但是不是每个都有，所以碰到介绍这里用try-except捕获
+                try:
+                    row_title = self._format(row.find('a').text)
+                except AttributeError:
+                    continue
+                else:
+                    row_time = self._format(
+                        row.find('span', class_='c-color-gray2').text)
+                    row_author = self._format(
+                        row.find('span', class_='c-color-gray2').text)
+                    row_url = self._format(row.find('a')['href'])
+                    news_detail.append({
+                        'title': row_title,
+                        'time': row_time,
+                        'author': row_author,
+                        'url': row_url
+                    })
         # 预处理短视频
         video = soup.find('div', class_='op-short-video-pc')
         if video:
