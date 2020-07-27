@@ -179,6 +179,7 @@ class BaiduSpider(BaseSpider):
                     {
                         'des': 'str, 搜索结果简介',
                         'origin': 'str, 搜索结果的来源，可能是域名，也可能是名称',
+                        'time': 'str, 搜索结果的发布时间',
                         'title': 'str, 搜索结果标题',
                         'type': 'result',  # 正经的搜索结果
                         'url': 'str, 搜索结果链接'
@@ -330,8 +331,12 @@ class BaiduSpider(BaseSpider):
             try:
                 # 简介
                 des = soup.find_all('div', class_='c-abstract')[0].text
+                try:
+                    time = self._format(soup.find_all('div', class_='c-abstract')[0].find('span', class_='c-color-gray2').text)
+                except AttributeError:
+                    time = None
                 soup = BeautifulSoup(result.prettify(), 'html.parser')
-                des = self._format(des)
+                des = self._format(des).lstrip(str(time)).strip()
             except IndexError:
                 try:
                     des = des.replace('\n', '')
@@ -393,6 +398,7 @@ class BaiduSpider(BaseSpider):
                     'des': des,
                     'origin': domain,
                     'url': href,
+                    'time': time,
                     'type': 'result'})
         soup = BeautifulSoup(text, 'html.parser')
         soup = BeautifulSoup(soup.find_all('div', id='page')
