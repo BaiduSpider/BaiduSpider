@@ -252,7 +252,7 @@ class BaiduSpider(BaseSpider):
                     row_time = self._format(
                         row.find('span', class_='c-color-gray2').text)
                     row_author = self._format(
-                        row.find('span', class_='c-color-gray2').text)
+                        row.find('span', class_='c-color-gray').text)
                     row_url = self._format(row.find('a')['href'])
                     news_detail.append({
                         'title': row_title,
