@@ -329,12 +329,12 @@ class BaiduSpider(BaseSpider):
             # 标题
             title = self._format(soup.find_all('a', target='_blank')[0].text)
             try:
+                time = self._format(soup.find_all('div', class_='c-abstract')[0].find('span', class_='c-color-gray2').text)
+            except (AttributeError, IndexError):
+                time = None
+            try:
                 # 简介
                 des = soup.find_all('div', class_='c-abstract')[0].text
-                try:
-                    time = self._format(soup.find_all('div', class_='c-abstract')[0].find('span', class_='c-color-gray2').text)
-                except AttributeError:
-                    time = None
                 soup = BeautifulSoup(result.prettify(), 'html.parser')
                 des = self._format(des).lstrip(str(time)).strip()
             except IndexError:

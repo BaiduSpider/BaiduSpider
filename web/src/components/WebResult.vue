@@ -11,7 +11,7 @@
           </a>
           <v-list-item-subtitle>
             <span>
-              {{ getDate(result.des) }}
+              {{ result.time }}&nbsp;-&nbsp;
             </span>
             {{ getDes(result.des) }}
             <p class="text--primary" style="margin-top: 10px">
@@ -38,17 +38,6 @@ export default {
           return originalDes.split('-')[1]
         }
         return originalDes.split('-')[0]
-      } catch (err) {
-        return ''
-      }
-    },
-    getDate: function (originalDes) {
-      try {
-        const desSplit = originalDes.split('-')
-        if (desSplit[0].length > 11 && ('日' in desSplit[0] || '前' in desSplit('-')[0])) {
-          return desSplit[1] + ' - '
-        }
-        return desSplit[0] + ' - '
       } catch (err) {
         return ''
       }
