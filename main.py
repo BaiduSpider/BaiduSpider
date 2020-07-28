@@ -177,6 +177,19 @@ class BaiduSpider(BaseSpider):
                         # 这类搜索结果仅会在搜索词有相关视频时出现，不一定每个搜索结果都会出现的
                     },
                     {
+                        'results': [
+                            {
+                                'cover': 'str, 百科封面图片/视频链接',
+                                'cover-type': 'str, 百科封面类别，图片是image，视频是video',
+                                'des': 'str, 百科简介',
+                                'title': 'str, 百科标题',
+                                'url': 'str, 百科链接'
+                            }
+                        ],
+                        'type': 'baike'
+                        # 这类搜索结果仅会在搜索词有相关百科时出现，不一定每个搜索结果都会出现的
+                    },
+                    {
                         'des': 'str, 搜索结果简介',
                         'origin': 'str, 搜索结果的来源，可能是域名，也可能是名称',
                         'time': 'str, 搜索结果的发布时间',
@@ -267,17 +280,16 @@ class BaiduSpider(BaseSpider):
             video_results = []
             for row in video_rows:
                 row_res = []
-                videos = row.findAll('div', class_='c-span6')
+                videos = row.findAll('div', class_='c-span3')
                 for v in videos:
-                    v_link = v.find('a', class_='op-short-video-pc-link')
+                    v_link = v.find('a')
                     v_title = v_link['title']
                     v_url = self._format(v_link['href'])
-                    v_img = v_link.find(
-                        'img', class_='op-short-video-pc-img')['src']
+                    v_img = v_link.find('img')['src']
                     v_len = self._format(
-                        v.find('div', class_='op-short-video-pc-duration-wrap').text)
+                        v.find('div', class_='op-short-video-pc-duration-wrap-new').text)
                     v_from = self._format(
-                        v.find('div', class_='op-short-video-pc-source').text)
+                        v.find('div', class_='op-short-video-pc-clamp1').text)
                     row_res.append({
                         'title': v_title,
                         'url': v_url,
@@ -292,6 +304,27 @@ class BaiduSpider(BaseSpider):
         for _ in _related:
             if _.text:
                 related.append(_.text)
+        # 预处理百科
+        baike = soup.find('div', class_='c-container', tpl='bk_polysemy')
+        if baike:
+            b_title = baike.find('h3').text
+            b_url = baike.find('a')['href']
+            b_des = baike.find('div', class_='c-span-last').text
+            try:
+                b_cover = baike.find(
+                    'div', class_='c-span3').find('img')['src']
+                b_cover_type = 'image'
+            except TypeError:
+                b_cover = baike.find(
+                    'video', class_='op-bk-polysemy-video')['data-src']
+                b_cover_type = 'video'
+            baike = {
+                'title': b_title,
+                'url': b_url,
+                'des': b_des,
+                'cover': b_cover,
+                'cover-type': b_cover_type
+            }
         # 加载搜索结果总数
         if num != 0:
             pre_results.append(dict(type='total', result=num))
@@ -308,6 +341,9 @@ class BaiduSpider(BaseSpider):
         # 加载短视频
         if video_results:
             pre_results.append(dict(type='video', results=video_results))
+        # 加载百科
+        if baike:
+            pre_results.append(dict(type='baike', results=baike))
         # 预处理源码
         try:
             soup = BeautifulSoup(minify(soup.find_all(id='content_left')[
@@ -318,7 +354,8 @@ class BaiduSpider(BaseSpider):
                 'results': None,
                 'total': None
             }
-        results = BeautifulSoup(self._minify(response.text), 'html.parser').findAll(class_='c-container')
+        results = BeautifulSoup(self._minify(
+            response.text), 'html.parser').findAll(class_='c-container')
         res = []
         for result in results:
             des = None
@@ -330,7 +367,8 @@ class BaiduSpider(BaseSpider):
             title = self._format(soup.find_all('a', target='_blank')[0].text)
             # 时间
             try:
-                time = self._format(soup.find_all('div', class_='c-abstract')[0].find('span', class_='c-color-gray2').text)
+                time = self._format(soup.find_all(
+                    'div', class_='c-abstract')[0].find('span', class_='c-color-gray2').text)
             except (AttributeError, IndexError):
                 time = None
             try:
@@ -365,18 +403,12 @@ class BaiduSpider(BaseSpider):
             #     else:
             #         domain = None
             #         path = None
-            # 获取可见的域名
             try:
-                is_not_news_or_video = result['tpl'] != 'short_video_pc' and result['tpl'] != 'sp_realtime_bigpic5'
+                is_not_special = result['tpl'] not in ['short_video_pc', 'sp_realtime_bigpic5', 'bk_polysemy']
             except KeyError:
-                try:
-                    is_not_news_or_video = result['tpl'] != 'short_video_pc'
-                except KeyError:
-                    try:
-                        is_not_news_or_video = result['tpl'] != 'sp_realtime_bigpic5'
-                    except:
-                        is_not_news_or_video = False
-            if is_not_news_or_video:  # 确保不是视频和资讯
+                is_not_special = False
+            if is_not_special:  # 确保不是特殊类型的结果
+                # 获取可见的域名
                 try:
                     domain = self._format(result.find('div', class_='c-row').find('div', class_='c-span-last').find(
                         'div', class_='se_st_footer').find('a', class_='c-showurl').text)
@@ -393,7 +425,7 @@ class BaiduSpider(BaseSpider):
             else:
                 domain = None
             # 加入结果
-            if title and href and is_not_news_or_video:
+            if title and href and is_not_special:
                 res.append({
                     'title': title,
                     'des': des,
