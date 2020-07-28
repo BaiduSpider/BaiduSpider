@@ -177,15 +177,13 @@ class BaiduSpider(BaseSpider):
                         # 这类搜索结果仅会在搜索词有相关视频时出现，不一定每个搜索结果都会出现的
                     },
                     {
-                        'results': [
-                            {
+                        'result': {
                                 'cover': 'str, 百科封面图片/视频链接',
                                 'cover-type': 'str, 百科封面类别，图片是image，视频是video',
                                 'des': 'str, 百科简介',
                                 'title': 'str, 百科标题',
                                 'url': 'str, 百科链接'
-                            }
-                        ],
+                        },
                         'type': 'baike'
                         # 这类搜索结果仅会在搜索词有相关百科时出现，不一定每个搜索结果都会出现的
                     },
@@ -343,7 +341,7 @@ class BaiduSpider(BaseSpider):
             pre_results.append(dict(type='video', results=video_results))
         # 加载百科
         if baike:
-            pre_results.append(dict(type='baike', results=baike))
+            pre_results.append(dict(type='baike', result=baike))
         # 预处理源码
         try:
             soup = BeautifulSoup(minify(soup.find_all(id='content_left')[
