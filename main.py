@@ -328,6 +328,7 @@ class BaiduSpider(BaseSpider):
             href = soup.find_all('a', target='_blank')[0].get('href').strip()
             # 标题
             title = self._format(soup.find_all('a', target='_blank')[0].text)
+            # 时间
             try:
                 time = self._format(soup.find_all('div', class_='c-abstract')[0].find('span', class_='c-color-gray2').text)
             except (AttributeError, IndexError):
