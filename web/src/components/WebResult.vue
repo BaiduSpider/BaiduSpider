@@ -11,7 +11,10 @@
           </a>
           <v-list-item-subtitle>
             <span>
-              {{ result.time }}&nbsp;-&nbsp;
+              {{ result.time }}
+            </span>
+            <span v-if="result.time">
+              &nbsp;-&nbsp;
             </span>
             {{ getDes(result.des) }}
             <p class="text--primary" style="margin-top: 10px">
