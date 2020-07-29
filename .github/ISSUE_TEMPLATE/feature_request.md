@@ -1,6 +1,6 @@
 ---
 name: 功能请求
-about: 创建一个报告并帮助我们改进。
+about: 告诉我们你想要的功能。
 title: "[FEATURE]"
 labels: enhancement
 assignees: ''
