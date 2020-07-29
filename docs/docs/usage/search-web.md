@@ -80,7 +80,7 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
                     'author': str,  # 新闻来源
                     'time': str,  # 新闻发布时间
                     'title': str,  # 新闻标题
-                    'url': str
+                    'url': str  # 新闻链接
                 },
                 { ... },
                 { ... },
@@ -105,6 +105,17 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
                 ...
             ],
             'type': 'video'
+        },
+        # 相关百科，仅会在搜索词有相关百科时出现
+        {
+            'result': {
+                'cover': str,  # 百科封面图片/视频链接
+                'cover-type': str,  # 百科封面类别，图片是image，视频是video
+                'des': str,  # 百科简介
+                'title': str,  # 百科标题
+                'url': str  # 百科链接
+            },
+            'type': 'baike'
         },
         # 普通的搜索结果
         {
@@ -241,6 +252,36 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
 
 !!!warning
     本项搜索结果仅在搜索词有相关视频时出现，请谨慎调用
+
+### 相关百科
+
+该项的分类为`baike`，模型如下：
+
+```python
+{
+    'result': {
+        'cover': str,
+        'cover-type': str,
+        'des': str,
+        'title': str,
+        'url': str
+    },
+    'type': 'baike'
+},
+```
+
+#### 解释
+
+- `result`：表示一个百科，值类型为`dict`
+    - `cover`：百科的封面链接，可能时图片，也可能是视频，值类型为`str`
+    - `cover-type`：百科的封面类型，图片为`image`，视频为`video`，值类型为`str`
+    - `des`：百科简介，值类型为`str`
+    - `title`：百科标题，值类型为`str`
+    - `url`：百科链接，值类型为`str`
+- `type`：该项表示该结果的类别，值为`baike`，类型是`str`
+
+!!!warning
+    本项搜索结果仅在搜索词有相关百科时出现，请谨慎调用
 
 ### 普通的搜索结果
 

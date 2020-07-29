@@ -446,6 +446,26 @@
         
           <li class="md-nav__item">
   <a href="#_18" class="md-nav__link">
+    相关百科
+  </a>
+  
+    <nav class="md-nav" aria-label="相关百科">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    解释
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
     普通的搜索结果
   </a>
   
@@ -453,7 +473,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
+  <a href="#_21" class="md-nav__link">
     解释
   </a>
   
@@ -470,7 +490,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
+  <a href="#_22" class="md-nav__link">
     提醒
   </a>
   
@@ -754,6 +774,26 @@
         
           <li class="md-nav__item">
   <a href="#_18" class="md-nav__link">
+    相关百科
+  </a>
+  
+    <nav class="md-nav" aria-label="相关百科">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    解释
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
     普通的搜索结果
   </a>
   
@@ -761,7 +801,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
+  <a href="#_21" class="md-nav__link">
     解释
   </a>
   
@@ -778,7 +818,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
+  <a href="#_22" class="md-nav__link">
     提醒
   </a>
   
@@ -880,7 +920,7 @@
                     <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># 新闻来源</span>
                     <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># 新闻发布时间</span>
                     <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># 新闻标题</span>
-                    <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="nb">str</span>
+                    <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># 新闻链接</span>
                 <span class="p">},</span>
                 <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
                 <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
@@ -905,6 +945,17 @@
                 <span class="o">...</span>
             <span class="p">],</span>
             <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;video&#39;</span>
+        <span class="p">},</span>
+        <span class="c1"># 相关百科，仅会在搜索词有相关百科时出现</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;cover&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># 百科封面图片/视频链接</span>
+                <span class="s1">&#39;cover-type&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># 百科封面类别，图片是image，视频是video</span>
+                <span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># 百科简介</span>
+                <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># 百科标题</span>
+                <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># 百科链接</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;baike&#39;</span>
         <span class="p">},</span>
         <span class="c1"># 普通的搜索结果</span>
         <span class="p">{</span>
@@ -1039,7 +1090,38 @@
 <p class="admonition-title">Warning</p>
 <p>本项搜索结果仅在搜索词有相关视频时出现，请谨慎调用</p>
 </div>
-<h3 id="_18">普通的搜索结果</h3>
+<h3 id="_18">相关百科</h3>
+<p>该项的分类为<code>baike</code>，模型如下：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;cover&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s1">&#39;cover-type&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;baike&#39;</span>
+<span class="p">},</span>
+</code></pre></div>
+
+
+<h4 id="_19">解释</h4>
+<ul>
+<li><code>result</code>：表示一个百科，值类型为<code>dict</code><ul>
+<li><code>cover</code>：百科的封面链接，可能时图片，也可能是视频，值类型为<code>str</code></li>
+<li><code>cover-type</code>：百科的封面类型，图片为<code>image</code>，视频为<code>video</code>，值类型为<code>str</code></li>
+<li><code>des</code>：百科简介，值类型为<code>str</code></li>
+<li><code>title</code>：百科标题，值类型为<code>str</code></li>
+<li><code>url</code>：百科链接，值类型为<code>str</code></li>
+</ul>
+</li>
+<li><code>type</code>：该项表示该结果的类别，值为<code>baike</code>，类型是<code>str</code></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>本项搜索结果仅在搜索词有相关百科时出现，请谨慎调用</p>
+</div>
+<h3 id="_20">普通的搜索结果</h3>
 <p>该项的分类为<code>result</code>，模型如下：</p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span>
     <span class="s1">&#39;des&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1051,7 +1133,7 @@
 </code></pre></div>
 
 
-<h4 id="_19">解释</h4>
+<h4 id="_21">解释</h4>
 <ul>
 <li><code>des</code>：搜索结果简介，类型为<code>str</code></li>
 <li><code>origin</code>：搜索结果来源，类型为<code>str</code></li>
@@ -1063,7 +1145,7 @@
 <p class="admonition-title">Note</p>
 <p>普通搜索结果没有一个父字典包围着，它的父字典就是返回值中的<code>results</code>字典</p>
 </div>
-<h2 id="_20">提醒</h2>
+<h2 id="_22">提醒</h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>不要使用爬虫搜索大量信息（如每天一万条），这样可能导致被百度封锁IP地址。使用IP池即可解决该问题</p>
