@@ -1,7 +1,7 @@
 /venv/
 **/__pycache__/
 /.vscode/
-test.py
+run.py
 zhihu.py
 /.idea/
 /web/node_modules

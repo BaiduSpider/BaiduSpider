@@ -22,7 +22,7 @@ from htmlmin import minify
 __all__ = ['BaiduSpider']
 
 
-class BaseSpider(object):
+class BaseSpider(object):  # pragma: no cover
     def __init__(self) -> None:
         r"""所有爬虫的基类
 
@@ -305,9 +305,9 @@ class BaiduSpider(BaseSpider):
         # 预处理百科
         baike = soup.find('div', class_='c-container', tpl='bk_polysemy')
         if baike:
-            b_title = baike.find('h3').text
+            b_title = self._format(baike.find('h3').text)
             b_url = baike.find('a')['href']
-            b_des = baike.find('div', class_='c-span-last').text
+            b_des = self._format(baike.find('div', class_='c-span-last').find('p').text)
             try:
                 b_cover = baike.find(
                     'div', class_='c-span3').find('img')['src']
