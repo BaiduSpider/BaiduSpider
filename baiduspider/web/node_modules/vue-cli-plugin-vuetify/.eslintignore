@@ -1,0 +1,3 @@
+generator/templates/default/src/plugins/vuetify.js
+**/App.js.vue
+**/App.ts.vue

@@ -1,0 +1,17 @@
+{
+  "useConfigFiles": true,
+  "cssPreprocessor": "scss",
+  "plugins": {
+    "vue-cli-plugin-vuetify": {
+      "preset": "configure",
+      "replaceComponents": true,
+      "iconFont": "mdi",
+      "installFonts": true,
+      "locale": "en",
+      "useAlaCarte": false,
+      "useCustomProperties": false,
+      "usePolyfill": false,
+      "useTheme": true
+    }
+  }
+}

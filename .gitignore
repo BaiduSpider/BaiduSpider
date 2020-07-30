@@ -7,3 +7,4 @@ zhihu.py
 /web/node_modules
 /web/dist
 .DS_Store
+download.py

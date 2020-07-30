@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`helpers.js should merge sass variable rules 1`] = `
+Object {
+  "prependData": "@import '@/sass/variables.sass'
+@import '@/sass/variables.scss'
+@import '@/scss/variables.sass'
+@import '@/scss/variables.scss'
+@import '@/styles/variables.sass'
+@import '@/styles/variables.scss'
+@import '~vuetify/src/styles/styles.sass'",
+}
+`;
+
+exports[`helpers.js should merge sass variable rules 2`] = `
+Object {
+  "prependData": "@import '@/sass/variables.sass';
+@import '@/sass/variables.scss';
+@import '@/scss/variables.sass';
+@import '@/scss/variables.scss';
+@import '@/styles/variables.sass';
+@import '@/styles/variables.scss';
+@import '~vuetify/src/styles/styles.sass';",
+}
+`;

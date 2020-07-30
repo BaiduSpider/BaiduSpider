@@ -1,0 +1,169 @@
+// Styles
+import "../../../src/components/VBtn/VBtn.sass"; // Extensions
+
+import VSheet from '../VSheet'; // Components
+
+import VProgressCircular from '../VProgressCircular'; // Mixins
+
+import { factory as GroupableFactory } from '../../mixins/groupable';
+import { factory as ToggleableFactory } from '../../mixins/toggleable';
+import Positionable from '../../mixins/positionable';
+import Routable from '../../mixins/routable';
+import Sizeable from '../../mixins/sizeable'; // Utilities
+
+import mixins from '../../util/mixins';
+import { breaking } from '../../util/console';
+const baseMixins = mixins(VSheet, Routable, Positionable, Sizeable, GroupableFactory('btnToggle'), ToggleableFactory('inputValue')
+/* @vue/component */
+);
+export default baseMixins.extend().extend({
+  name: 'v-btn',
+  props: {
+    activeClass: {
+      type: String,
+
+      default() {
+        if (!this.btnToggle) return '';
+        return this.btnToggle.activeClass;
+      }
+
+    },
+    block: Boolean,
+    depressed: Boolean,
+    fab: Boolean,
+    icon: Boolean,
+    loading: Boolean,
+    outlined: Boolean,
+    retainFocusOnClick: Boolean,
+    rounded: Boolean,
+    tag: {
+      type: String,
+      default: 'button'
+    },
+    text: Boolean,
+    tile: Boolean,
+    type: {
+      type: String,
+      default: 'button'
+    },
+    value: null
+  },
+  data: () => ({
+    proxyClass: 'v-btn--active'
+  }),
+  computed: {
+    classes() {
+      return {
+        'v-btn': true,
+        ...Routable.options.computed.classes.call(this),
+        'v-btn--absolute': this.absolute,
+        'v-btn--block': this.block,
+        'v-btn--bottom': this.bottom,
+        'v-btn--contained': this.contained,
+        'v-btn--depressed': this.depressed || this.outlined,
+        'v-btn--disabled': this.disabled,
+        'v-btn--fab': this.fab,
+        'v-btn--fixed': this.fixed,
+        'v-btn--flat': this.isFlat,
+        'v-btn--icon': this.icon,
+        'v-btn--left': this.left,
+        'v-btn--loading': this.loading,
+        'v-btn--outlined': this.outlined,
+        'v-btn--right': this.right,
+        'v-btn--round': this.isRound,
+        'v-btn--rounded': this.rounded,
+        'v-btn--router': this.to,
+        'v-btn--text': this.text,
+        'v-btn--tile': this.tile,
+        'v-btn--top': this.top,
+        ...this.themeClasses,
+        ...this.groupClasses,
+        ...this.elevationClasses,
+        ...this.sizeableClasses
+      };
+    },
+
+    contained() {
+      return Boolean(!this.isFlat && !this.depressed && // Contained class only adds elevation
+      // is not needed if user provides value
+      !this.elevation);
+    },
+
+    computedRipple() {
+      const defaultRipple = this.icon || this.fab ? {
+        circle: true
+      } : true;
+      if (this.disabled) return false;else return this.ripple != null ? this.ripple : defaultRipple;
+    },
+
+    isFlat() {
+      return Boolean(this.icon || this.text || this.outlined);
+    },
+
+    isRound() {
+      return Boolean(this.icon || this.fab);
+    },
+
+    styles() {
+      return { ...this.measurableStyles
+      };
+    }
+
+  },
+
+  created() {
+    const breakingProps = [['flat', 'text'], ['outline', 'outlined'], ['round', 'rounded']];
+    /* istanbul ignore next */
+
+    breakingProps.forEach(([original, replacement]) => {
+      if (this.$attrs.hasOwnProperty(original)) breaking(original, replacement, this);
+    });
+  },
+
+  methods: {
+    click(e) {
+      // TODO: Remove this in v3
+      !this.retainFocusOnClick && !this.fab && e.detail && this.$el.blur();
+      this.$emit('click', e);
+      this.btnToggle && this.toggle();
+    },
+
+    genContent() {
+      return this.$createElement('span', {
+        staticClass: 'v-btn__content'
+      }, this.$slots.default);
+    },
+
+    genLoader() {
+      return this.$createElement('span', {
+        class: 'v-btn__loader'
+      }, this.$slots.loader || [this.$createElement(VProgressCircular, {
+        props: {
+          indeterminate: true,
+          size: 23,
+          width: 2
+        }
+      })]);
+    }
+
+  },
+
+  render(h) {
+    const children = [this.genContent(), this.loading && this.genLoader()];
+    const setColor = !this.isFlat ? this.setBackgroundColor : this.setTextColor;
+    const {
+      tag,
+      data
+    } = this.generateRouteLink();
+
+    if (tag === 'button') {
+      data.attrs.type = this.type;
+      data.attrs.disabled = this.disabled;
+    }
+
+    data.attrs.value = ['string', 'number'].includes(typeof this.value) ? this.value : JSON.stringify(this.value);
+    return h(tag, this.disabled ? data : setColor(this.color, data), children);
+  }
+
+});
+//# sourceMappingURL=VBtn.js.map
