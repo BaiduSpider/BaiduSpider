@@ -1,7 +1,0 @@
-$color-pack: false;
-
-@import '~vuetify/src/styles/styles.sass';
-
-@each $name, $value in $utilities {
-  $utilities: map-merge($utilities, ($name: false));
-}
