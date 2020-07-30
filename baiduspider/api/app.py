@@ -7,6 +7,11 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+import os
+import sys
+# 导入包
+sys.path.append(os.path.abspath('./baiduspider/core'))
+
 from main import BaiduSpider
 
 app = FastAPI()
