@@ -1,11 +1,10 @@
-from main import BaiduSpider
 import os
 import sys
 # 导入包
 sys.path.append(os.path.abspath('./baiduspider/core'))
+from main import BaiduSpider
 
 import click
-from tabulate import tabulate
 import readline
 
 spider = BaiduSpider()
@@ -28,7 +27,7 @@ def search_web(query, pn):
                 r['origin'] = ''
             if r['des'] is None:
                 r['des'] = '暂无简介'
-            click.echo(('%s\033[1m \033\x1b]8;;%s\a%s\x1b]8;;\a\033[0m %s' % (r['time'], r['url'], r['title'], r['origin'])))
+            click.echo(('%s\033[1m \033\x1b]8;;%s\a%s\x1b]8;;\a\033[0m %s\n' % (r['time'], r['url'], r['title'], r['origin'])))
             click.echo(r['des'])
         elif r['type'] == 'calc':
             click.echo('\033[1m \x1b %s\033[0m 计算' % r['process'])
