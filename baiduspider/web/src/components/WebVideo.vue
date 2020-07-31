@@ -46,7 +46,7 @@
 
               <v-card-text>
                 <h3 style="margin-bottom: 5px">
-                  <a :href="video.url">
+                  <a :href="video.url" target="_blank">
                     {{ video.title }}
                   </a>
                 </h3>
