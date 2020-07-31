@@ -278,14 +278,14 @@ class BaiduSpider(BaseSpider):
             video_results = []
             for row in video_rows:
                 row_res = []
-                videos = row.findAll('div', class_='c-span3')
+                videos = row.findAll('div', class_='c-span6')
                 for v in videos:
                     v_link = v.find('a')
                     v_title = v_link['title']
                     v_url = self._format(v_link['href'])
                     v_img = v_link.find('img')['src']
                     v_len = self._format(
-                        v.find('div', class_='op-short-video-pc-duration-wrap-new').text)
+                        v.find('div', class_='op-short-video-pc-duration-wrap').text)
                     v_from = self._format(
                         v.find('div', class_='op-short-video-pc-clamp1').text)
                     row_res.append({
