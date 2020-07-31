@@ -3,7 +3,12 @@
     <v-card
       outlined
     >
-      <video v-if="result['cover-type'] === 'video'" :src="result.cover"></video>
+      <video
+        class="full-width v"
+        v-if="result['cover-type'] === 'video'"
+        :src="result.cover"
+        controls="controls"
+      ></video>
       <div class="d-flex flex-no-wrap justify-space-between">
         <v-avatar
           class="ma-3"
@@ -39,3 +44,10 @@ export default {
   ]
 }
 </script>
+
+<style scoped>
+.v {
+  position: relative;
+  width: 100%;
+}
+</style>
