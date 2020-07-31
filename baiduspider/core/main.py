@@ -261,9 +261,9 @@ class BaiduSpider(BaseSpider):
                     continue
                 else:
                     row_time = self._format(
-                        row.find('span', class_='c-color-gray2').text)
+                        row.find('span', style='color:#666;float:right').text)
                     row_author = self._format(
-                        row.find('span', class_='c-color-gray').text)
+                        row.find('span', style='color:#008000').text)
                     row_url = self._format(row.find('a')['href'])
                     news_detail.append({
                         'title': row_title,
@@ -310,9 +310,9 @@ class BaiduSpider(BaseSpider):
             b_des = self._format(baike.find('div', class_='c-span-last').find('p').text)
             try:
                 b_cover = baike.find(
-                    'div', class_='c-span3').find('img')['src']
+                    'div', class_='c-span6').find('img')['src']
                 b_cover_type = 'image'
-            except TypeError:
+            except (TypeError, AttributeError):
                 b_cover = baike.find(
                     'video', class_='op-bk-polysemy-video')['data-src']
                 b_cover_type = 'video'

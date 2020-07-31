@@ -6,10 +6,23 @@
         BaiduSpider共找到搜索结果约{{ results.results[0].result }}条
       </small>
       <p/>
-      <WebCalc :results="resultsCalc"/>
-      <WebVideo :results="resultsVideo"/>
-      <WebNews :results="resultsNews"/>
-      <WebResult :results="resultsNormal" :key="resultId"/>
+      <v-row v-if="resultsBaike.title">
+        <v-col sm="8">
+          <WebCalc :results="resultsCalc"/>
+          <WebVideo :results="resultsVideo"/>
+          <WebNews :results="resultsNews"/>
+          <WebResult :results="resultsNormal" :key="resultId"/>
+        </v-col>
+        <v-col sm="4">
+          <WebBaike :result="resultsBaike"/>
+        </v-col>
+      </v-row>
+      <div v-else>
+        <WebCalc :results="resultsCalc"/>
+        <WebVideo :results="resultsVideo"/>
+        <WebNews :results="resultsNews"/>
+        <WebResult :results="resultsNormal" :key="resultId"/>
+      </div>
       <div style="margin-top: 35px"/>
       <v-pagination
         v-model="currentPage"
@@ -27,6 +40,7 @@ import WebResult from '@/components/WebResult'
 import WebCalc from '@/components/WebCalc'
 import WebNews from '@/components/WebNews'
 import WebVideo from '@/components/WebVideo'
+import WebBaike from '@/components/WebBaike'
 
 export default {
   name: 'WebResults',
@@ -43,7 +57,8 @@ export default {
       resultsCalc: {},
       currentPage: 1,
       resultsNews: [],
-      resultsVideo: []
+      resultsVideo: [],
+      resultsBaike: {}
     }
   },
   methods: {
@@ -61,6 +76,7 @@ export default {
         this.resultsCalc = {}
         this.resultsNews = []
         this.resultsVideo = []
+        this.resultsBaike = {}
         this.results = data.data.results
         var i
         for (i = 0; i < this.results.results.length; i++) {
@@ -72,6 +88,8 @@ export default {
             this.resultsNews = this.results.results[i].results
           } else if (this.results.results[i].type === 'video') {
             this.resultsVideo = this.results.results[i].results
+          } else if (this.results.results[i].type === 'baike') {
+            this.resultsBaike = this.results.results[i].result
           }
         }
         this.resultId += 1
@@ -83,7 +101,8 @@ export default {
     WebResult,
     WebCalc,
     WebNews,
-    WebVideo
+    WebVideo,
+    WebBaike
   },
   created: function () {
     this.query = this.$route.query.q
