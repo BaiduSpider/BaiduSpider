@@ -313,9 +313,13 @@ class BaiduSpider(BaseSpider):
                     'div', class_='c-span6').find('img')['src']
                 b_cover_type = 'image'
             except (TypeError, AttributeError):
-                b_cover = baike.find(
-                    'video', class_='op-bk-polysemy-video')['data-src']
-                b_cover_type = 'video'
+                try:
+                    b_cover = baike.find(
+                        'video', class_='op-bk-polysemy-video')['data-src']
+                    b_cover_type = 'video'
+                except TypeError:
+                    b_cover = None
+                    b_cover_type = None
             baike = {
                 'title': b_title,
                 'url': b_url,

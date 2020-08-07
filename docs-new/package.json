@@ -1,0 +1,27 @@
+{
+  "name": "docs-new",
+  "version": "0.0.1",
+  "description": "baiduspider",
+  "main": "index.js",
+  "authors": {
+    "name": "Sam Zhang",
+    "email": "samzhangjy@gmail.com"
+  },
+  "repository": "https://github.com/samzhangjy/BaiduSpider/",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.3.1",
+    "@vuepress/plugin-back-to-top": "^1.3.1",
+    "@vuepress/plugin-medium-zoom": "^1.3.1"
+  },
+  "dependencies": {
+    "flexsearch": "^0.6.32",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^3.0.2",
+    "vuetify": "^2.3.7"
+  }
+}
