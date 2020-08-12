@@ -314,6 +314,33 @@
     实例
   </a>
   
+    <nav class="md-nav" aria-label="实例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    基本的调用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    指定页码
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    返回值
+  </a>
+  
 </li>
         
       </ul>
@@ -322,9 +349,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    返回值
+  <a href="#_7" class="md-nav__link">
+    返回值解释
   </a>
+  
+    <nav class="md-nav" aria-label="返回值解释">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    搜索结果
+  </a>
+  
+    <nav class="md-nav" aria-label="搜索结果">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    解释
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -450,6 +503,33 @@
     实例
   </a>
   
+    <nav class="md-nav" aria-label="实例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    基本的调用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    指定页码
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    返回值
+  </a>
+  
 </li>
         
       </ul>
@@ -458,9 +538,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    返回值
+  <a href="#_7" class="md-nav__link">
+    返回值解释
   </a>
+  
+    <nav class="md-nav" aria-label="返回值解释">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    搜索结果
+  </a>
+  
+    <nav class="md-nav" aria-label="搜索结果">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    解释
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -485,7 +591,7 @@
 </code></pre></div>
 
 
-<h3 id="_2">参数</h3>
+<h2 id="_2">参数</h2>
 <ul>
 <li>
 <p>self: BaiduSpider，即必须实例化<code>BaiduSpider</code>对象后才可调用。</p>
@@ -497,10 +603,8 @@
 <p>pn: int，要爬取的页码，默认为1，为可选参数</p>
 </li>
 </ul>
-<h4 id="_3">实例</h4>
-<ul>
-<li>基本的调用</li>
-</ul>
+<h3 id="_3">实例</h3>
+<h4 id="_4">基本的调用</h4>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">main</span> <span class="kn">import</span> <span class="n">BaiduSpider</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
@@ -511,9 +615,7 @@
 </code></pre></div>
 
 
-<ul>
-<li>指定页码</li>
-</ul>
+<h4 id="_5">指定页码</h4>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">main</span> <span class="kn">import</span> <span class="n">BaiduSpider</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
@@ -528,7 +630,7 @@
 <p class="admonition-title">Warning</p>
 <p>传入页码参数的时候一定要小心，务必不要传入过大的页码，因为寻找不到合适的element，BaiduSpider会报错<code>AttributeError</code></p>
 </div>
-<h3 id="_4">返回值</h3>
+<h3 id="_6">返回值</h3>
 <p><code>BaiduSpider.search_pic</code>的返回值类型是<code>dict</code>，大致返回模版如下：</p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span>
     <span class="c1"># 搜索结果列表</span>
@@ -557,6 +659,24 @@
 <p class="admonition-title">Warning</p>
 <p>不要将总计页码存到一个变量后不再变动，因为它是动态的，可能随时变化</p>
 </div>
+<h2 id="_7">返回值解释</h2>
+<p>在返回值中，有两个键，分别是<code>results</code>和<code>total</code>。其中，<code>total</code>表示总计搜索结果的页数，并且可能会因为当前页数的变化而随之变化，值类型为<code>int</code>。<code>results</code>代表搜索结果列表，类型为<code>list</code>。下面是列表中各个值的详细解释。</p>
+<h3 id="_8">搜索结果</h3>
+<p>该项是列表中唯一一种类型，故没有特定<code>type</code>。模型如下：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<h4 id="_9">解释</h4>
+<ul>
+<li><code>host</code>：结果图片的来源，类型是<code>str</code></li>
+<li><code>title</code>：结果图片的标题，类型是<code>str</code></li>
+<li><code>url</code>：结果图片的链接，类型是<code>str</code></li>
+</ul>
                 
               
               
