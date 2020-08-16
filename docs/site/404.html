@@ -8,10 +8,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="BaiduSpider能够精准地爬取百度搜索结果，但更强大，更轻量，更易用。它目前已经支持了8种搜索结果， 4个平台，分别是百度网页搜索，百度图片搜索，百度知道搜索，百度视频搜索，百度资讯搜索，百度文库搜索， 百度经验搜索，百度百科搜索，和原生Python，Web UI，Web API，CLI。">
       
       
-      <link rel="shortcut icon" href="/assets/icons/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+      
+        <meta name="author" content="Sam Zhang">
+      
+      <link rel="shortcut icon" href="/BaiduSpider/assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.6">
     
     
       
@@ -19,9 +23,9 @@
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.fe0cca5b.min.css">
+      <link rel="stylesheet" href="/BaiduSpider/assets/stylesheets/main.6fb40bf7.min.css">
       
-        <link rel="stylesheet" href="/assets/stylesheets/palette.a46bcfb3.min.css">
+        <link rel="stylesheet" href="/BaiduSpider/assets/stylesheets/palette.cef4c379.min.css">
       
       
         
@@ -39,12 +43,10 @@
     
     
     
-      <link rel="stylesheet" href="/assets/css/termynal.css">
-    
     
       
         
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-172934693-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-172934693-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview",document.location.pathname)})</script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
@@ -72,9 +74,9 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="/." title="BaiduSpider" class="md-header-nav__button md-logo" aria-label="BaiduSpider">
+    <a href="https://samzhangjy.github.io/BaiduSpider/" title="BaiduSpider" class="md-header-nav__button md-logo" aria-label="BaiduSpider">
       
-  <img src="/assets/icons/logo.png" alt="logo">
+  <img src="/BaiduSpider/assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header-nav__button md-icon" for="__drawer">
@@ -148,6 +150,65 @@
       
       
         
+          
+
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="/BaiduSpider/." class="md-tabs__link md-tabs__link--active">
+        首页
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="/BaiduSpider/usage/get-started/" class="md-tabs__link">
+          起步
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="/BaiduSpider/native/" class="md-tabs__link">
+          原生 Python
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="/BaiduSpider/web/" class="md-tabs__link">
+          Web UI
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
       
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
@@ -158,9 +219,9 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="BaiduSpider" class="md-nav__button md-logo" aria-label="BaiduSpider">
+    <a href="https://samzhangjy.github.io/BaiduSpider/" title="BaiduSpider" class="md-nav__button md-logo" aria-label="BaiduSpider">
       
-  <img src="/assets/icons/logo.png" alt="logo">
+  <img src="/BaiduSpider/assets/logo.png" alt="logo">
 
     </a>
     BaiduSpider
@@ -187,7 +248,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/." title="首页" class="md-nav__link">
+    <a href="/BaiduSpider/." title="首页" class="md-nav__link">
       首页
     </a>
   </li>
@@ -198,10 +259,40 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="/get-started/" title="起步" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
       起步
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="起步" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        起步
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="/BaiduSpider/usage/get-started/" title="快速上手" class="md-nav__link">
+      快速上手
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -215,17 +306,17 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
     <label class="md-nav__link" for="nav-3">
-      使用
+      原生 Python
       <span class="md-nav__icon md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
       </span>
     </label>
-    <nav class="md-nav" aria-label="使用" data-md-level="1">
+    <nav class="md-nav" aria-label="原生 Python" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
         </span>
-        使用
+        原生 Python
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -236,7 +327,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/usage/" title="介绍" class="md-nav__link">
+    <a href="/BaiduSpider/native/" title="介绍" class="md-nav__link">
       介绍
     </a>
   </li>
@@ -248,7 +339,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/usage/search-web/" title="网页搜索" class="md-nav__link">
+    <a href="/BaiduSpider/native/search-web/" title="网页搜索" class="md-nav__link">
       网页搜索
     </a>
   </li>
@@ -260,7 +351,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/usage/search-pic/" title="图片搜索" class="md-nav__link">
+    <a href="/BaiduSpider/native/search-pic/" title="图片搜索" class="md-nav__link">
       图片搜索
     </a>
   </li>
@@ -272,19 +363,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/usage/search-zhidao/" title="知道搜索" class="md-nav__link">
-      知道搜索
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="/usage/search-video/" title="视频搜索" class="md-nav__link">
+    <a href="/BaiduSpider/native/search-video/" title="视频搜索" class="md-nav__link">
       视频搜索
     </a>
   </li>
@@ -296,7 +375,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/usage/search-news/" title="资讯搜索" class="md-nav__link">
+    <a href="/BaiduSpider/native/search-news/" title="资讯搜索" class="md-nav__link">
       资讯搜索
     </a>
   </li>
@@ -308,7 +387,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/usage/search-wenku/" title="文库搜索" class="md-nav__link">
+    <a href="/BaiduSpider/native/search-wenku/" title="文库搜索" class="md-nav__link">
       文库搜索
     </a>
   </li>
@@ -320,7 +399,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/usage/search-jingyan/" title="经验搜索" class="md-nav__link">
+    <a href="/BaiduSpider/native/search-jingyan/" title="经验搜索" class="md-nav__link">
       经验搜索
     </a>
   </li>
@@ -332,8 +411,62 @@
 
 
   <li class="md-nav__item">
-    <a href="/usage/search-baike/" title="百科搜索" class="md-nav__link">
+    <a href="/BaiduSpider/native/search-zhidao/" title="知道搜索" class="md-nav__link">
+      知道搜索
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="/BaiduSpider/native/search-baike/" title="百科搜索" class="md-nav__link">
       百科搜索
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Web UI
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Web UI" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Web UI
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="/BaiduSpider/web/" title="介绍" class="md-nav__link">
+      介绍
     </a>
   </li>
 
@@ -373,6 +506,10 @@
     <div class="md-footer-meta__inner md-grid">
       <div class="md-footer-copyright">
         
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Sam Zhang
+          </div>
+        
         Made with
         <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
           Material for MkDocs
@@ -385,22 +522,18 @@
       
     </div>
     
-      <script src="/assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="/assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      <script src="/BaiduSpider/assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="/BaiduSpider/assets/javascripts/bundle.b7ed72fe.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
       
       <script>
         app = initialize({
-          base: "/",
-          features: ["instant"],
+          base: "/BaiduSpider/",
+          features: ["tabs"],
           search: Object.assign({
-            worker: "/assets/javascripts/worker/search.a68abb33.min.js"
+            worker: "/BaiduSpider/assets/javascripts/worker/search.fae956e7.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
-      
-        <script src="/assets/js/termynal.js"></script>
-      
-        <script src="/assets/js/custom.js"></script>
       
     
   </body>

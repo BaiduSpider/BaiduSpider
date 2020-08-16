@@ -8,3 +8,5 @@ zhihu.py
 /web/dist
 .DS_Store
 download.py
+/docs-old/
+/docs/site/
