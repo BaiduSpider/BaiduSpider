@@ -1,0 +1,13 @@
+name: baiduspider
+image: okteto/python:3
+command:
+- bash
+workdir: /okteto
+forward:
+- 8080:8080
+reverse:
+- 9000:9000
+volumes:
+- /root/.cache/pip
+persistentVolume:
+  enabled: true
