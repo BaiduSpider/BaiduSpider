@@ -1,5 +1,7 @@
 # 快速上手
 
+<video controls style="max-width: 50vw" src="../../assets/baiduspider.mp4"></video>
+
 ## 简介
 BaiduSpider是一个用Python的requests库编写的网络爬虫，可以爬取百度搜索，百度图片，百度知道，百度视频，百度资讯，百度文库，百度经验和百度百科，并且返回的搜索结果无广告。
 

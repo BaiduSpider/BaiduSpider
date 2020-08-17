@@ -103,6 +103,10 @@ nav:
     - 百科搜索: native/search-baike.md
   - Web UI:
     - 介绍: web/index.md
+  - Web API:
+    - 介绍: api/index.md
+  - CLI:
+    - 介绍: cli/index.md
 
 # Google Analytics
 google_analytics:

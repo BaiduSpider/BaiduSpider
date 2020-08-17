@@ -2,7 +2,7 @@ import sys
 import os
 # 导入包
 sys.path.append(os.path.abspath('./baiduspider/core'))
-from main import BaiduSpider
+from baiduspider.core.main import BaiduSpider
 from unittest import TestCase
 from unittest.util import safe_repr
 

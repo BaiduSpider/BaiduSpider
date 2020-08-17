@@ -19,7 +19,7 @@ BaiduSpider.search_pic(self: BaiduSpider, query: str, pn: int = 1) -> dict
 #### 基本的调用
 
 ```python
-from main import BaiduSpider
+from baiduspider.core.main import BaiduSpider
 from pprint import pprint
 
 spider = BaiduSpider()
@@ -31,7 +31,7 @@ pprint(spider.search_pic(query=input('要搜索的关键词：')))
 #### 指定页码
 
 ```python
-from main import BaiduSpider
+from baiduspider.core.main import BaiduSpider
 from pprint import pprint
 
 spider = BaiduSpider()
@@ -50,17 +50,11 @@ pprint(spider.search_pic(query=input('要搜索的关键词：'), pn=int(input('
 ```python
 {
     # 搜索结果列表
-    'results': [
-        {
-            'host': str,  # 图片来源域名
-            'title': str,  # 图片标题
-            'url': str  # 图片链接
-        },
-        { ... },
-        { ... },
-        { ... },
-        ...
-    ],
+    'results': [{
+        'host': str,  # 图片来源域名
+        'title': str,  # 图片标题
+        'url': str  # 图片链接
+    }],
     # 搜索结果总计页码，可能会变化
     'total': int
 }
@@ -75,11 +69,7 @@ pprint(spider.search_pic(query=input('要搜索的关键词：'), pn=int(input('
 
 ## 返回值解释
 
-在返回值中，有两个键，分别是`results`和`total`。其中，`total`表示总计搜索结果的页数，并且可能会因为当前页数的变化而随之变化，值类型为`int`。`results`代表搜索结果列表，类型为`list`。下面是列表中各个值的详细解释。
-
-### 搜索结果
-
-该项是列表中唯一一种类型，故没有特定`type`。模型如下：
+在图片搜索的`results`列表中，仅有一种类别的搜索结果，即图片结果字典。它的类型是`dict`，下面为它的解释。
 
 ```python
 {
@@ -89,7 +79,7 @@ pprint(spider.search_pic(query=input('要搜索的关键词：'), pn=int(input('
 }
 ```
 
-#### 解释
+### 解释
 
 - `host`：结果图片的来源，类型是`str`
 - `title`：结果图片的标题，类型是`str`

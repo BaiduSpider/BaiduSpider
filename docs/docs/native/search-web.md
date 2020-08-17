@@ -20,7 +20,7 @@ BaiduSpider.search_web(self: BaiduSpider, query: str, pn: int = 1) -> dict
 
 ```python
 # 导入BaiduSpider
-from main import BaiduSpider
+from baiduspider.core.main import BaiduSpider
 from pprint import pprint
 
 # 实例化BaiduSpider
@@ -33,7 +33,7 @@ pprint(spider.search_web(query=input('要搜索的关键词：')))
 #### 指定页码
 
 ```python
-from main import BaiduSpider
+from baiduspider.core.main import BaiduSpider
 from pprint import pprint
 
 spider = BaiduSpider()
@@ -60,13 +60,7 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
         },
         # 相关搜索建议
         {
-            'results': [
-                str,  # 相关搜索建议
-                '...',
-                '...',
-                '...',
-                ...
-            ],
+            'results': [str],  # 相关搜索建议
             'type': 'related'
         },
         # 运算窗口，仅会在搜索词涉及运算时出现
@@ -77,35 +71,23 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
         },
         # 相关新闻，仅会在搜索词有相关新闻时出现
         {
-            'results': [
-                {
-                    'author': str,  # 新闻来源
-                    'time': str,  # 新闻发布时间
-                    'title': str,  # 新闻标题
-                    'url': str  # 新闻链接
-                },
-                { ... },
-                { ... },
-                { ... },
-                ...
-            ],
+            'results': [{
+                'author': str,  # 新闻来源
+                'time': str,  # 新闻发布时间
+                'title': str,  # 新闻标题
+                'url': str  # 新闻链接
+            }],
             'type': 'news'
         },
         # 相关视频，仅会在搜索词有相关视频时出现
         {
-            'results': [
-                {
-                    'cover': str,  # 视频封面图片链接
-                    'origin': str,  # 视频来源
-                    'length': str,  # 视频时长
-                    'title': str,  # 视频标题
-                    'url': str  # 视频链接
-                },
-                { ... },
-                { ... },
-                { ... },
-                ...
-            ],
+            'results': [{
+                'cover': str,  # 视频封面图片链接
+                'origin': str,  # 视频来源
+                'length': str,  # 视频时长
+                'title': str,  # 视频标题
+                'url': str  # 视频链接
+            }],
             'type': 'video'
         },
         # 相关百科，仅会在搜索词有相关百科时出现
@@ -126,11 +108,7 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
             'title': str, # 搜索结果标题
             'type': 'result',
             'url': str # 搜索结果链接
-        },
-        { ... },
-        { ... },
-        { ... },
-        ...
+        }
     ],
     # 总计的搜索结果页数，可能会因为当前页数的变化而随之变化
     'total': int

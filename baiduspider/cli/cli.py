@@ -2,7 +2,7 @@ import os
 import sys
 # 导入包
 sys.path.append(os.path.abspath('./baiduspider/core'))
-from main import BaiduSpider
+from baiduspider.core.main import BaiduSpider
 
 import click
 import readline
