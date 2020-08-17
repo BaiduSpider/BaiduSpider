@@ -4,7 +4,7 @@ command:
 - bash
 workdir: /okteto
 forward:
-- 8080:8080
+- 8000:8000
 reverse:
 - 9000:9000
 volumes:
