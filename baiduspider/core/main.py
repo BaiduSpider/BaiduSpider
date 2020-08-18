@@ -449,6 +449,10 @@ class BaiduSpider(BaseSpider):
         pages = []
         for _ in pages_:
             pages.append(int(_.text))
+        # 如果搜索结果仅有一页时，百度不会显示底部导航栏
+        # 所以这里直接设置成1，如果不设会报错`TypeError`
+        if not pages:
+            pages = [1]
         # 设置最终结果
         result = pre_results
         result.extend(res)
