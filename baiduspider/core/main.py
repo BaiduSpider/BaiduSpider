@@ -41,7 +41,11 @@ class BaseSpider(object):  # pragma: no cover
         Returns:
             str: 处理后的字符串
         """
-        return s.replace('\n', '').strip().replace('\n\r    \xa0', '').replace('  ', '').replace('\xa0', '')
+        res = ''
+        for string in s.split(' '):
+            if string.strip():
+                res += string.strip() + ' '
+        return res.strip().replace('\xa0', '').replace('\n', '')
 
     def _remove_html(self, s: str) -> str:
         r"""从字符串中去除HTML标签
@@ -65,7 +69,7 @@ class BaseSpider(object):  # pragma: no cover
         Returns:
             str: 压缩后的HTML代码
         """
-        return minify(html, remove_all_empty_space=True, remove_comments=True, remove_optional_attribute_quotes=True)
+        return minify(html,remove_comments=True, remove_optional_attribute_quotes=True)
 
     def __repr__(self) -> str:
         return '<Spider %s>' % self.spider_name
@@ -370,7 +374,7 @@ class BaiduSpider(BaseSpider):
             # 时间
             try:
                 time = self._format(soup.find_all(
-                    'div', class_='c-abstract')[0].find('span', class_='c-color-gray2').text)
+                    'div', class_='c-abstract')[0].find('span', class_='newTimeFactor_before_abs').text)
             except (AttributeError, IndexError):
                 time = None
             try:
@@ -383,6 +387,8 @@ class BaiduSpider(BaseSpider):
                     des = des.replace('\n', '')
                 except (UnboundLocalError, AttributeError):
                     des = None
+            if time:
+                time = time.split('-')[0].strip()
             # 因为百度的链接是加密的了，所以需要一个一个去访问
             # 由于性能原因，分析链接部分暂略
             # if href is not None:
