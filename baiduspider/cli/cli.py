@@ -1,8 +1,8 @@
 import os
 import sys
 # 导入包
-sys.path.append(os.path.abspath('./baiduspider/core'))
-from baiduspider.core.main import BaiduSpider
+sys.path.append(os.path.abspath('.'))
+from baiduspider.core import BaiduSpider
 
 import click
 import readline
@@ -14,7 +14,7 @@ spider = BaiduSpider()
 @click.option('--query', help='搜索关键词', prompt='请输入搜索关键词')
 @click.option('--pn', help='搜索结果页码', prompt='请输入页码', default=1)
 def search_web(query, pn):
-    r"""搜索百度网页"""
+    """搜索百度网页"""
     result_ = spider.search_web(query, pn=pn)
     results = []
     related = {}

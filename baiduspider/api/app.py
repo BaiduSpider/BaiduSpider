@@ -12,7 +12,7 @@ import sys
 # 导入包
 sys.path.append(os.path.abspath('./baiduspider/core'))
 
-from baiduspider.core.main import BaiduSpider
+from baiduspider.core import BaiduSpider
 
 app = FastAPI()
 spider = BaiduSpider()

@@ -10,3 +10,5 @@ zhihu.py
 download.py
 /docs-old/
 /docs/site/
+htmlcov/
+.coverage

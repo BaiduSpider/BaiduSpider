@@ -19,7 +19,7 @@ BaiduSpider.search_video(self: BaiduSpider, query: str, pn: int = 1) -> dict
 #### 基本的调用
 
 ```python
-from baiduspider.core.main import BaiduSpider
+from baiduspider.core import BaiduSpider
 from pprint import pprint
 
 spider = BaiduSpider()
@@ -31,7 +31,7 @@ pprint(spider.search_video(query=input('视频搜索关键词：')))
 #### 指定页码
 
 ```python
-from baiduspider.core.main import BaiduSpider
+from baiduspider.core import BaiduSpider
 from pprint import pprint
 
 spider = BaiduSpider()

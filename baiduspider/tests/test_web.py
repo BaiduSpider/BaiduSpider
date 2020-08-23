@@ -1,10 +1,10 @@
-import sys
+"""测试BaiduSpider的网页搜索函数
+
+本测试案例用于测试`BaiduSpider.search_web`及其实现函数。
+"""
 import os
-# 导入包
-sys.path.append(os.path.abspath('./baiduspider/core'))
-from baiduspider.core.main import BaiduSpider
+import sys
 from unittest import TestCase
-from unittest.util import safe_repr
 
 
 class WebTestCase(TestCase):
@@ -16,100 +16,137 @@ class WebTestCase(TestCase):
         super().__init__(methodName)
 
     def setUp(self):
+        # 导入包
+        sys.path.append(os.path.abspath('.'))
+        from baiduspider.core import BaiduSpider
+        from baiduspider.errors import ParseError, UnknownError
         self.spider = BaiduSpider()
-        self.normal_query = 'Python'
+        self.assets_base_url = './baiduspider/tests/assets/web'
         self.normal_res = {
-            'title': 'python官方网站 - Welcome toPython.org',
-            'des': 'The official home of thePythonProgramming Language... #Python3: Simple output (with Unicode) >>> print("Hello, I\'mPython!") Hello, I\'mPython!',
-            'url': None,
+            'title': 'Welcome to Python.org',
+            'des': 'The official home of the Python Programming Language... # Python 3: Simple output (with Unicode) >>> print("Hello, I\'m Python!") Hello, I\'m Python!',
+            'url': 'http://www.baidu.com/link?url=yC-vpJc3cGCINc7SrFvV0A5-mBa3lrOseRMxZzZxXmlh1TqtxC8jgrOPHgSJi7_O',
             'time': None,
             'type': 'result',
-            'origin': 'www.python.org/',
+            'origin': 'www.python.org/'
         }
-        self.video_query = '1+1'
         self.video_res = {
-            'title': '这么简单的数学题1+1等于多少1+2等于多少都答错,真的是好搞笑啊',
-            'url': 'https://baijiahao.baidu.com/s?id=1636752055718346803&wfr=content',
-            'cover': 'https://vdposter.bdstatic.com/30f7291aaa82ca09f05a273ba0f199a9.jpeg?x-bce-process=image/resize,m_fill,w_256,h_170/format,f_jpg/quality,Q_100',
-            'length': '01:12',
+            'title': 'python在excel中神运用,亮瞎眼的操作哦',
+            'url': 'https://baijiahao.baidu.com/s?id=1659418735845772463&wfr=content',
+            'cover': 'https://vdposter.bdstatic.com/5ecdac23471e6248259e256427ea66c3.jpeg?x-bce-process=image/resize,m_fill,w_242,h_182/format,f_jpg/quality,Q_100',
+            'length': '05:41',
             'origin': '好看视频'
         }
-        self.baike_query = 'Python'
-        self.baike_res = {
-            'title': 'Python(计算机程序设计语言) - 百度百科',
-            'des': 'Python是一种跨平台的计算机程序设计语言。 是一个高层次的结合了解释性、编译性、互动性和面向对象的脚本语言。最初被设计用于编写自动化脚本(shell)，随着版本的不断更新和语言新功能的添加，越多被用于独立的、大型项目的开发。',
-            'cover': 'https://dss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=783017482,219941889&fm=74&app=80&f=JPEG&size=f121,121?sec=1880279984&t=a1d51ad46dbc4f05dde70b250aff0afd',
-            'cover-type': 'image',
-            'url': None
+        self.news_res = {
+            'author': '中国新闻网',
+            'time': '44分钟前',
+            'title': '美多地新冠病例统计出现失误 亚太进入疫情新阶段?',
+            'url': 'http://www.baidu.com/link?url=V75cHPuWp_4jdI7FfdxT7dIXzizYFj2h0wvk8GTMoMBiKqsPDa_TLMMd-yCUrxUQMbwEqM5YhcRgUv7QtvKyRjVIkXtq7VnS7owP_ywGBDu'
         }
-        self.calc_query = '20*4+5'
+        self.baike_img_res = {
+            'title': 'Python(计算机程序设计语言)_百度百科',
+            'des': 'Python是一种跨平台的计算机程序设计语言。 是一个高层次的结合了解释性、编译性、互动性和面向对象的脚本语言。最初被设计用于编写自动化脚本(shell)，随着版本的不断更新和语言...',
+            'cover': 'https://dss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=783017482,219941889&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=b639fbc82a72772a726d11888a54d8f6',
+            'cover-type': 'image',
+            'url': 'http://www.baidu.com/link?url=Clp7kAWYKDauuI0IomD4-yj3EPlzvzhtUsU8eODlD2b6rCmZ0R1mH3RgeuVxJ0QerYWOj1f2cI3gvqJPnDiaNa'
+        }
+        self.baike_video_res = {
+            'title': '我(汉语汉字)_百度百科',
+            'des': '我，汉语常用字，读作wǒ，最早见于甲骨文，其甲骨文本义指奴隶社会里一种用来行刑杀人和肢解牲口的凶器，后由本义衍生出“手持大戉，呐喊示威”等意；但到了战国时代，“我”字本义所代表的凶器被后起的更优良的凶器淘汰，于是“我”字在汉...',
+            'cover': 'http://www.baidu.com/link?url=6VGNfYIuPl2uh-HOGwQnK04K4WL2MICdv6ZpoEIhhgxAUanK2l1aTp_6oC51mpYh8LKEem911tdb4pgp3fNK3UN6GPDqFg-iXcmj9aHzQ4xEodjoO0fsgst1Mf3XAW_DW4idF_QXDhBW_R-vskbcZK',
+            'cover-type': 'video',
+            'url': 'http://www.baidu.com/link?url=2_SPS_eUtRUiJS3eT5pvwHmstP1QBW8YXGzDxc3QRRb0xqWBNkIRbL-S8isFYHztETZv59iF_iDPV5ognLjNna'
+        }
+        self.baike_none_res = {
+            'title': 'ASTM A106无缝钢管_百度百科',
+            'des': 'ASTM A106无缝钢管是属于美标的无缝钢管，材质是普通碳钢系列。',
+            'cover': None,
+            'cover-type': None,
+            'url': 'http://www.baidu.com/link?url=uLJ0kfXAXVu14FztaB4KMU7N4yN5lJikkRBI3b8LeUGGCn-8UoyHbYjo1jyXpVEB95B3htArzho5yreAGJS0SElyhz1euRHtbIb8hzpLESe_Q3Zqrt-U8RJARsapbJ4WLSxyjusGQK-ft_Xflkboz_'
+        }
         self.calc_res = {
-            'process': '20*4+5',
-            'result': '85',
+            'process': '20^5+107*13',
+            'result': '3 201 391',
             'type': 'calc'
         }
-        self.related_query = 'Python'
         self.related_res = ['python有什么用', 'python为什么叫爬虫', 'python教程',
-                            'python爬虫教程', 'Python官网', 'Python代码', 'Python怎么读', 'Python软件', 'Python3']
-        self.pages_query = 'Python'
+                            'Python官网', 'python爬虫教程', 'python和java', 'Python代码',
+                            'Python软件', 'Python3']
         self.pages_res = 10
-        self.total_query = 'Python'
-        self.total_res = 75700000
+        self.pages_single_res = 1
+        self.total_res = 74700000
+        self.invalid_res = ParseError
+        self.spider_invalid_param_res = ParseError
+        self.spider_unknown_error_res = UnknownError
 
-    def assertIn(self, member, container, msg=None, test_url=False):
-        """确认某个元素是否在数组中
-
-        Args:
-            member (any): 要检测的元素
-            container (any): 要检测的列表
-            msg (str, optional): 测试失败的信息. Defaults to None.
-            test_url (bool, optional): 是否测试字典中的链接（字典的['url']）. Defaults to False.
-        """
-        if not test_url:
-            for _ in container:
-                try:
-                    _['url'] = None
-                except:
-                    pass
-        if member not in container:
-            standardMsg = '%s not found in %s' % (safe_repr(member),
-                                                  safe_repr(container))
-            self.fail(self._formatMessage(msg, standardMsg))
+    def __get_asset(self, name):
+        return open('%s/test_web_%s.html' % (self.assets_base_url, name)).read()
 
     def test_normal_result(self):
         """测试普通搜索结果"""
-        result = self.spider.search_web(self.normal_query)
+        asset = self.__get_asset('normal')
+        result = self.spider.parser.parse_web(asset)
         self.assertIn(self.normal_res, result['results'])
 
     def test_video_result(self):
         """测试视频搜索结果"""
-        result = self.spider.search_web(self.video_query)
+        asset = self.__get_asset('video')
+        result = self.spider.parser.parse_web(asset)
         res = []
         for r in result['results']:
             if r['type'] == 'video':
                 res = r
                 break
-        self.assertIn(self.video_res, res['results'], test_url=True)
+        self.assertIn(self.video_res, res['results'])
 
     def test_news_result(self):
         """测试资讯搜索结果"""
-        # 资讯随时变化，无法测试
-        pass
+        asset = self.__get_asset('news')
+        result = self.spider.parser.parse_web(asset)
+        res = []
+        for r in result['results']:
+            if r['type'] == 'news':
+                res = r
+                break
+        self.assertIn(self.news_res, res['results'])
 
-    def test_baike_result(self):
-        """测试百科搜索结果"""
-        result = self.spider.search_web(self.baike_query)
+    def test_baike_img_result(self):
+        """测试百科封面类型为图片的搜索结果"""
+        asset = self.__get_asset('baike-img')
+        result = self.spider.parser.parse_web(asset)
         res = {}
         for r in result['results']:
             if r['type'] == 'baike':
                 res = r
                 break
-        res['result']['url'] = None
-        self.assertEqual(self.baike_res, res['result'])
+        self.assertEqual(self.baike_img_res, res['result'])
+
+    def test_baike_video_result(self):
+        """测试百科封面类型为视频的搜索结果"""
+        asset = self.__get_asset('baike-video')
+        result = self.spider.parser.parse_web(asset)
+        res = {}
+        for r in result['results']:
+            if r['type'] == 'baike':
+                res = r
+                break
+        self.assertEqual(self.baike_video_res, res['result'])
+
+    def test_baike_none_result(self):
+        """测试百科封面类型为空的搜索结果"""
+        asset = self.__get_asset('baike-none')
+        result = self.spider.parser.parse_web(asset)
+        res = {}
+        for r in result['results']:
+            if r['type'] == 'baike':
+                res = r
+                break
+        self.assertEqual(self.baike_none_res, res['result'])
 
     def test_calc_result(self):
         """测试运算搜索结果"""
-        result = self.spider.search_web(self.calc_query)
+        asset = self.__get_asset('calc')
+        result = self.spider.parser.parse_web(asset)
         res = {}
         for r in result['results']:
             if r['type'] == 'calc':
@@ -119,7 +156,8 @@ class WebTestCase(TestCase):
 
     def test_related_result(self):
         """测试相关搜索结果"""
-        result = self.spider.search_web(self.related_query)
+        asset = self.__get_asset('related')
+        result = self.spider.parser.parse_web(asset)
         res = []
         for r in result['results']:
             if r['type'] == 'related':
@@ -129,15 +167,44 @@ class WebTestCase(TestCase):
 
     def test_result_pages(self):
         """测试搜索结果页数"""
-        result = self.spider.search_web(self.pages_query)
-        self.assertEqual(self.pages_res, result['total'])
+        asset = self.__get_asset('pages')
+        result = self.spider.parser.parse_web(asset)
+        self.assertEqual(self.pages_res, result['pages'])
+
+    def test_result_pages_single(self):
+        """测试搜索结果仅有一页的页数"""
+        asset = self.__get_asset('pages-single')
+        result = self.spider.parser.parse_web(asset)
+        self.assertEqual(self.pages_single_res, result['pages'])
 
     def test_result_total(self):
         """测试总计搜索结果数"""
-        result = self.spider.search_web(self.total_query)
+        asset = self.__get_asset('total')
+        result = self.spider.parser.parse_web(asset)
         res = 0
         for r in result['results']:
             if r['type'] == 'total':
                 res = r
                 break
         self.assertEqual(self.total_res, res['result'])
+
+    def test_invalid_template(self):
+        """测试无效的HTML对BaiduSpider的影响"""
+        asset = self.__get_asset('invalid')
+        self.assertRaises(self.invalid_res,
+                          self.spider.parser.parse_web, asset)
+
+    def test_spider_request(self):
+        """测试爬虫获取网页"""
+        result = self.spider.search_web('Python')
+        self.assertIsNotNone(result['results'])
+
+    def test_spider_invalid_param(self):
+        """测试无效参数对BaiduSpider的影响"""
+        self.assertRaises(self.spider_invalid_param_res,
+                          self.spider.search_web, '')
+
+    def test_spider_unknown_error(self):
+        """测试未知错误对BaiduSpider的影响"""
+        self.assertRaises(self.spider_unknown_error_res,
+                          self.spider.search_web, 123)

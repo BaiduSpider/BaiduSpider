@@ -20,7 +20,7 @@ BaiduSpider.search_web(self: BaiduSpider, query: str, pn: int = 1) -> dict
 
 ```python
 # 导入BaiduSpider
-from baiduspider.core.main import BaiduSpider
+from baiduspider.core import BaiduSpider
 from pprint import pprint
 
 # 实例化BaiduSpider
@@ -33,7 +33,7 @@ pprint(spider.search_web(query=input('要搜索的关键词：')))
 #### 指定页码
 
 ```python
-from baiduspider.core.main import BaiduSpider
+from baiduspider.core import BaiduSpider
 from pprint import pprint
 
 spider = BaiduSpider()

@@ -17,7 +17,7 @@ $ git clone https://github.com/samzhangjy/BaiduSpider.git
 安装好了之后，打开BaiduSpider所在的文件夹，创建一个Python文件，输入下面的代码：
 
 ```python hl_lines="5"
-from baiduspider.core.main import BaiduSpider  # 导入BaiduSpider
+from baiduspider.core import BaiduSpider  # 导入BaiduSpider
 from pprint import pprint  # 导入pretty-print
 
 # 获取百度的搜索结果，搜索关键词是'爬虫'
