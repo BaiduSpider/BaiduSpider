@@ -52,19 +52,26 @@ class Parser(BaseSpider):
         else:
             news_rows = news.findAll('div', class_='c-row')
             news_detail = []
+            prev_row = None
             for row in news_rows:
-                row_title = self._format(row.find('a').text)
+                try:
+                    row_title = self._format(row.find('a').text)
+                except AttributeError:
+                    prev_row['des'] = self._format(row.text)
+                    continue
                 row_time = self._format(
-                    row.find('span', style='color:#666;float:right').text)
+                    row.find('span', class_='c-color-gray2').text)
                 row_author = self._format(
-                    row.find('span', style='color:#008000').text)
+                    row.find('span', class_='c-color-gray').text)
                 row_url = self._format(row.find('a')['href'])
                 news_detail.append({
                     'title': row_title,
                     'time': row_time,
                     'author': row_author,
-                    'url': row_url
+                    'url': row_url,
+                    'des': None
                 })
+                prev_row = news_detail[-1]
         # 预处理短视频
         video = soup.find('div', class_='op-short-video-pc')
         if video:

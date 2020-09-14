@@ -75,7 +75,8 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
                 'author': str,  # 新闻来源
                 'time': str,  # 新闻发布时间
                 'title': str,  # 新闻标题
-                'url': str  # 新闻链接
+                'url': str,  # 新闻链接
+                'des': str  # 新闻简介，大部分时间是None
             }],
             'type': 'news'
         },
@@ -185,7 +186,8 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
         'author': str,
         'time': str,
         'title': str,
-        'url': str
+        'url': str,
+        'des': str
     }],
     'type': 'news'
 }
@@ -198,6 +200,7 @@ pprint(spider.search_web(query=input('要搜索的关键词：'), pn=int(input('
     - `time`：新闻发布时间，类型为`str`
     - `title`：新闻标题，类型为`str`
     - `url`：新闻链接，类型为`str`
+    - `des`：新闻简介，类型为`str`，大部分时间为None
 - `type`：该项表示该结果的类别，值为`news`，类型是`str`
 
 !!!warning

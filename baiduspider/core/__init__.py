@@ -101,7 +101,8 @@ class BaiduSpider(BaseSpider):
                                 'author': 'str, 新闻来源',
                                 'time': 'str, 新闻发布时间',
                                 'title': 'str, 新闻标题',
-                                'url': 'str, 新闻链接'
+                                'url': 'str, 新闻链接',
+                                'des': 'str, 新闻简介，大部分情况为None'
                             },
                             { ... },
                             { ... },
