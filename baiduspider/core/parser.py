@@ -20,7 +20,9 @@ class Parser(BaseSpider):
         Returns:
             dict: 解析后的结果
         """
-        soup = BeautifulSoup(self._minify(content), 'html.parser')
+        soup = BeautifulSoup(content, 'html.parser')
+        if soup.find('div', id='content_left') is None:
+            raise ParseError('Invalid HTML content.')
         # 尝试获取搜索结果总数
         try:
             num = int(str(soup.find('span', class_='nums_text').text).strip(
@@ -142,8 +144,7 @@ class Parser(BaseSpider):
         # 预处理源码
         error = False
         try:
-            soup = BeautifulSoup(self._minify(
-                str(soup.findAll(id='content_left')[0])), 'html.parser')
+            soup = BeautifulSoup(content, 'html.parser')
         # 错误处理
         except IndexError:
             error = True
@@ -151,21 +152,17 @@ class Parser(BaseSpider):
             if error:
                 raise ParseError(
                     'Failed to generate BeautifulSoup object for the given source code content.')
-        results = BeautifulSoup(self._minify(
-            str(soup)), 'html.parser').findAll(class_='c-container')
+        results = soup.findAll('div', class_='result')
         res = []
         for result in results:
-            des = None
-            soup = BeautifulSoup(self._minify(str(
-                result)), 'html.parser')
+            soup = BeautifulSoup(self._minify(str(result)), 'html.parser')
             # 链接
-            href = soup.find_all('a', target='_blank')[0].get('href').strip()
+            href = soup.find('a').get('href').strip()
             # 标题
-            title = self._format(
-                str(soup.find_all('a', target='_blank')[0].text))
+            title = self._format(str(soup.find('a').text))
             # 时间
             try:
-                time = self._format(soup.find_all(
+                time = self._format(soup.findAll(
                     'div', class_='c-abstract')[0].find('span', class_='newTimeFactor_before_abs').text)
             except (AttributeError, IndexError):
                 time = None
@@ -237,10 +234,13 @@ class Parser(BaseSpider):
                     'time': time,
                     'type': 'result'})
         soup = BeautifulSoup(content, 'html.parser')
-        soup = BeautifulSoup(str(soup.findAll('div', id='page')
-                                 [0]), 'html.parser')
-        # 分页
-        pages_ = soup.findAll('span', class_='pc')
+        try:
+            soup = BeautifulSoup(str(soup.findAll('div', id='page')
+                                    [0]), 'html.parser')
+            # 分页
+            pages_ = soup.findAll('span', class_='pc')
+        except IndexError:
+            pages_ = []
         pages = []
         for _ in pages_:
             pages.append(int(_.text))
@@ -275,9 +275,10 @@ class Parser(BaseSpider):
                 'flip.setData(')[0].split(']);')[0].replace(');', '').replace('<\\/strong>', '</strong>').replace('\\\'', '\''))
         except Exception as err:
             error = err
+            if type(err) in [IndexError, AttributeError]:
+                raise ParseError('Invalid HTML content.')
         finally:
             if error: raise ParseError(str(error))
-            del error
         results = []
         for _ in data['data'][:-1]:
             if _:

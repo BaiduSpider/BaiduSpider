@@ -5,6 +5,7 @@
 from unittest import TestCase
 import sys
 import os
+import requests
 
 class PicTestCase(TestCase):
     def __init__(self, methodName):
@@ -20,7 +21,7 @@ class PicTestCase(TestCase):
         from baiduspider.core import BaiduSpider
         from baiduspider.errors import ParseError
         self.spider = BaiduSpider()
-        self.assets_base_url = './baiduspider/tests/assets/pic'
+        self.assets_base_url = 'https://gitlab.com/samzhangjy/BaiduSpiderTestAssets/-/raw/master/pic'
         self.normal_res = {
             'host': 'www.cwq.com',
             'title': 'python中文社区',
@@ -28,7 +29,7 @@ class PicTestCase(TestCase):
         }
     
     def __get_asset(self, name):
-        return open('%s/test_pic_%s.html' % (self.assets_base_url, name)).read()
+        return requests.get('{base_url}/test_pic_{name}.html'.format(base_url=self.assets_base_url, name=name)).text
 
     def test_pic_normal(self):
         """测试普通搜索结果"""
@@ -37,5 +38,7 @@ class PicTestCase(TestCase):
         self.assertIn(self.normal_res, result['results'])
     
     def test_spider_request(self):
-        """测试"""
+        """测试爬虫获取网页"""
+        result = self.spider.search_web('Python')
+        self.assertIsNotNone(result['results'])
         

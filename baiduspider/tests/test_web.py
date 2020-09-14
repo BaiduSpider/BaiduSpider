@@ -5,6 +5,7 @@
 import os
 import sys
 from unittest import TestCase
+import requests
 
 
 class WebTestCase(TestCase):
@@ -21,7 +22,7 @@ class WebTestCase(TestCase):
         from baiduspider.core import BaiduSpider
         from baiduspider.errors import ParseError, UnknownError
         self.spider = BaiduSpider()
-        self.assets_base_url = './baiduspider/tests/assets/web'
+        self.assets_base_url = 'https://gitlab.com/samzhangjy/BaiduSpiderTestAssets/-/raw/master/web'
         self.normal_res = {
             'title': 'Welcome to Python.org',
             'des': 'The official home of the Python Programming Language... # Python 3: Simple output (with Unicode) >>> print("Hello, I\'m Python!") Hello, I\'m Python!',
@@ -80,7 +81,7 @@ class WebTestCase(TestCase):
         self.spider_unknown_error_res = UnknownError
 
     def __get_asset(self, name):
-        return open('%s/test_web_%s.html' % (self.assets_base_url, name)).read()
+        return requests.get('{base_url}/test_web_{name}.html'.format(base_url=self.assets_base_url, name=name)).text
 
     def test_normal_result(self):
         """测试普通搜索结果"""
