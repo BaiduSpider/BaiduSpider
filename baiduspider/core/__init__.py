@@ -430,7 +430,7 @@ class BaiduSpider(BaseSpider):
         Returns:
             dict: 爬取的搜索结果与总页码。
         """
-        url = 'https://www.baidu.com/s?tn=news&word=%s&pn=%d' % (
+        url = 'https://www.baidu.com/s?rtt=1&bsst=1&tn=news&word=%s&pn=%d' % (
             quote(query), (pn - 1) * 10)
         # 源码
         source = requests.get(url, headers=self.headers)
@@ -450,7 +450,7 @@ class BaiduSpider(BaseSpider):
             # 简介
             des = res.find('div', class_='c-span-last').find('span', class_='c-color-text').text
             # 作者
-            author = res.find('div', class_='c-span-last').find('div', class_='news-source').find('span').text
+            author = res.find('div', class_='c-span-last').find('div', class_='news-source').find('span', class_='c-gap-right').text
             # 发布日期
             date = res.find('div', class_='c-span-last').find('div', class_='news-source').find('span', class_='c-color-gray2').text
             # 生成结果
