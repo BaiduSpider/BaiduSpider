@@ -39,10 +39,10 @@ class WebTestCase(TestCase):
             'origin': '好看视频'
         }
         self.news_res = {
-            'author': '中国新闻网',
-            'time': '44分钟前',
-            'title': '美多地新冠病例统计出现失误 亚太进入疫情新阶段?',
-            'url': 'http://www.baidu.com/link?url=V75cHPuWp_4jdI7FfdxT7dIXzizYFj2h0wvk8GTMoMBiKqsPDa_TLMMd-yCUrxUQMbwEqM5YhcRgUv7QtvKyRjVIkXtq7VnS7owP_ywGBDu'
+            'author': '国际在线',
+            'time': '8分钟前',
+            'title': '特朗普确诊新冠!',
+            'url': 'https://www.baidu.com/link?url=nHKnpoNlfuAKiMPYnLs6Y0dkp3Fbsi2gEAXrqhTjr_mAYajSD9Djqb37LBUhFdgbDSyjz47S15nHgyBYdZBxHDC_Yle5oJUXFJGstl6o_6m&wd=&eqid=a52978c6000b8a10000000025f77f295'
         }
         self.baike_img_res = {
             'title': 'Python(计算机程序设计语言)_百度百科',
