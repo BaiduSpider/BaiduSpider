@@ -1,9 +1,0 @@
-version: "3.4"
-services:
-  python:
-    build:
-      context: .
-    container_name: api
-    image: samzhangjy/baiduspider:1.0.0
-    ports:
-      - 8000:8000
