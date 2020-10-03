@@ -22,7 +22,7 @@ class WebTestCase(TestCase):
         from baiduspider.core import BaiduSpider
         from baiduspider.errors import ParseError, UnknownError
         self.spider = BaiduSpider()
-        self.assets_base_url = 'https://gitlab.com/samzhangjy/BaiduSpiderTestAssets/-/raw/master/web'
+        self.assets_base_url = 'https://raw.githubusercontent.com/BaiduSpider/BaiduSpiderTestAssets/master/web'
         self.normal_res = {
             'title': 'Welcome to Python.org',
             'des': 'The official home of the Python Programming Language... # Python 3: Simple output (with Unicode) >>> print("Hello, I\'m Python!") Hello, I\'m Python!',

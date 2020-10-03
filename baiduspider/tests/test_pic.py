@@ -21,7 +21,7 @@ class PicTestCase(TestCase):
         from baiduspider.core import BaiduSpider
         from baiduspider.errors import ParseError
         self.spider = BaiduSpider()
-        self.assets_base_url = 'https://gitlab.com/samzhangjy/BaiduSpiderTestAssets/-/raw/master/pic'
+        self.assets_base_url = 'https://raw.githubusercontent.com/BaiduSpider/BaiduSpiderTestAssets/master/pic'
         self.normal_res = {
             'host': 'www.cwq.com',
             'title': 'python中文社区',
