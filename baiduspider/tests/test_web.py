@@ -42,7 +42,7 @@ class WebTestCase(TestCase):
             'author': '国际在线',
             'time': '8分钟前',
             'title': '特朗普确诊新冠!',
-            'url': 'https://www.baidu.com/link?url=nHKnpoNlfuAKiMPYnLs6Y0dkp3Fbsi2gEAXrqhTjr_mAYajSD9Djqb37LBUhFdgbDSyjz47S15nHgyBYdZBxHDC_Yle5oJUXFJGstl6o_6m&wd=&eqid=a52978c6000b8a10000000025f77f295'
+            'url': 'http://www.baidu.com/link?url=_APr4uGsSQzeq7MRkeoxLZlS6TfL8np6zzDnQqVuM9_Kwby5rypESvXHhX5ByEBChsusU4ZO_0p4smy0iz4iP0Kh2QsACY9s1_Fa1YACavW'
         }
         self.baike_img_res = {
             'title': 'Python(计算机程序设计语言)_百度百科',
