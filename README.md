@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="40%" src="./docs/docs/assets/favicon.png" alt="vuesax" />
+    <img width="40%" src="./docs/docs/assets/favicon.png" alt="BaiduSpider" />
     <br />
     <h2 align="center">
         BaiduSpider
