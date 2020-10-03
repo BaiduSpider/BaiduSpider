@@ -142,7 +142,7 @@ pprint(spider.search_web(query='Python'))
  'total': 10}
 ```
 
-更详细的新手教程可在[文档](https://samzhangjy.github.io/BaiduSpider/usage/get-started/)中找到。
+更详细的新手教程可在[文档](https://baiduspider.github.io/usage/get-started/)中找到。
 
 <br />
 
