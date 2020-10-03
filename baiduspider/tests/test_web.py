@@ -40,7 +40,7 @@ class WebTestCase(TestCase):
         }
         self.news_res = {
             'author': '国际在线',
-            'time': '8分钟前',
+            'time': '9分钟前',
             'title': '特朗普确诊新冠!',
             'url': 'http://www.baidu.com/link?url=_APr4uGsSQzeq7MRkeoxLZlS6TfL8np6zzDnQqVuM9_Kwby5rypESvXHhX5ByEBChsusU4ZO_0p4smy0iz4iP0Kh2QsACY9s1_Fa1YACavW'
         }
