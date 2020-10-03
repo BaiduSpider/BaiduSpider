@@ -28,7 +28,7 @@
         <img alt="GitHub forks" src="https://img.shields.io/github/forks/BaiduSpider/BaiduSpider">
     </a>
     <a href="https://travis-ci.org/github/BaiduSpider/BaiduSpider">
-        <img alt="build status" src="https://travis-ci.org/BaiduSpider/BaiduSpider.svg?branch=master&status=passed">
+        <img alt="build status" src="https://travis-ci.org/BaiduSpider/BaiduSpider.svg?branch=master">
     </a>
 </p>
 
