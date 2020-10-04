@@ -18,8 +18,8 @@ from urllib.parse import quote, urlparse
 import requests
 from bs4 import BeautifulSoup
 
-from baiduspider.core._spider import BaseSpider
-from baiduspider.core.parser import Parser
+from baiduspider._spider import BaseSpider
+from baiduspider.parser import Parser
 from baiduspider.errors import ParseError, UnknownError
 
 __all__ = ['BaiduSpider']

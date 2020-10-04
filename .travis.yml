@@ -4,4 +4,4 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - python baiduspider/tests/__init__.py
+  - python tests/__init__.py

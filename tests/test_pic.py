@@ -18,10 +18,10 @@ class PicTestCase(TestCase):
     def setUp(self):
         # 导入包
         sys.path.append(os.path.abspath('.'))
-        from baiduspider.core import BaiduSpider
+        from baiduspider import BaiduSpider
         from baiduspider.errors import ParseError
         self.spider = BaiduSpider()
-        self.assets_base_url = 'https://raw.githubusercontent.com/BaiduSpider/BaiduSpiderTestAssets/master/pic'
+        self.assets_base_url = 'https://cdn.jsdelivr.net/gh/BaiduSpider/BaiduSpiderTestAssets/pic'
         self.normal_res = {
             'host': 'www.cwq.com',
             'title': 'python中文社区',

@@ -19,10 +19,10 @@ class WebTestCase(TestCase):
     def setUp(self):
         # 导入包
         sys.path.append(os.path.abspath('.'))
-        from baiduspider.core import BaiduSpider
+        from baiduspider import BaiduSpider
         from baiduspider.errors import ParseError, UnknownError
         self.spider = BaiduSpider()
-        self.assets_base_url = 'https://raw.githubusercontent.com/BaiduSpider/BaiduSpiderTestAssets/master/web'
+        self.assets_base_url = 'https://cdn.jsdelivr.net/gh/BaiduSpider/BaiduSpiderTestAssets/web'
         self.normal_res = {
             'title': 'Welcome to Python.org',
             'des': 'The official home of the Python Programming Language... # Python 3: Simple output (with Unicode) >>> print("Hello, I\'m Python!") Hello, I\'m Python!',
@@ -42,7 +42,8 @@ class WebTestCase(TestCase):
             'author': '国际在线',
             'time': '9分钟前',
             'title': '特朗普确诊新冠!',
-            'url': 'http://www.baidu.com/link?url=_APr4uGsSQzeq7MRkeoxLZlS6TfL8np6zzDnQqVuM9_Kwby5rypESvXHhX5ByEBChsusU4ZO_0p4smy0iz4iP0Kh2QsACY9s1_Fa1YACavW'
+            'url': 'http://www.baidu.com/link?url=_APr4uGsSQzeq7MRkeoxLZlS6TfL8np6zzDnQqVuM9_Kwby5rypESvXHhX5ByEBChsusU4ZO_0p4smy0iz4iP0Kh2QsACY9s1_Fa1YACavW',
+            'des': None
         }
         self.baike_img_res = {
             'title': 'Python(计算机程序设计语言)_百度百科',

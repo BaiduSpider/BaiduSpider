@@ -3,7 +3,7 @@ from html import unescape
 
 from bs4 import BeautifulSoup
 
-from baiduspider.core._spider import BaseSpider
+from baiduspider._spider import BaseSpider
 from baiduspider.errors import ParseError
 
 

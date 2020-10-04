@@ -30,11 +30,50 @@
     <a href="https://travis-ci.org/github/BaiduSpider/BaiduSpider">
         <img alt="build status" src="https://travis-ci.org/BaiduSpider/BaiduSpider.svg?branch=master">
     </a>
+    <a href="https://pepy.tech/project/baiduspider">
+        <img alt="downloads" src="https://pepy.tech/badge/baiduspider/month">
+    </a>
 </p>
 
 <h1></h1>
 
 BaiduSpider是一个爬取百度搜索结果的Python爬虫，目前支持百度网页搜索，百度图片搜索，百度知道搜索，百度视频搜索，百度资讯搜索，百度文库搜索，百度经验搜索和百度百科搜索。
+
+<br />
+
+<h2 align="center">
+    安装
+</h2>
+
+<br />
+
+BaiduSpider现已发布PyPI包，可以使用`pip`安装：
+
+```bash
+$ pip install baiduspider
+```
+
+或者从GitHub直接clone：
+
+```bash
+$ git clone https://github.com/BaiduSpider/BaiduSpider.git
+
+# ...
+
+$ python setup.py install
+```
+
+<br />
+
+<h3 align="center">
+    提示
+</h3>
+
+<p align="center">
+    <b>
+        BaiduSpider目前仅支持Python 3.6+，暂不支持Python 2.x
+    </b>
+</p>
 
 <br />
 

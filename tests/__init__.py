@@ -6,7 +6,7 @@ def run_tests():
     此函数将会自动运行所有位于`tests`文件夹内的单元测试
     """
     # 检测所有测试
-    tests = TestLoader().discover('./baiduspider/tests')
+    tests = TestLoader().discover('./tests')
     # 运行测试
     TextTestRunner(verbosity=2).run(tests)
 

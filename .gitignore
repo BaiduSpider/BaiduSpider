@@ -9,5 +9,8 @@ zhihu.py
 .DS_Store
 download.py
 /docs-old/
+/build/
+/dist/
+/BaiduSpider.egg-info/
 htmlcov/
 .coverage
