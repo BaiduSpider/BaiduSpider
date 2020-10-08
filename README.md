@@ -87,7 +87,7 @@ BaiduSpider提供简易的，人性化的API，可通过实例化`BaiduSpider`�
 
 ```python
 # 导入BaiduSpider
-from baiduspider.core import BaiduSpider
+from baiduspider import BaiduSpider
 from pprint import pprint
 
 # 实例化BaiduSpider
