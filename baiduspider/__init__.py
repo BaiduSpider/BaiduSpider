@@ -223,8 +223,7 @@ class BaiduSpider(BaseSpider):
         try:
             url = 'http://image.baidu.com/search/flip?tn=baiduimage&word=%s&pn=%d' % (
                 quote(query), (pn - 1) * 20)
-            source = requests.get(url, headers=self.headers)
-            content = source.text
+            content = self._get_response(url)
             result = self.parser.parse_pic(content)
         except Exception as err:
             error = err

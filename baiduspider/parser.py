@@ -23,12 +23,9 @@ class Parser(BaseSpider):
         soup = BeautifulSoup(content, 'html.parser')
         if soup.find('div', id='content_left') is None:
             raise ParseError('Invalid HTML content.')
-        # 尝试获取搜索结果总数
-        try:
-            num = int(str(soup.find('span', class_='nums_text').text).strip(
-                '百度为您找到相关结果约').strip('个').replace(',', ''))
-        except:
-            num = 0
+        # 获取搜索结果总数
+        num = int(str(soup.find('span', class_='nums_text').text).strip(
+            '百度为您找到相关结果约').strip('个').replace(',', ''))
         # 查找运算窗口
         calc = soup.find('div', class_='op_new_cal_screen')
         # 定义预结果（运算以及相关搜索）
@@ -36,7 +33,7 @@ class Parser(BaseSpider):
         # 预处理相关搜索
         try:
             _related = soup.find('div', id='rs').find('table').find_all('th')
-        except:
+        except AttributeError:
             _related = []
         related = []
         # 预处理新闻
@@ -150,15 +147,7 @@ class Parser(BaseSpider):
             pre_results.append(dict(type='baike', result=baike))
         # 预处理源码
         error = False
-        try:
-            soup = BeautifulSoup(content, 'html.parser')
-        # 错误处理
-        except IndexError:
-            error = True
-        finally:
-            if error:
-                raise ParseError(
-                    'Failed to generate BeautifulSoup object for the given source code content.')
+        soup = BeautifulSoup(content, 'html.parser')
         results = soup.findAll('div', class_='result')
         res = []
         for result in results:
@@ -207,11 +196,9 @@ class Parser(BaseSpider):
             #     else:
             #         domain = None
             #         path = None
-            try:
-                is_not_special = result['tpl'] not in [
-                    'short_video_pc', 'sp_realtime_bigpic5', 'bk_polysemy']
-            except KeyError:
-                is_not_special = False
+            is_not_special = result['tpl'] not in [
+                'short_video_pc', 'sp_realtime_bigpic5', 'bk_polysemy']
+            domain = None
             if is_not_special:  # 确保不是特殊类型的结果
                 # 获取可见的域名
                 try:
@@ -229,8 +216,6 @@ class Parser(BaseSpider):
                             domain = None
                 if domain:
                     domain = domain.replace(' ', '')
-            else:
-                domain = None
             # 加入结果
             if title and href and is_not_special:
                 res.append({
@@ -241,13 +226,10 @@ class Parser(BaseSpider):
                     'time': time,
                     'type': 'result'})
         soup = BeautifulSoup(content, 'html.parser')
-        try:
-            soup = BeautifulSoup(str(soup.findAll('div', id='page')
-                                    [0]), 'html.parser')
-            # 分页
-            pages_ = soup.findAll('span', class_='pc')
-        except IndexError:
-            pages_ = []
+        soup = BeautifulSoup(str(soup.findAll('div', id='page')
+                                [0]), 'html.parser')
+        # 分页
+        pages_ = soup.findAll('span', class_='pc')
         pages = []
         for _ in pages_:
             pages.append(int(_.text))

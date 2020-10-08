@@ -22,7 +22,7 @@ class WebTestCase(TestCase):
         from baiduspider import BaiduSpider
         from baiduspider.errors import ParseError, UnknownError
         self.spider = BaiduSpider()
-        self.assets_base_url = 'https://cdn.jsdelivr.net/gh/BaiduSpider/BaiduSpiderTestAssets/web'
+        self.assets_base_url = 'https://cdn.jsdelivr.net/gh/BaiduSpider/BaiduSpiderTestAssets@master/web'
         self.normal_res = {
             'title': 'Welcome to Python.org',
             'des': 'The official home of the Python Programming Language... # Python 3: Simple output (with Unicode) >>> print("Hello, I\'m Python!") Hello, I\'m Python!',
@@ -80,6 +80,8 @@ class WebTestCase(TestCase):
         self.invalid_res = ParseError
         self.spider_invalid_param_res = ParseError
         self.spider_unknown_error_res = UnknownError
+        self.no_related_res = []
+        self.no_pager_res = 1
 
     def __get_asset(self, name):
         return requests.get('{base_url}/test_web_{name}.html'.format(base_url=self.assets_base_url, name=name)).text
@@ -191,7 +193,7 @@ class WebTestCase(TestCase):
         self.assertEqual(self.total_res, res['result'])
 
     def test_invalid_template(self):
-        """测试无效的HTML对BaiduSpider的影响"""
+        """测试无效的HTML对网页搜索的影响"""
         asset = self.__get_asset('invalid')
         self.assertRaises(self.invalid_res,
                           self.spider.parser.parse_web, asset)
@@ -202,11 +204,30 @@ class WebTestCase(TestCase):
         self.assertIsNotNone(result['results'])
 
     def test_spider_invalid_param(self):
-        """测试无效参数对BaiduSpider的影响"""
+        """测试无效参数对网页搜索的影响"""
         self.assertRaises(self.spider_invalid_param_res,
                           self.spider.search_web, '')
 
     def test_spider_unknown_error(self):
-        """测试未知错误对BaiduSpider的影响"""
+        """测试未知错误对网页搜索的影响"""
         self.assertRaises(self.spider_unknown_error_res,
                           self.spider.search_web, 123)
+    
+    def test_no_related(self):
+        """测试没有相关搜索结果对网页搜索的影响"""
+        asset = self.__get_asset('no_related')
+        result = self.spider.parser.parse_web(asset)
+        res = []
+        for r in result['results']:
+            # 此判断不应该通过
+            if r['type'] == 'related':  # pragma: no cover
+                res = r
+                break
+        self.assertEqual(self.no_related_res, res)
+    
+    def test_no_pager(self):
+        """测试没有分页的搜索结果对爬虫对影响"""
+        asset = self.__get_asset('no_pager')
+        result = self.spider.parser.parse_web(asset)
+        res = result['pages']
+        self.assertEqual(self.no_pager_res, res)
