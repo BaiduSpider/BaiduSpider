@@ -14,3 +14,4 @@ download.py
 /BaiduSpider.egg-info/
 htmlcov/
 .coverage
+exp.py

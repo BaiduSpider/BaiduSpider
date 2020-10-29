@@ -261,11 +261,13 @@ class Parser(BaseSpider):
         error = None
         try:
             data = json.loads(content.split('flip.setData(\'imgData\', ')[1].split(
-                'flip.setData(')[0].split(']);')[0].replace(');', '').replace('<\\/strong>', '</strong>').replace('\\\'', '\''))
+                'flip.setData(')[0].split(']);')[0].replace(');', '').replace('<\\/strong>', '</strong>').replace('\\\'', '\'').replace('\\"', '\''))
         except Exception as err:
             error = err
             if type(err) in [IndexError, AttributeError]:
                 raise ParseError('Invalid HTML content.')
+            print(content.split('flip.setData(\'imgData\', ')[1].split(
+                'flip.setData(')[0].split(']);')[0].replace(');', '').replace('<\\/strong>', '</strong>').replace('\\\'', '\'').replace('\\"', '\''))
         finally:
             if error: raise ParseError(str(error))
         results = []

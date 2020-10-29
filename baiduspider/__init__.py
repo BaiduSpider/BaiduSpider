@@ -270,7 +270,7 @@ class BaiduSpider(BaseSpider):
         Returns:
             dict: 搜索结果以及总页码
         """
-        url = 'https://zhidao.baidu.com/search?pn=%d&tn=ikaslis&word=%s' % (
+        url = 'https://zhidao.baidu.com/search?pn=%d&word=%s' % (
             (pn - 1) * 10, quote(query))
         source = requests.get(url, headers=self.headers)
         # 转化编码
@@ -285,17 +285,17 @@ class BaiduSpider(BaseSpider):
             if 'ec-oad' in item['class']:
                 continue
             # 标题
-            title = item.find('dt').text
+            title = item.find('dt').text.strip('\n')
             # 链接
             url = item.find('dt').find('a')['href']
             # 简介
-            des = item.find('dd').text.strip('答：')
+            des = item.find('dd', class_='answer').text.split('答：', 1)[-1]
             tmp = item.find('dd', class_='explain').findAll(
                 'span', class_='mr-8')
             # 发布日期
-            date = tmp[0].text
+            date = item.find('dd', class_='explain').find('span', class_='mr-7').text
             # 回答总数
-            count = int(str(tmp[-1].text).strip('个回答'))
+            count = int(str(tmp[-1].text).strip('\n').strip('个回答'))
             # 生成结果
             result = {
                 'title': title,
