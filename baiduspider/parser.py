@@ -41,15 +41,14 @@ class Parser(BaseSpider):
                          tpl='sp_realtime_bigpic5', srcid='19')
         # 确认是否有新闻块
         try:
-            news_title = self._format(
+            self._format(
                 news.find('h3', class_='t').find('a').text)
         except:
-            news_title = None
             news_detail = []
         else:
             news_rows = news.findAll('div', class_='c-row')
             news_detail = []
-            prev_row = None
+            prev_row = {}
             for row in news_rows:
                 try:
                     row_title = self._format(row.find('a').text)
@@ -126,6 +125,44 @@ class Parser(BaseSpider):
                 'cover': b_cover,
                 'cover-type': b_cover_type
             }
+        # 预处理贴吧
+        tieba = BeautifulSoup(content, 'html.parser').find('div', srcid='10')
+        if tieba and tieba.find('div', class_='op-tieba-general-col-top-xs'):
+            t_title = self._format(tieba.find('h3').text)
+            t_url = tieba['mu']
+            t_info_ = tieba.find('div', class_='op-tieba-general-col-top-xs').findAll('p')
+            t_des = self._format(t_info_[0].text)
+            t_followers = self._format(t_info_[1].find('span').find('span').text)
+            t_total = self._format(t_info_[2].find('span').find('span').text)
+            t_cover = tieba.find('a', class_='op-tieba-general-photo-link').find('img')['src']
+            t_hot_ = tieba.findAll('div', class_='c-row')[1:]
+            t_hot = []
+            i = 1
+            for hot in t_hot_:
+                t_h_title = self._format(hot.find('a').text)
+                t_h_url = hot.find('a')['href']
+                t_h_clicks = self._format(hot.find('span', class_='op-mthread%d-clicknum' % i).text)
+                t_h_replies = self._format(hot.find('span', class_='op-mthread%d-replaynumber' % i).text)
+                t_hot.append({
+                    'title': t_h_title,
+                    'url': t_h_url,
+                    'clicks': t_h_clicks,
+                    'replies': t_h_replies
+                })
+                i += 1
+            del i
+            tieba = {
+                'title': t_title,
+                'url': t_url,
+                'des': t_des,
+                'followers': t_followers,
+                'total': t_total,
+                'cover': t_cover,
+                'hot': t_hot
+            }
+        # 加载贴吧
+        if tieba:
+            pre_results.append(dict(type='tieba', result=tieba))
         # 加载搜索结果总数
         if num != 0:
             pre_results.append(dict(type='total', result=num))
@@ -146,11 +183,14 @@ class Parser(BaseSpider):
         if baike:
             pre_results.append(dict(type='baike', result=baike))
         # 预处理源码
-        error = False
         soup = BeautifulSoup(content, 'html.parser')
         results = soup.findAll('div', class_='result')
         res = []
         for result in results:
+            try:
+                result['tpl']
+            except:
+                continue
             soup = BeautifulSoup(self._minify(str(result)), 'html.parser')
             # 链接
             href = soup.find('a').get('href').strip()
@@ -196,19 +236,23 @@ class Parser(BaseSpider):
             #     else:
             #         domain = None
             #         path = None
+            try:
+                result['tpl']
+            except:
+                print(result.prettify())
             is_not_special = result['tpl'] not in [
-                'short_video_pc', 'sp_realtime_bigpic5', 'bk_polysemy']
+                'short_video_pc', 'sp_realtime_bigpic5', 'bk_polysemy', 'tieba_general']
             domain = None
             if is_not_special:  # 确保不是特殊类型的结果
                 # 获取可见的域名
                 try:
                     domain = result.find('div', class_='c-row').find('div', class_='c-span-last').find(
                         'div', class_='se_st_footer').find('a', class_='c-showurl').text
-                except Exception as error:
+                except Exception:
                     try:
                         domain = result.find(
                             'div', class_='c-row').find('div', class_='c-span-last').find('p', class_='op-bk-polysemy-move').find('span', class_='c-showurl').text
-                    except Exception as error:
+                    except Exception:
                         try:
                             domain = result.find(
                                 'div', class_='se_st_footer').find('a', class_='c-showurl').text
@@ -261,13 +305,11 @@ class Parser(BaseSpider):
         error = None
         try:
             data = json.loads(content.split('flip.setData(\'imgData\', ')[1].split(
-                'flip.setData(')[0].split(']);')[0].replace(');', '').replace('<\\/strong>', '</strong>').replace('\\\'', '\'').replace('\\"', '\''))
+                'flip.setData(')[0].split(']);')[0].replace(');', '').replace('<\\/strong>', '</strong>').replace('\\\'', '\'').replace('\\"', '\''), strict=False)
         except Exception as err:
             error = err
             if type(err) in [IndexError, AttributeError]:
                 raise ParseError('Invalid HTML content.')
-            print(content.split('flip.setData(\'imgData\', ')[1].split(
-                'flip.setData(')[0].split(']);')[0].replace(');', '').replace('<\\/strong>', '</strong>').replace('\\\'', '\'').replace('\\"', '\''))
         finally:
             if error: raise ParseError(str(error))
         results = []

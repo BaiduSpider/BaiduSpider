@@ -59,12 +59,11 @@ class BaiduSpider(BaseSpider):
         self.spider_name = 'BaiduSpider'
         # 设置请求头
         self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36',
             'Referer': 'https://www.baidu.com',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
             'Accept-Encoding': 'gzip, deflate, br',
-            'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
-            'Cookie': 'BAIDUID=BB66E815C068DD2911DB67F3F84E9AA5:FG=1; BIDUPSID=BB66E815C068DD2911DB67F3F84E9AA5; PSTM=1592390872; BD_UPN=123253; BDUSS=RQa2c4eEdKMkIySjJ0dng1ZDBLTDZEbVNHbmpBLU1rcFJkcVViaTM5NUdNaDFmRVFBQUFBJCQAAAAAAAAAAAEAAAAPCkwAZGF5ZGF5dXAwNgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEal9V5GpfVebD; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; BD_HOME=1; delPer=0; BD_CK_SAM=1; PSINO=2; COOKIE_SESSION=99799_0_5_2_8_0_1_0_5_0_0_0_99652_0_3_0_1593609921_0_1593609918%7C9%230_0_1593609918%7C1; H_PS_PSSID=1457_31326_32139_31660_32046_32231_32091_32109_31640; sug=3; sugstore=0; ORIGIN=0; bdime=0; BDRCVFR[feWj1Vr5u3D]=I67x6TjHwwYf0; H_PS_645EC=1375sSQTgv84OSzYM3CN5w5Whp9Oy7MkdGdBcw5umqOIFr%2FeFZO4D952XrS0pC1kVwPI; BDSVRTM=223'
+            'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7'
         }
         self.parser = Parser()
 
@@ -139,6 +138,24 @@ class BaiduSpider(BaseSpider):
                         },
                         'type': 'baike'
                         # 这类搜索结果仅会在搜索词有相关百科时出现，不一定每个搜索结果都会出现的
+                    },
+                    {
+                        'result': {
+                                'cover': 'str, 贴吧封面图片链接',
+                                'des': 'str, 贴吧简介',
+                                'title': 'str, 贴吧标题',
+                                'url': 'str, 贴吧链接',
+                                'followers': 'str, 贴吧关注人数（可能有汉字，如：1万）',
+                                'hot': [{  # list, 热门帖子
+                                    'clicks': 'str, 帖子点击总数',
+                                    'replies': 'str, 帖子回复总数',
+                                    'title': 'str, 帖子标题',
+                                    'url': 'str, 帖子链接'
+                                }],
+                                'total': 'str, 贴吧总帖子数（可能有汉字，如：17万）'
+                        },
+                        'type': 'tieba'
+                        # 这类搜索结果仅会在搜索词有相关贴吧时出现，不一定每个搜索结果都会出现的
                     },
                     {
                         'des': 'str, 搜索结果简介',
@@ -355,8 +372,9 @@ class BaiduSpider(BaseSpider):
         Returns:
             dict: 搜索结果及总页码
         """
-        url = 'http://v.baidu.com/v?no_al=1&word=%s&pn=%d' % (
+        url = 'http://v.baidu.com/v?no_al=1&word=%s&pn=%d&ie=utf-8&db=0&s=0&fbl=800' % (
             quote(query), (60 if pn == 2 else (pn - 1) * 20))
+        print(url)
         # 获取源码
         source = requests.get(url, headers=self.headers)
         code = self._minify(source.text)
@@ -390,7 +408,7 @@ class BaiduSpider(BaseSpider):
         return {
             'results': results,
             # 获取最大值
-            'total': max(pages)
+            'total': max(pages) if pages else 0
         }
 
     def search_news(self, query: str, pn: int = 1) -> dict:
