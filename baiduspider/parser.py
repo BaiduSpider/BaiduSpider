@@ -127,22 +127,28 @@ class Parser(BaseSpider):
             }
         # 预处理贴吧
         tieba = BeautifulSoup(content, 'html.parser').find('div', srcid='10')
-        if tieba and tieba.find('div', class_='op-tieba-general-col-top-xs'):
+        if tieba:
             t_title = self._format(tieba.find('h3').text)
             t_url = tieba['mu']
-            t_info_ = tieba.find('div', class_='op-tieba-general-col-top-xs').findAll('p')
-            t_des = self._format(t_info_[0].text)
-            t_followers = self._format(t_info_[1].find('span').find('span').text)
-            t_total = self._format(t_info_[2].find('span').find('span').text)
-            t_cover = tieba.find('a', class_='op-tieba-general-photo-link').find('img')['src']
+            try:
+                t_info_ = tieba.find('div', class_='op-tieba-general-col-top-xs').findAll('p')
+                t_des = self._format(t_info_[0].text)
+            except AttributeError:
+                t_des = None
+            t_followers = self._format(tieba.find('div', class_='c-font-normal').find('span').find('span').text)
+            t_total = self._format(tieba.find('div', class_='c-font-normal').findAll('span')[-1].text)
+            try:
+                t_cover = tieba.find('a', class_='op-tieba-general-photo-link').find('img')['src']
+            except AttributeError:
+                t_cover = None
             t_hot_ = tieba.findAll('div', class_='c-row')[1:]
             t_hot = []
             i = 1
             for hot in t_hot_:
                 t_h_title = self._format(hot.find('a').text)
                 t_h_url = hot.find('a')['href']
-                t_h_clicks = self._format(hot.find('span', class_='op-mthread%d-clicknum' % i).text)
-                t_h_replies = self._format(hot.find('span', class_='op-mthread%d-replaynumber' % i).text)
+                t_h_clicks = self._format(hot.find('span').find('span').text)
+                t_h_replies = self._format(hot.findAll('span')[2].find('span').text)
                 t_hot.append({
                     'title': t_h_title,
                     'url': t_h_url,

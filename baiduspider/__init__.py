@@ -374,7 +374,6 @@ class BaiduSpider(BaseSpider):
         """
         url = 'http://v.baidu.com/v?no_al=1&word=%s&pn=%d&ie=utf-8&db=0&s=0&fbl=800' % (
             quote(query), (60 if pn == 2 else (pn - 1) * 20))
-        print(url)
         # 获取源码
         source = requests.get(url, headers=self.headers)
         code = self._minify(source.text)
