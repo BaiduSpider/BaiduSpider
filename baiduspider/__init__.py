@@ -287,55 +287,23 @@ class BaiduSpider(BaseSpider):
         Returns:
             dict: 搜索结果以及总页码
         """
-        url = 'https://zhidao.baidu.com/search?pn=%d&word=%s' % (
-            (pn - 1) * 10, quote(query))
-        source = requests.get(url, headers=self.headers)
-        # 转化编码
-        source.encoding = 'gb2312'
-        code = source.text
-        bs = BeautifulSoup(self._minify(code), 'html.parser')
-        # 所有搜索结果
-        list_ = bs.find('div', class_='list').findAll('dl')
-        results = []
-        for item in list_:
-            # 屏蔽企业回答
-            if 'ec-oad' in item['class']:
-                continue
-            # 标题
-            title = item.find('dt').text.strip('\n')
-            # 链接
-            url = item.find('dt').find('a')['href']
-            # 简介
-            des = item.find('dd', class_='answer').text.split('答：', 1)[-1]
-            tmp = item.find('dd', class_='explain').findAll(
-                'span', class_='mr-8')
-            # 发布日期
-            date = item.find('dd', class_='explain').find('span', class_='mr-7').text
-            # 回答总数
-            count = int(str(tmp[-1].text).strip('\n').strip('个回答'))
-            # 生成结果
-            result = {
-                'title': title,
-                'des': des,
-                'date': date,
-                'count': count,
-                'url': url
-            }
-            results.append(result)  # 加入结果
-        # 获取分页
-        wrap = bs.find('div', class_='pager')
-        pages_ = wrap.findAll('a')[:-2]
-        pages = []
-        for _ in pages_:
-            # 暴力
-            try:
-                pages.append(int(_.text))
-            except ValueError:
-                pass
+        error = None
+        try:
+            url = 'https://zhidao.baidu.com/search?lm=0&rn=10&pn=0&fr=search&pn=%d&word=%s' % (
+                (pn - 1) * 10, quote(query))
+            source = requests.get(url, headers=self.headers)
+            # 转化编码
+            source.encoding = 'gb2312'
+            code = source.text
+            result = self.parser.parse_zhidao(code)
+        except Exception as err:
+            error = err
+        finally:
+            if error:
+                self._handle_error(error)
         return {
-            'results': results,
-            # 取最大页码
-            'total': max(pages)
+            'results': result['results'],
+            'total': result['pages']
         }
 
     def search_video(self, query: str, pn: int = 1) -> dict:

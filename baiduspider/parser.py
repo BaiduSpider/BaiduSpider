@@ -347,3 +347,57 @@ class Parser(BaseSpider):
             # 取最大页码
             'pages': max(pages)
         }
+    
+    def parse_zhidao(self, content: str) -> dict:
+        """解析百度知道搜索的页面源代码
+
+        Args:
+            content (str): 已经转换为UTF-8编码的百度图片搜索HTML源码
+
+        Returns:
+            dict: 解析后的结果
+        """
+        bs = BeautifulSoup(self._minify(content), 'html.parser')
+        # 所有搜索结果
+        list_ = bs.find('div', class_='list').findAll('dl')
+        results = []
+        for item in list_:
+            # 屏蔽企业回答
+            if 'ec-oad' in item['class']:
+                continue
+            # 标题
+            title = item.find('dt').text.strip('\n')
+            # 链接
+            try:
+                url = item.find('dt').find('a')['href']
+            except KeyError:
+                url = item.find('dt').find('a')['data-href']
+            # 简介
+            des = item.find('dd', class_='dd').text
+            tmp = item.find('dd', class_='explain').findAll(
+                'span', class_='mr-8')
+            # 发布日期
+            date = item.find('dd', class_='explain').find('span', class_='mr-7').text
+            # 回答总数
+            count = int(str(tmp[-1].text).strip('\n').strip('个回答'))
+            # 生成结果
+            result = {
+                'title': title,
+                'des': des,
+                'date': date,
+                'count': count,
+                'url': url
+            }
+            results.append(result)  # 加入结果
+        # 获取分页
+        wrap = bs.find('div', class_='pager')
+        pages_ = wrap.findAll('a')[:-2]
+        if '下一页' in pages_[-1].text:
+            total = pages_[-2].text
+        else:
+            total = pages_[-1].text
+        return {
+            'results': results,
+            # 取最大页码
+            'pages': int(total)
+        }
