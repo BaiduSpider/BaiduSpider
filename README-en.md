@@ -7,7 +7,7 @@
     <br />
     <p align="center">
         <i>
-            BaiduSpider，一个爬取百度的利器
+            BaiduSpider, a perfect tool to crawl Baidu.
         </i>
     </p>
 </p>
@@ -16,7 +16,7 @@
 
 <p align="center">
     <b>
-        简体中文 | <a href="https://github.com/BaiduSpider/BaiduSpider/blob/master/README-en.md">English</a>
+        <a href="https://github.com/BaiduSpider/BaiduSpider">简体中文</a> | English
     </b>
 </p>
 
@@ -43,23 +43,23 @@
 
 <h1></h1>
 
-BaiduSpider是一个爬取百度搜索结果的Python爬虫，目前支持百度网页搜索，百度图片搜索，百度知道搜索，百度视频搜索，百度资讯搜索，百度文库搜索，百度经验搜索和百度百科搜索。
+BaiduSpider is a Python web spider that crawls Baidu's search results, currently supporting Baidu web search, picture search, Zhidao search, video search, news search, Wenku (document) search, Jingyan search and wiki search.
 
 <br />
 
 <h2 align="center">
-    安装
+    Installation
 </h2>
 
 <br />
 
-BaiduSpider现已发布PyPI包，可以使用`pip`安装：
+BaiduSpider has published a PyPI package and can be installed using `pip`:
 
 ```bash
 $ pip install baiduspider
 ```
 
-或者从GitHub直接clone：
+or you can clone it from GitHub:
 
 ```bash
 $ git clone https://github.com/BaiduSpider/BaiduSpider.git
@@ -72,38 +72,38 @@ $ python setup.py install
 <br />
 
 <h3 align="center">
-    提示
+    WARNING
 </h3>
 
 <p align="center">
     <b>
-        BaiduSpider目前仅支持Python 3.6+，暂不支持Python 2.x
+        BaiduSpider only supports Python 3.6 and higher, and can not run on Python 2.x.
     </b>
 </p>
 
 <br />
 
 <h2 align="center">
-    快速上手
+    Get Started
 </h2>
 
 <br />
 
-BaiduSpider提供简易的，人性化的API，可通过实例化`BaiduSpider`对象后调用。例如，我想要使用网页搜索函数查询有关`Python`的信息：
+BaiduSpider offers easy-to-use APIs, and can be used after creating a `BaiduSpider` object. For example, I wanted to use `BaiduSpider.search_web` method to search something about `Python`:
 
 ```python
-# 导入BaiduSpider
+# Import BaiduSpider
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-# 实例化BaiduSpider
+# Create the BaiduSpider object
 spider = BaiduSpider()
 
-# 搜索网页
+# Search the web
 pprint(spider.search_web(query='Python'))
 ```
 
-获得的搜索结果将类似下面的这个Python字典结果：
+You will get something like this:
 
 ```python
 {'results': [{'result': 100000000, 'type': 'total'},
@@ -190,32 +190,32 @@ pprint(spider.search_web(query='Python'))
  'total': 10}
 ```
 
-更详细的新手教程可在[文档](https://baiduspider.github.io/usage/get-started/)中找到。
+More detailed tutorials can be found in the [documentation of BaiduSpider](https://baiduspider.github.io/usage/get-started/).
 
 <br />
 
 <h2 align="center">
-    维护BaiduSpider
+    Help BaiduSpider to Improve
 </h2>
 
 <br />
 
-如果你想要参与BaiduSpider的维护工作，我将十分感激！维护的方式多种多样，可以通过[提交新的issue](https://github.com/BaiduSpider/BaiduSpider/issues/new/choose)，可以为新手解答issue，甚至[提交一个PR](https://github.com/BaiduSpider/BaiduSpider/compare)！
+I will be very glad if you wanted to help the development of BaiduSpider! There's many ways to help BaiduSpider, you can [create a new issue](https://github.com/BaiduSpider/BaiduSpider/issues/new/choose), you can answer the questions of the starters', or even [submit a PR](https://github.com/BaiduSpider/BaiduSpider/compare)!
 
 <br />
 
 <h2 align="center">
-    特别致谢
+    Special Thanks
 </h2>
 
 <br />
 
-- 感谢[requests](https://requests.readthedocs.io/en/master/)提供爬虫的HTTP获取网页的支持
+- Thanks to [requests](https://requests.readthedocs.io/en/master/) to let us fetch the webpage's source code easily.
 
-- 感谢[MkDocs](https://github.com/mkdocs/mkdocs)和[Material for MkDocs](squidfunk.github.io/mkdocs-material/)提供的精致的文档框架
+- Thanks to [MkDocs](https://github.com/mkdocs/mkdocs) and [Material for MkDocs](squidfunk.github.io/mkdocs-material/) for making this nice documentation theme.
 
-- 感谢[FastAPI](https://fastapi.tiangolo.com/)提供的小巧但强大的Web API框架，为BaiduSpider即将发布的API提供了支持
+- Thanks to [FastAPI](https://fastapi.tiangolo.com/), an API framework that is light but powerful.
 
-- 感谢[Vue](http://vuejs.org/)这个强大的前端框架，为BaiduSpider的[前端](https://baiduspider.now.sh)提供了强有力的支持
+- Thanks to this powerful frontend framework, [Vue](http://vuejs.org/), we could develop BaiduSpider's [web](https://baidus.netlify.app) more easily and quickly.
 
-- 感谢所有对BaiduSpider提交错误报告，解答issue，和提交PR的你们！
+- Thanks to everyone who submits an issue, answer the issues, and submitting PRs!
