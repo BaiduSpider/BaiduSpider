@@ -131,14 +131,18 @@ class Parser(BaseSpider):
             t_title = self._format(tieba.find('h3').text)
             t_url = tieba['mu']
             try:
-                t_info_ = tieba.find('div', class_='op-tieba-general-col-top-xs').findAll('p')
+                t_info_ = tieba.find(
+                    'div', class_='op-tieba-general-col-top-xs').findAll('p')
                 t_des = self._format(t_info_[0].text)
             except AttributeError:
                 t_des = None
-            t_followers = self._format(tieba.find('div', class_='c-font-normal').find('span').find('span').text)
-            t_total = self._format(tieba.find('div', class_='c-font-normal').findAll('span')[-1].text)
+            t_followers = self._format(tieba.find(
+                'div', class_='c-font-normal').find('span').find('span').text)
+            t_total = self._format(tieba.find(
+                'div', class_='c-font-normal').findAll('span')[-1].text)
             try:
-                t_cover = tieba.find('a', class_='op-tieba-general-photo-link').find('img')['src']
+                t_cover = tieba.find(
+                    'a', class_='op-tieba-general-photo-link').find('img')['src']
             except AttributeError:
                 t_cover = None
             t_hot_ = tieba.findAll('div', class_='c-row')[1:]
@@ -148,7 +152,8 @@ class Parser(BaseSpider):
                 t_h_title = self._format(hot.find('a').text)
                 t_h_url = hot.find('a')['href']
                 t_h_clicks = self._format(hot.find('span').find('span').text)
-                t_h_replies = self._format(hot.findAll('span')[2].find('span').text)
+                t_h_replies = self._format(
+                    hot.findAll('span')[2].find('span').text)
                 t_hot.append({
                     'title': t_h_title,
                     'url': t_h_url,
@@ -277,7 +282,7 @@ class Parser(BaseSpider):
                     'type': 'result'})
         soup = BeautifulSoup(content, 'html.parser')
         soup = BeautifulSoup(str(soup.findAll('div', id='page')
-                                [0]), 'html.parser')
+                                 [0]), 'html.parser')
         # 分页
         pages_ = soup.findAll('span', class_='pc')
         pages = []
@@ -317,7 +322,8 @@ class Parser(BaseSpider):
             if type(err) in [IndexError, AttributeError]:
                 raise ParseError('Invalid HTML content.')
         finally:
-            if error: raise ParseError(str(error))
+            if error:
+                raise ParseError(str(error))
         results = []
         for _ in data['data'][:-1]:
             if _:
@@ -347,7 +353,7 @@ class Parser(BaseSpider):
             # 取最大页码
             'pages': max(pages)
         }
-    
+
     def parse_zhidao(self, content: str) -> dict:
         """解析百度知道搜索的页面源代码
 
@@ -377,7 +383,8 @@ class Parser(BaseSpider):
             tmp = item.find('dd', class_='explain').findAll(
                 'span', class_='mr-8')
             # 发布日期
-            date = item.find('dd', class_='explain').find('span', class_='mr-7').text
+            date = item.find('dd', class_='explain').find(
+                'span', class_='mr-7').text
             # 回答总数
             count = int(str(tmp[-1].text).strip('\n').strip('个回答'))
             # 生成结果

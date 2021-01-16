@@ -4,9 +4,6 @@
 :Licence: MIT
 :GitHub: https://github.com/samzhangjy
 :GitLab: https://gitlab.com/samzhangjy
-
-TODO: 完成文档
-TODO: 添加更多爬虫
 """
 import json
 import os
@@ -422,7 +419,8 @@ class BaiduSpider(BaseSpider):
         code = self._minify(source.text)
         bs = BeautifulSoup(self._format(code), 'html.parser')
         # 搜索结果容器
-        data = bs.find('div', id='content_left').findAll('div')[1].findAll('div', class_='result-op')
+        data = bs.find('div', id='content_left').findAll(
+            'div')[1].findAll('div', class_='result-op')
         # print(len(data))
         results = []
         for res in data:
@@ -432,11 +430,14 @@ class BaiduSpider(BaseSpider):
             # 链接
             url = res.find('h3').find('a')['href']
             # 简介
-            des = res.find('div', class_='c-span-last').find('span', class_='c-color-text').text
+            des = res.find('div', class_='c-span-last').find('span',
+                                                             class_='c-color-text').text
             # 作者
-            author = res.find('div', class_='c-span-last').find('div', class_='news-source').find('span', class_='c-gap-right').text
+            author = res.find('div', class_='c-span-last').find('div',
+                                                                class_='news-source').find('span', class_='c-gap-right').text
             # 发布日期
-            date = res.find('div', class_='c-span-last').find('div', class_='news-source').find('span', class_='c-color-gray2').text
+            date = res.find('div', class_='c-span-last').find('div',
+                                                              class_='news-source').find('span', class_='c-color-gray2').text
             # 生成结果
             result = {
                 'title': title,
