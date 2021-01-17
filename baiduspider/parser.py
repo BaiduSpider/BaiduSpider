@@ -358,7 +358,7 @@ class Parser(BaseSpider):
         """解析百度知道搜索的页面源代码
 
         Args:
-            content (str): 已经转换为UTF-8编码的百度图片搜索HTML源码
+            content (str): 已经转换为UTF-8编码的百度知道搜索HTML源码
 
         Returns:
             dict: 解析后的结果
@@ -407,4 +407,160 @@ class Parser(BaseSpider):
             'results': results,
             # 取最大页码
             'pages': int(total)
+        }
+    
+    def parse_video(self, content: str) -> dict:
+        """解析百度视频搜索的页面源代码
+
+        Args:
+            content (str): 已经转换为UTF-8编码的百度视频搜索HTML源码
+
+        Returns:
+            dict: 解析后的结果
+        """
+        bs = BeautifulSoup(content, 'html.parser')
+        # 锁定结果div
+        data = bs.findAll('li', class_='result')
+        results = []
+        for res in data:
+            # 标题
+            title = res.find('a')['title']
+            # 链接
+            url = 'https://v.baidu.com' + res.find('a')['href']
+            # 封面图片链接
+            img = res.find('img', class_='img-normal-layer')['src']
+            # 时长
+            time = res.find('span', class_='info').text
+            # 生成结果
+            result = {
+                'title': title,
+                'url': url,
+                'img': img,
+                'time': time
+            }
+            results.append(result)  # 加入结果
+        # 分页
+        wrap = bs.find('div', class_='page-wrap')
+        pages_ = wrap.findAll('a', class_='filter-item')[:-1]
+        try:
+            pages = int(pages_[-1].text)
+        except:
+            pages = 0
+        return {
+            'results': results,
+            'pages': pages
+        }
+    
+    def parse_news(self, content: str) -> dict:
+        """解析百度资讯搜索的页面源代码
+
+        Args:
+            content (str): 已经转换为UTF-8编码的百度资讯搜索HTML源码
+
+        Returns:
+            dict: 解析后的结果
+        """
+        bs = BeautifulSoup(self._format(content), 'html.parser')
+        # 搜索结果容器
+        data = bs.find('div', id='content_left').findAll(
+            'div')[1].findAll('div', class_='result-op')
+        # print(len(data))
+        results = []
+        for res in data:
+            # 标题
+            title = self._format(
+                res.find('h3').find('a').text)
+            # 链接
+            url = res.find('h3').find('a')['href']
+            # 简介
+            des = res.find('div', class_='c-span-last').find('span',
+                                                             class_='c-color-text').text
+            # 作者
+            author = res.find('div', class_='c-span-last').find('div',
+                                                                class_='news-source').find('span', class_='c-gap-right').text
+            # 发布日期
+            date = res.find('div', class_='c-span-last').find('div',
+                                                              class_='news-source').find('span', class_='c-color-gray2').text
+            # 生成结果
+            result = {
+                'title': title,
+                'author': author,
+                'date': date,
+                'des': des,
+                'url': url
+            }
+            results.append(result)  # 加入结果
+        # 获取所有页数
+        pages_ = bs.find('div', id='page').findAll('a')
+        # 过滤页码
+        if '< 上一页' in pages_[0].text:
+            pages_ = pages_[1:]
+        if '下一页 >' in pages_[-1].text:
+            pages_ = pages_[:-1]
+        return {
+            'results': results,
+            'pages': int(pages_[-1].text)
+        }
+    
+    def parse_wenku(self, content: str) -> dict:
+        """解析百度文库搜索的页面源代码
+
+        Args:
+            content (str): 已经转换为UTF-8编码的百度文库搜索HTML源码
+
+        Returns:
+            dict: 解析后的结果
+        """
+        bs = BeautifulSoup(content, 'html.parser')
+        data = bs.findAll('dl')
+        results = []
+        for res in data:
+            dt = res.find('dt')
+            type_ = self._format(dt.find('p', class_='fl').find(
+                'span', class_='ic')['title']).upper()
+            tmp = dt.find('p', class_='fl').find('a')
+            title = self._format(tmp.text)
+            url = tmp['href']
+            try:
+                quality = float(self._format(
+                    res.find('p', class_='fr').findAll('span', class_='ib')[1].text))
+            except:
+                quality = None
+            dd = res.find('dd', class_='clearfix').find(
+                'div', class_='summary-box')
+            des = self._format(dd.find('p', class_='summary').text)
+            try:
+                dd_tags = res.find('dd', class_='tag-tips')
+                tags = []
+                for a in dd_tags.findAll('a'):
+                    tags.append(self._format(a.text))
+            except AttributeError:
+                tags = []
+            detail = dd.find('div', class_='detail').find(
+                'div', class_='detail-info')
+            date = self._format(detail.text.split('|')[0])
+            pages = int(self._format(detail.text.split('|')[
+                        1].replace('共', '').replace('页', '')))
+            downloads = int(self._format(
+                detail.text.split('|')[2].strip('次下载')))
+            result = {
+                'title': title,
+                'type': type_,
+                'url': url,
+                'des': des,
+                'date': date,
+                'pages': pages,
+                'downloads': downloads
+            }
+            results.append(result)
+        pages_ = bs.find('div', class_='page-content').findAll('a')
+        if '尾页' in pages_[-1].text:
+            total = int(int(pages_[-1]['href'].split('&')
+                            [-1].strip('pn=')) / 10 + 1)
+        else:
+            total = int(
+                bs.find('div', class_='page-content').find('span', class_='cur').text)
+        return {
+            'results': results,
+            'pages': total
         }

@@ -337,42 +337,22 @@ class BaiduSpider(BaseSpider):
         Returns:
             dict: 搜索结果及总页码
         """
-        url = 'http://v.baidu.com/v?no_al=1&word=%s&pn=%d&ie=utf-8&db=0&s=0&fbl=800' % (
-            quote(query), (60 if pn == 2 else (pn - 1) * 20))
-        # 获取源码
-        source = requests.get(url, headers=self.headers)
-        code = self._minify(source.text)
-        bs = BeautifulSoup(code, 'html.parser')
-        # 锁定结果div
-        data = bs.findAll('li', class_='result')
-        results = []
-        for res in data:
-            # 标题
-            title = res.find('a')['title']
-            # 链接
-            url = 'https://v.baidu.com' + res.find('a')['href']
-            # 封面图片链接
-            img = res.find('img', class_='img-normal-layer')['src']
-            # 时长
-            time = res.find('span', class_='info').text
-            # 生成结果
-            result = {
-                'title': title,
-                'url': url,
-                'img': img,
-                'time': time
-            }
-            results.append(result)  # 加入结果
-        # 分页
-        wrap = bs.find('div', class_='page-wrap')
-        pages_ = wrap.findAll('a', class_='filter-item')[:-1]
-        pages = []
-        for _ in pages_:
-            pages.append(int(_.text))
+        error = None
+        try:
+            url = 'http://v.baidu.com/v?no_al=1&word=%s&pn=%d&ie=utf-8&db=0&s=0&fbl=800' % (
+                quote(query), (60 if pn == 2 else (pn - 1) * 20))
+            # 获取源码
+            source = requests.get(url, headers=self.headers)
+            code = self._minify(source.text)
+            result = self.parser.parse_video(code)
+        except Exception as err:
+            error = err
+        finally:
+            if error:
+                self._handle_error(error)
         return {
-            'results': results,
-            # 获取最大值
-            'total': max(pages) if pages else 0
+            'results': result['results'],
+            'total': result['pages']
         }
 
     def search_news(self, query: str, pn: int = 1) -> dict:
@@ -411,56 +391,23 @@ class BaiduSpider(BaseSpider):
         Returns:
             dict: 爬取的搜索结果与总页码。
         """
-        url = 'https://www.baidu.com/s?rtt=1&bsst=1&tn=news&word=%s&pn=%d' % (
-            quote(query), (pn - 1) * 10)
-        # 源码
-        source = requests.get(url, headers=self.headers)
-        # 压缩
-        code = self._minify(source.text)
-        bs = BeautifulSoup(self._format(code), 'html.parser')
-        # 搜索结果容器
-        data = bs.find('div', id='content_left').findAll(
-            'div')[1].findAll('div', class_='result-op')
-        # print(len(data))
-        results = []
-        for res in data:
-            # 标题
-            title = self._format(
-                res.find('h3').find('a').text)
-            # 链接
-            url = res.find('h3').find('a')['href']
-            # 简介
-            des = res.find('div', class_='c-span-last').find('span',
-                                                             class_='c-color-text').text
-            # 作者
-            author = res.find('div', class_='c-span-last').find('div',
-                                                                class_='news-source').find('span', class_='c-gap-right').text
-            # 发布日期
-            date = res.find('div', class_='c-span-last').find('div',
-                                                              class_='news-source').find('span', class_='c-color-gray2').text
-            # 生成结果
-            result = {
-                'title': title,
-                'author': author,
-                'date': date,
-                'des': des,
-                'url': url
-            }
-            results.append(result)  # 加入结果
-        # 获取所有页数
-        pages_ = bs.find('div', id='page').findAll('a')
-        # 过滤页码
-        if '< 上一页' in pages_[0].text:
-            pages_ = pages_[1:]
-        if '下一页 >' in pages_[-1].text:
-            pages_ = pages_[:-1]
-        pages = []
-        for _ in pages_:
-            pages.append(int(_.find('span', class_='pc').text))
+        error = None
+        try:
+            url = 'https://www.baidu.com/s?rtt=1&bsst=1&tn=news&word=%s&pn=%d' % (
+                quote(query), (pn - 1) * 10)
+            # 源码
+            source = requests.get(url, headers=self.headers)
+            # 压缩
+            code = self._minify(source.text)
+            result = self.parser.parse_news(code)
+        except Exception as err:
+            error = err
+        finally:
+            if error:
+                self._handle_error(error)
         return {
-            'results': results,
-            # 最大页数值
-            'total': max(pages)
+            'results': result['results'],
+            'total': result['pages']
         }
 
     def search_wenku(self, query: str, pn: int = 1) -> dict:
@@ -501,63 +448,22 @@ class BaiduSpider(BaseSpider):
         Returns:
             dict: 搜索结果和总计页数
         """
-        url = 'https://wenku.baidu.com/search?word=%s&pn=%d' % (
-            quote(query), (pn - 1) * 10)
-        source = requests.get(url, headers=self.headers)
-        source.encoding = 'gb2312'
-        code = self._minify(source.text)
-        bs = BeautifulSoup(code, 'html.parser')
-        data = bs.findAll('dl')
-        results = []
-        for res in data:
-            dt = res.find('dt')
-            type_ = self._format(dt.find('p', class_='fl').find(
-                'span', class_='ic')['title']).upper()
-            tmp = dt.find('p', class_='fl').find('a')
-            title = self._format(tmp.text)
-            url = tmp['href']
-            try:
-                quality = float(self._format(
-                    res.find('p', class_='fr').findAll('span', class_='ib')[1].text))
-            except:
-                quality = None
-            dd = res.find('dd', class_='clearfix').find(
-                'div', class_='summary-box')
-            des = self._format(dd.find('p', class_='summary').text)
-            try:
-                dd_tags = res.find('dd', class_='tag-tips')
-                tags = []
-                for a in dd_tags.findAll('a'):
-                    tags.append(self._format(a.text))
-            except AttributeError:
-                tags = []
-            detail = dd.find('div', class_='detail').find(
-                'div', class_='detail-info')
-            date = self._format(detail.text.split('|')[0])
-            pages = int(self._format(detail.text.split('|')[
-                        1].replace('共', '').replace('页', '')))
-            downloads = int(self._format(
-                detail.text.split('|')[2].strip('次下载')))
-            result = {
-                'title': title,
-                'type': type_,
-                'url': url,
-                'des': des,
-                'date': date,
-                'pages': pages,
-                'downloads': downloads
-            }
-            results.append(result)
-        pages_ = bs.find('div', class_='page-content').findAll('a')
-        if '尾页' in pages_[-1].text:
-            total = int(int(pages_[-1]['href'].split('&')
-                            [-1].strip('pn=')) / 10 + 1)
-        else:
-            total = int(
-                bs.find('div', class_='page-content').find('span', class_='cur').text)
+        error = None
+        try:
+            url = 'https://wenku.baidu.com/search?word=%s&pn=%d' % (
+                quote(query), (pn - 1) * 10)
+            source = requests.get(url, headers=self.headers)
+            source.encoding = 'gb2312'
+            code = self._minify(source.text)
+            result = self.parser.parse_wenku(code)
+        except Exception as err:
+            error = err
+        finally:
+            if error:
+                self._handle_error(error)
         return {
-            'results': results,
-            'total': total
+            'results': result['results'],
+            'total': result['pages']
         }
 
     def search_jingyan(self, query: str, pn: int = 1) -> dict:
