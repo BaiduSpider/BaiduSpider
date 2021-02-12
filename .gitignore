@@ -15,3 +15,4 @@ download.py
 htmlcov/
 .coverage
 exp.py
+build.sh
