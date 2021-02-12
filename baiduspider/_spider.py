@@ -2,6 +2,7 @@ import re
 from htmlmin import minify
 import requests
 from baiduspider.errors import ParseError, UnknownError
+import os
 
 class BaseSpider(object):  # pragma: no cover
     def __init__(self) -> None:
@@ -68,7 +69,10 @@ class BaseSpider(object):  # pragma: no cover
             error = err
         else:
             error = UnknownError(str(err))
-        raise error
+        if bool(os.environ.get('DEBUG', 0)):
+            raise err
+        else:
+            raise error
 
     def __repr__(self) -> str:
         return '<Spider %s>' % self.spider_name

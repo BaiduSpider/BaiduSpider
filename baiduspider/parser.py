@@ -108,7 +108,7 @@ class Parser(BaseSpider):
                 'div', class_='c-span-last').find('p').text)
             try:
                 b_cover = baike.find(
-                    'div', class_='c-span6').find('img')['src']
+                    'div', class_='c-span3').find('img')['src']
                 b_cover_type = 'image'
             except (TypeError, AttributeError):
                 try:
@@ -137,9 +137,9 @@ class Parser(BaseSpider):
             except AttributeError:
                 t_des = None
             t_followers = self._format(tieba.find(
-                'div', class_='c-font-normal').find('span').find('span').text)
+                'div', class_='c-span-last').find('span').find('span').text)
             t_total = self._format(tieba.find(
-                'div', class_='c-font-normal').findAll('span')[-1].text)
+                'div', class_='c-span-last').findAll('span')[-1].text)
             try:
                 t_cover = tieba.find(
                     'a', class_='op-tieba-general-photo-link').find('img')['src']
