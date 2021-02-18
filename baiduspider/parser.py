@@ -1,7 +1,7 @@
 import json
 from html import unescape
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, ResultSet
 
 from baiduspider._spider import BaseSpider
 from baiduspider.errors import ParseError
@@ -171,9 +171,54 @@ class Parser(BaseSpider):
                 'cover': t_cover,
                 'hot': t_hot
             }
+        # 预处理博客
+        blog = BeautifulSoup(content, 'html.parser').findAll('article')
+        for tmp in blog:
+            if tmp['class'][-1].startswith('open-source-software-blog'):
+                blog = tmp
+                break
+        if type(blog) is ResultSet:
+            blog = None
+        if blog is not None:
+            blog = blog.find('section')
+            b_title = blog.find('h3', class_='c-title').text
+            b_url = blog.find('a')['href']
+            b_blogs_ = blog.findAll('div', class_ ='c-row')
+            b_blogs = []
+            for b in b_blogs_:
+                b_current_blog_header = b.find('div')
+                b_blog_title = b_current_blog_header.find('a').text
+                b_blog_url = b_current_blog_header.find('a')['href']
+                b_blog_origin = b_current_blog_header.find('span', class_='nor-src-wrap').text
+                try:
+                    b_current_blog_tags = b.findAll('div')[1].findAll('span')
+                    b_blog_tags = [tag.text for tag in b_current_blog_tags]
+                except IndexError:
+                    b_blog_tags = []
+                b_blog_parent = b.find_parent('div').findAll('div')
+                b_blog_des = None
+                for p in b_blog_parent:
+                    if p['class'][0].startswith('blog-summary'):
+                        b_blog_des = p.text
+                        break
+                b_blogs.append({
+                    'title': b_blog_title,
+                    'url': b_blog_url,
+                    'origin': b_blog_origin,
+                    'tags': b_blog_tags,
+                    'des': b_blog_des
+                })
+            blog = {
+                'title': b_title,
+                'url': b_url,
+                'blogs': b_blogs
+            }
         # 加载贴吧
         if tieba:
             pre_results.append(dict(type='tieba', result=tieba))
+        # 加载博客
+        if blog:
+            pre_results.append(dict(type='blog', result=blog))
         # 加载搜索结果总数
         if num != 0:
             pre_results.append(dict(type='total', result=num))
@@ -198,6 +243,7 @@ class Parser(BaseSpider):
         results = soup.findAll('div', class_='result')
         res = []
         for result in results:
+            des = None
             try:
                 result['tpl']
             except:
@@ -252,7 +298,7 @@ class Parser(BaseSpider):
             except:
                 print(result.prettify())
             is_not_special = result['tpl'] not in [
-                'short_video_pc', 'sp_realtime_bigpic5', 'bk_polysemy', 'tieba_general']
+                'short_video_pc', 'sp_realtime_bigpic5', 'bk_polysemy', 'tieba_general'] and result.find('article') is None
             domain = None
             if is_not_special:  # 确保不是特殊类型的结果
                 # 获取可见的域名

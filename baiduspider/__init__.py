@@ -127,33 +127,50 @@ class BaiduSpider(BaseSpider):
                     },
                     {
                         'result': {
-                                'cover': 'str, 百科封面图片/视频链接',
-                                'cover-type': 'str, 百科封面类别，图片是image，视频是video',
-                                'des': 'str, 百科简介',
-                                'title': 'str, 百科标题',
-                                'url': 'str, 百科链接'
+                            'cover': 'str, 百科封面图片/视频链接',
+                            'cover-type': 'str, 百科封面类别，图片是image，视频是video',
+                            'des': 'str, 百科简介',
+                            'title': 'str, 百科标题',
+                            'url': 'str, 百科链接'
                         },
                         'type': 'baike'
                         # 这类搜索结果仅会在搜索词有相关百科时出现，不一定每个搜索结果都会出现的
                     },
                     {
                         'result': {
-                                'cover': 'str, 贴吧封面图片链接',
-                                'des': 'str, 贴吧简介',
-                                'title': 'str, 贴吧标题',
-                                'url': 'str, 贴吧链接',
-                                'followers': 'str, 贴吧关注人数（可能有汉字，如：1万）',
-                                'hot': [{  # list, 热门帖子
-                                    'clicks': 'str, 帖子点击总数',
-                                    'replies': 'str, 帖子回复总数',
-                                    'title': 'str, 帖子标题',
-                                    'url': 'str, 帖子链接'
-                                }],
-                                'total': 'str, 贴吧总帖子数（可能有汉字，如：17万）'
+                            'cover': 'str, 贴吧封面图片链接',
+                            'des': 'str, 贴吧简介',
+                            'title': 'str, 贴吧标题',
+                            'url': 'str, 贴吧链接',
+                            'followers': 'str, 贴吧关注人数（可能有汉字，如：1万）',
+                            'hot': [{  # list, 热门帖子
+                                'clicks': 'str, 帖子点击总数',
+                                'replies': 'str, 帖子回复总数',
+                                'title': 'str, 帖子标题',
+                                'url': 'str, 帖子链接'
+                            }],
+                            'total': 'str, 贴吧总帖子数（可能有汉字，如：17万）'
                         },
                         'type': 'tieba'
                         # 这类搜索结果仅会在搜索词有相关贴吧时出现，不一定每个搜索结果都会出现的
                     },
+                    {
+                        'result': {
+                            'blogs': [{  # list, 博客列表
+                                'des': 'str, 博客简介，没有时为`None`',
+                                'origin': 'str, 博客来源',
+                                'tags': [  # list, 博客标签
+                                    'str, 标签文字'
+                                ],
+                                'title': 'str, 博客标题',
+                                'url': 'str, 博客链接'
+                            }],
+                            'title': 'str, 博客搜索标题',
+                            'url': 'str, 博客搜索链接 (https://kaifa.baidu.com)'
+                        },
+                        'type': 'blog'
+                        # 这类搜索结果仅会在搜索词有相关博客时出现，不一定每个搜索结果都会出现的
+                    }
                     {
                         'des': 'str, 搜索结果简介',
                         'origin': 'str, 搜索结果的来源，可能是域名，也可能是名称',
