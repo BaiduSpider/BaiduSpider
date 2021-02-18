@@ -224,8 +224,6 @@ pprint(spider.search_web(query='Python'))
 
 - 感谢[MkDocs](https://github.com/mkdocs/mkdocs)和[Material for MkDocs](squidfunk.github.io/mkdocs-material/)提供的精致的文档框架
 
-- 感谢[FastAPI](https://fastapi.tiangolo.com/)提供的小巧但强大的Web API框架，为BaiduSpider即将发布的API提供了支持
-
 - 感谢[Vue](http://vuejs.org/)这个强大的前端框架，为BaiduSpider的[前端](https://baiduspider.now.sh)提供了强有力的支持
 
 - 感谢所有对BaiduSpider提交错误报告，解答issue，和提交PR的你们！
