@@ -1,10 +1,11 @@
 import inspect
 import os
 
+
 def handle_err(func):
-    def wrapper(*args,**kwargs):
+    def wrapper(*args, **kwargs):
         try:
-            return func(*args,**kwargs)
+            return func(*args, **kwargs)
         except Exception as err:
             if bool(int(os.environ.get("DEBUG", 0))):
                 raise err
@@ -15,4 +16,5 @@ def handle_err(func):
                 "variable `DEBUG` to `1` to see the error trace and open up a new issue at https://github.com/BaiduSpider/"
                 "BaiduSpider/issues/new?assignees=&labels=bug%2C+help+wanted&template=bug_report.md&title=%5BBUG%5D.\033[0m"
             )
+
     return wrapper

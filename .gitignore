@@ -16,3 +16,4 @@ htmlcov/
 .coverage
 exp.py
 build.sh
+lint.sh

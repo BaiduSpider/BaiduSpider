@@ -7,8 +7,8 @@ from baiduspider.util import handle_err
 class WebSubParser(BaseSpider):
     def __init__(self) -> None:
         super().__init__()
-        self.spider_name = 'WebSubSpider'
-    
+        self.spider_name = "WebSubSpider"
+
     @handle_err
     def parse_news_block(self, news: BeautifulSoup):
         try:
@@ -39,7 +39,7 @@ class WebSubParser(BaseSpider):
                 )
                 prev_row = news_detail[-1]
         return news_detail
-    
+
     @handle_err
     def parse_video_block(self, video: BeautifulSoup):
         if video:
@@ -72,7 +72,7 @@ class WebSubParser(BaseSpider):
         else:
             video_results = []
         return video_results
-    
+
     @handle_err
     def parse_baike_block(self, baike: BeautifulSoup):
         if baike:
@@ -99,7 +99,7 @@ class WebSubParser(BaseSpider):
                 "cover-type": b_cover_type,
             }
         return baike
-    
+
     @handle_err
     def parse_tieba_block(self, tieba: BeautifulSoup):
         if tieba:
@@ -152,7 +152,7 @@ class WebSubParser(BaseSpider):
                 "hot": t_hot,
             }
         return tieba
-    
+
     @handle_err
     def parse_blog_block(self, blog: BeautifulSoup):
         if blog is not None:
@@ -190,7 +190,7 @@ class WebSubParser(BaseSpider):
                 )
             blog = {"title": b_title, "url": b_url, "blogs": b_blogs}
         return blog
-    
+
     @handle_err
     def parse_gitee_block(self, gitee: BeautifulSoup):
         if gitee is not None:
