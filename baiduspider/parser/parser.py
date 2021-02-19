@@ -13,11 +13,12 @@ class Parser(BaseSpider):
         super().__init__()
         self.webSubParser = WebSubParser()
 
-    def parse_web(self, content: str) -> dict:
+    def parse_web(self, content: str, exclude: list) -> dict:
         """解析百度网页搜索的页面源代码.
 
         Args:
-            content (str): 已经转换为UTF-8编码的百度网页搜索HTML源码
+            content (str): 已经转换为UTF-8编码的百度网页搜索HTML源码.
+            exclude (list): 要屏蔽的控件.
 
         Returns:
             dict: 解析后的结果
@@ -32,63 +33,71 @@ class Parser(BaseSpider):
             .strip("个")
             .replace(",", "")
         )
-        # 查找运算窗口
-        calc = soup.find("div", class_="op_new_cal_screen")
         # 定义预结果（运算以及相关搜索）
         pre_results = []
-        # 预处理相关搜索
-        try:
-            _related = soup.find("div", id="rs").find("table").find_all("th")
-        except AttributeError:
-            _related = []
-        related = []
         # 预处理新闻
-        news = soup.find(
-            "div", class_="result-op", tpl="sp_realtime_bigpic5", srcid="19"
-        )
-        news_detail = self.webSubParser.parse_news_block(news)
+        if "news" not in exclude:
+            news = soup.find(
+                "div", class_="result-op", tpl="sp_realtime_bigpic5", srcid="19"
+            )
+            news_detail = self.webSubParser.parse_news_block(news)
         # 预处理短视频
-        video = soup.find("div", class_="op-short-video-pc")
-        video_results = self.webSubParser.parse_video_block(video)
-        # 一个一个append相关搜索
-        for _ in _related:
-            if _.text:
-                related.append(_.text)
+        if "video" not in exclude:
+            video = soup.find("div", class_="op-short-video-pc")
+            video_results = self.webSubParser.parse_video_block(video)
+        # 预处理运算
+        if "calc" not in exclude:
+            calc = soup.find("div", class_="op_new_cal_screen")
+        # 预处理相关搜索
+        if "related" not in exclude:
+            try:
+                _related = soup.find("div", id="rs").find("table").find_all("th")
+            except AttributeError:
+                _related = []
+            related = []
+            # 一个一个append相关搜索
+            for _ in _related:
+                if _.text:
+                    related.append(_.text)
         # 预处理百科
-        baike = soup.find("div", class_="c-container", tpl="bk_polysemy")
-        baike = self.webSubParser.parse_baike_block(baike)
+        if "baike" not in exclude:
+            baike = soup.find("div", class_="c-container", tpl="bk_polysemy")
+            baike = self.webSubParser.parse_baike_block(baike)
         # 预处理贴吧
-        tieba = BeautifulSoup(content, "html.parser").find("div", srcid="10")
-        tieba = self.webSubParser.parse_tieba_block(tieba)
+        if "tieba" not in exclude:
+            tieba = BeautifulSoup(content, "html.parser").find("div", srcid="10")
+            tieba = self.webSubParser.parse_tieba_block(tieba)
         # 预处理博客
         article_tags = BeautifulSoup(content, "html.parser").findAll("article")
-        blog = None
-        for tmp in article_tags:
-            if tmp["class"][-1].startswith("open-source-software-blog"):
-                blog = tmp
-                break
-        blog = self.webSubParser.parse_blog_block(blog)
+        if "blog" not in exclude:
+            blog = None
+            for tmp in article_tags:
+                if tmp["class"][-1].startswith("open-source-software-blog"):
+                    blog = tmp
+                    break
+            blog = self.webSubParser.parse_blog_block(blog)
         # 预处理码云
-        gitee = None
-        for tmp in article_tags:
-            if tmp["class"][-1].startswith("osc-gitee"):
-                gitee = tmp
-                break
-        gitee = self.webSubParser.parse_gitee_block(gitee)
+        if "gitee" not in exclude:
+            gitee = None
+            for tmp in article_tags:
+                if tmp["class"][-1].startswith("osc-gitee"):
+                    gitee = tmp
+                    break
+            gitee = self.webSubParser.parse_gitee_block(gitee)
         # 加载贴吧
-        if tieba:
+        if "tieba" not in exclude and tieba:
             pre_results.append(dict(type="tieba", result=tieba))
         # 加载博客
-        if blog:
+        if "blog" not in exclude and blog:
             pre_results.append(dict(type="blog", result=blog))
         # 加载码云
-        if gitee:
+        if "gitee" not in exclude and gitee:
             pre_results.append(dict(type="gitee", result=gitee))
         # 加载搜索结果总数
         if num != 0:
             pre_results.append(dict(type="total", result=num))
         # 加载运算
-        if calc:
+        if "calc" not in exclude and calc:
             pre_results.append(
                 dict(
                     type="calc",
@@ -105,16 +114,16 @@ class Parser(BaseSpider):
                 )
             )
         # 加载相关搜索
-        if related:
+        if "related" not in exclude and related:
             pre_results.append(dict(type="related", results=related))
         # 加载资讯
-        if news_detail:
+        if "news" not in exclude and news_detail:
             pre_results.append(dict(type="news", results=news_detail))
         # 加载短视频
-        if video_results:
+        if "video" not in exclude and video_results:
             pre_results.append(dict(type="video", results=video_results))
         # 加载百科
-        if baike:
+        if "baike" not in exclude and baike:
             pre_results.append(dict(type="baike", result=baike))
         # 预处理源码
         soup = BeautifulSoup(content, "html.parser")

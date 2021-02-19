@@ -64,7 +64,7 @@ class BaiduSpider(BaseSpider):
         }
         self.parser = Parser()
 
-    def search_web(self, query: str, pn: int = 1) -> dict:
+    def search_web(self, query: str, pn: int = 1, exclude: list = []) -> dict:
         """百度网页搜索.
 
         - 简单搜索：
@@ -209,20 +209,40 @@ class BaiduSpider(BaseSpider):
                 'total': ...
             }
 
+        - 按需解析：
+            >>> BaiduSpider().search_web('搜索词', exclude=['要屏蔽的子部件列表'])
+            可选值：['news', 'video', 'baike', 'tieba', 'blog', 'gitee', 'related', 'calc']，
+            分别表示：资讯，视频，百科，贴吧，博客，Gitee代码仓库，相关搜索，计算。
+            当exclude=['all']时，将仅保留基本搜索结果和搜索结果总数。
+            如果'all'在exclude列表里，则将忽略列表中的剩余部件，返回exclude=['all']时的结果。
+
         Args:
-            query (str): 要爬取的query
+            query (str): 要爬取的搜索词.
             pn (int, optional): 爬取的页码. Defaults to 1.
+            exclude (list, optional): 要屏蔽的控件. Defaults to [].
 
         Returns:
             dict: 爬取的返回值和搜索结果
         """
         error = None
         results = {"results": [], "pages": 0}
+        # 按需解析
+        if "all" in exclude:
+            exclude = [
+                "news",
+                "video",
+                "baike",
+                "tieba",
+                "blog",
+                "gitee",
+                "calc",
+                "related",
+            ]
         try:
             text = quote(query, "utf-8")
             url = "https://www.baidu.com/s?wd=%s&pn=%d" % (text, (pn - 1) * 10)
             content = self._get_response(url)
-            results = self.parser.parse_web(content)
+            results = self.parser.parse_web(content, exclude=exclude)
         except Exception as err:
             error = err
         finally:
