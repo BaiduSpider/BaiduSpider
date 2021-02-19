@@ -1,5 +1,4 @@
 import re
-from htmlmin import minify
 import requests
 from baiduspider.errors import ParseError, UnknownError
 import os

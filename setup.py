@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="BaiduSpider",
-    version="0.1.4",
+    version="0.1.5",
     author="Sam Zhang",
     author_email="samzhang951@outlook.com",
     description="BaiduSpider，一个爬取百度的利器",
@@ -21,5 +21,5 @@ setuptools.setup(
         "License :: Free for non-commercial use",
     ],
     python_requires=">=3.6",
-    install_requires=["requests", "bs4", "htmlmin"],
+    install_requires=["requests", "bs4"],
 )

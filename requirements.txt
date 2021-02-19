@@ -1,3 +1,2 @@
-htmlmin>=0.1.12
 requests>=2.24.0
 bs4>=0.0.1
