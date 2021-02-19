@@ -3,9 +3,10 @@
 本测试案例用于测试`BaiduSpider.search_pic`及其实现函数。
 """
 from unittest import TestCase
-import sys
-import os
 import requests
+
+from baiduspider import BaiduSpider
+from baiduspider.errors import ParseError, UnknownError
 
 
 class PicTestCase(TestCase):
@@ -17,11 +18,6 @@ class PicTestCase(TestCase):
         super().__init__(methodName)
 
     def setUp(self):
-        # 导入包
-        sys.path.append(os.path.abspath("."))
-        from baiduspider import BaiduSpider
-        from baiduspider.errors import ParseError, UnknownError
-
         self.spider = BaiduSpider()
         self.assets_base_url = (
             "https://cdn.jsdelivr.net/gh/BaiduSpider/BaiduSpiderTestAssets@master/pic"
