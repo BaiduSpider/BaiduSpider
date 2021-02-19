@@ -33,8 +33,11 @@
     <a href="https://github.com/BaiduSpider/BaiduSpider/network/members">
         <img alt="GitHub forks" src="https://img.shields.io/github/forks/BaiduSpider/BaiduSpider">
     </a>
+    <a href="https://pypi.org/project/BaiduSpider/">
+        <img alt="PyPI version" src="https://img.shields.io/pypi/v/BaiduSpider">
+    </a>
     <a href="https://pepy.tech/project/baiduspider">
-        <img alt="downloads" src="https://pepy.tech/badge/baiduspider/month">
+        <img alt="downloads" src="https://static.pepy.tech/personalized-badge/baiduspider?period=month&units=international_system&left_color=grey&right_color=brightgreen&left_text=downloads/month">
     </a>
 </p>
 
