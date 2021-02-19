@@ -33,9 +33,6 @@
     <a href="https://github.com/BaiduSpider/BaiduSpider/network/members">
         <img alt="GitHub forks" src="https://img.shields.io/github/forks/BaiduSpider/BaiduSpider">
     </a>
-    <a href="https://travis-ci.org/github/BaiduSpider/BaiduSpider">
-        <img alt="build status" src="https://travis-ci.org/BaiduSpider/BaiduSpider.svg?branch=master">
-    </a>
     <a href="https://pepy.tech/project/baiduspider">
         <img alt="downloads" src="https://pepy.tech/badge/baiduspider/month">
     </a>
@@ -211,6 +208,16 @@ pprint(spider.search_web(query='Python'))
 <br />
 
 如果你想要参与BaiduSpider的维护工作，我将十分感激！维护的方式多种多样，可以通过[提交新的issue](https://github.com/BaiduSpider/BaiduSpider/issues/new/choose)，可以为新手解答issue，甚至[提交一个PR](https://github.com/BaiduSpider/BaiduSpider/compare)！
+
+<br />
+
+<h2 align="center">
+    关于速度
+</h2>
+
+<br />
+
+本项目的执行速度很大情况下取决于你所在地区的网速。本项目的解析时间约为0.3 ~ 0.4秒，后期会考虑加入按需解析以提高解析速度。如果你想要测试解析速度，可以将执行`BaiduSpider.parse_web`的时间记录下来。详细使用请见注释，由于是内部函数，将不会出现在文档中。
 
 <br />
 

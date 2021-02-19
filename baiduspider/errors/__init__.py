@@ -2,8 +2,10 @@
 
 本文件定义了BaiduSpider的自定义错误，如`ParseError`，`UnknownError`等。
 """
+
+
 class ParseError(Exception):
-    def __init__(self, msg: str = '', *args, **kwargs) -> None:
+    def __init__(self, msg: str = "", *args, **kwargs) -> None:
         """分析HTML的自定义错误
 
         Args:
@@ -11,13 +13,13 @@ class ParseError(Exception):
         """
         super().__init__(*args, **kwargs)
         self.msg = msg
-    
+
     def __str__(self) -> str:  # pragma: no cover
         return self.msg
 
 
 class UnknownError(Exception):
-    def __init__(self, msg: str = '', *args, **kwargs) -> None:
+    def __init__(self, msg: str = "", *args, **kwargs) -> None:
         """未知错误
 
         Args:
@@ -25,6 +27,6 @@ class UnknownError(Exception):
         """
         super().__init__(*args, **kwargs)
         self.msg = msg
-    
+
     def __str__(self) -> str:  # pragma: no cover
         return self.msg

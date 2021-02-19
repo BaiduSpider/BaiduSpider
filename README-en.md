@@ -33,9 +33,6 @@
     <a href="https://github.com/BaiduSpider/BaiduSpider/network/members">
         <img alt="GitHub forks" src="https://img.shields.io/github/forks/BaiduSpider/BaiduSpider">
     </a>
-    <a href="https://travis-ci.org/github/BaiduSpider/BaiduSpider">
-        <img alt="build status" src="https://travis-ci.org/BaiduSpider/BaiduSpider.svg?branch=master">
-    </a>
     <a href="https://pepy.tech/project/baiduspider">
         <img alt="downloads" src="https://pepy.tech/badge/baiduspider/month">
     </a>
