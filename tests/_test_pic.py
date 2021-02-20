@@ -3,6 +3,7 @@
 本测试案例用于测试`BaiduSpider.search_pic`及其实现函数。
 """
 from unittest import TestCase
+
 import requests
 
 from baiduspider import BaiduSpider
