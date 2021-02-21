@@ -35,9 +35,15 @@ class BaiduSpiderOtherTestCase(TestCase):
             if i['type'] == 'result':
                 self.are_in(['des', 'origin', 'title', 'url'], i)
             elif i['type'] == 'tieba':
-                self.are_in(['title', 'des', 'cover', 'url', 'followers', 'hot', 'total'], i['results'])
+                self.are_in(['title', 'des', 'cover', 'url', 'followers', 'hot', 'total'], i['result'])
             elif i['type'] == 'video':
                 self.are_in(['length', 'origin', 'title', 'url'], i['results'][0])
+
+    def test_news(self):
+        result = self.spider.search_web('今日新闻')
+        for i in result['results']:
+            if i['type'] == 'news':
+                self.are_in(['author', 'time', 'title', 'url', 'des'], i['results'][0])
 
     def test_exclude_all(self):
         result = self.spider.search_web('python', exclude=['all'])
