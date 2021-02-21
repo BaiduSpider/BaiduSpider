@@ -4,7 +4,7 @@
 """
 
 
-class ParseError(Exception):
+class ParseError(Exception):   # pragma: no cover
     def __init__(self, msg: str = "", *args, **kwargs) -> None:
         """分析HTML的自定义错误
 
@@ -18,7 +18,7 @@ class ParseError(Exception):
         return self.msg
 
 
-class UnknownError(Exception):
+class UnknownError(Exception):   # pragma: no cover
     def __init__(self, msg: str = "", *args, **kwargs) -> None:
         """未知错误
 

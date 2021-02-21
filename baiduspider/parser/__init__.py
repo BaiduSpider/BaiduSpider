@@ -1,7 +1,7 @@
 import json
 from html import unescape
 
-from bs4 import BeautifulSoup, ResultSet
+from bs4 import BeautifulSoup
 
 from baiduspider._spider import BaseSpider
 from baiduspider.errors import ParseError

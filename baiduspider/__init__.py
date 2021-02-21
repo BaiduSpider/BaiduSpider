@@ -5,12 +5,7 @@
 :GitHub: https://github.com/samzhangjy
 :GitLab: https://gitlab.com/samzhangjy
 """
-import json
-import os
-import re
-from html import unescape
-from pprint import pprint
-from urllib.parse import quote, urlparse
+from urllib.parse import quote
 
 import requests
 from bs4 import BeautifulSoup
