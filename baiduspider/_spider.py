@@ -61,7 +61,7 @@ class BaseSpider(object):  # pragma: no cover
         content = bytes(response.text, response.encoding).decode("utf-8")
         return content
 
-    def _handle_error(self, err: Exception, parent='', cause='') -> None:
+    def _handle_error(self, err: Exception, parent="", cause="") -> None:
         if err is None:
             return None
         if bool(int(os.environ.get("DEBUG", 0))):
