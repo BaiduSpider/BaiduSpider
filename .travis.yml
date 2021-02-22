@@ -1,0 +1,17 @@
+# BaiduSpider Travis CI配置文件
+
+language: python
+
+python:
+  - "3.8"
+
+# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+install:
+  - "pip install -r dev-requirements.txt"
+
+# command to run tests, e.g. python setup.py test
+script:
+  "coverage run ./tests/__init__.py"
+
+after_success:
+  coveralls
