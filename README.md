@@ -205,6 +205,34 @@ pprint(spider.search_web(query='Python'))
 <br />
 
 <h2 align="center">
+    开发人员
+</h2>
+
+<br />
+
+<span style="margin-bottom: 64px">
+    <img src="https://avatars.githubusercontent.com/u/56634385?s=64" alt="samzhangjy" style="border-radius: 100%" />
+</span>
+<span style="margin-top: -64px">
+    <a href="https://github.com/samzhangjy" style="text-decoration: none;">
+        <b>samzhangjy</b>
+    </a>,
+    现任OIer，业余Python Coder。BaiduSpider作者，主要代码贡献者。
+</span>
+<br /><br />
+<span style="margin-bottom: 64px">
+    <img src="https://avatars.githubusercontent.com/u/63110955?s=64" alt="陈绍坤" style="border-radius: 100%" />
+</span>
+<span style="margin-top: -64px">
+    <a href="https://github.com/kunkunhub" style="text-decoration: none;">
+        <b>陈绍坤</b>
+    </a>,
+    Web开发者，编程爱好者，12岁，擅长Flask。BaiduSpider代码贡献者。
+</span>
+
+<br /><br />
+
+<h2 align="center">
     维护BaiduSpider
 </h2>
 
