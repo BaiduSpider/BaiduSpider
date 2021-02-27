@@ -244,6 +244,51 @@ class BaiduSpider(BaseSpider):
             self._handle_error(error, "BaiduSpider", "parse-web")
         return {"results": results["results"], "total": results["pages"]}
 
+    def flat(self, result: dict) -> list:
+        """
+        "扁平化"搜索结果
+        结果样例：
+        [['python吧 - 百度贴吧',                                      # 标题
+          'http://tieba.baidu.com/f?kw=python&fr=ala0&loc=rec',     # 网址
+          'python学习交流基地。',                                      # 描述
+          'tieba'],                                                 # 类型
+         ['python安装相关博客',                       # 标题
+          'http://www.baidu.com/link?url=aJncmLXsD5iqIe47eQfESoydtwFay5podum390RFWEmiOcyntS4tM9Fo18_eDWOPoELF0NwLIKes-TusYYfWZnraAPRXZRJROaToaA05ifu',
+          None,                                     # 没有描述
+          'blog'],                                  # 类型
+         ['Python - Gitee',
+          'http://www.baidu.com/link?url=ssnksDzg7Cuh_uiT3hCLgiVYgx7A6tzYb1qGKjyQMjvZer4Y1AX1TGt1eAilYvYqphv8lhb31v_Lo7Q2oL4HrTkf_IXDrr9PtkmgfI9TFTX43KCgmuAEqE-X73K4CvZH',
+          'Python 算法集',
+          'gitee'],
+         ......
+         ['Python3.8.2中文版 32/64位 最新版 加速吧',
+          'python3.8.2版是一款非常专业的通用型计算机程序设计语言安装包。目前大版本已经来到了3.8.2版本,同时随着版本的不断更新和语言新功能的添加,越来越多被用于独立的...',
+          'http://www.baidu.com/link?url=s8pY0zaKIm7PY581uTkpEC2t_oHWV-5-5ta7V6QD4YrssPdlvqDvF1cQJykl0r2Jja3xyMRIQL6nDJI33NnTnq',
+          'result']]
+        Args:
+            result: BaiduSpider().search_web() 的返回结果
+
+        Returns:
+            list: 扁平化的结果
+
+        """
+        flat_result = []
+        for i in result['results']:
+            if i['type'] == 'news':
+                for j in i['results']:
+                    flat_result.append((j['title'], j['url'], j['des'], 'news'))
+            if i['type'] == 'baike':
+                flat_result.append([i['result']['title'], i['result']['url'], i['result']['des'], 'baike'])
+            if i['type'] == 'tieba':
+                flat_result.append([i['result']['title'], i['result']['url'], i['result']['des'], 'tieba'])
+            if i['type'] == 'blog':
+                flat_result.append([i['result']['title'], i['result']['url'], None, 'blog'])
+            if i['type'] == 'gitee':
+                flat_result.append([i['result']['title'], i['result']['url'], i['result']['des'], 'gitee'])
+            if i['type'] == 'result':
+                flat_result.append([i['title'], i['des'], i['url'], 'result'])
+        return flat_result
+
     def search_pic(self, query: str, pn: int = 1) -> dict:
         """百度图片搜索.
 

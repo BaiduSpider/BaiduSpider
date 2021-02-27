@@ -102,6 +102,15 @@ class SpiderTestCase(TestCase):
         for i in python['results']:
             self.are_in(['title', 'des', 'date', 'url', 'count'], i)
 
+    def test_flat(self):
+        python = self.spider.search_web('python')
+        python = self.spider.flat(python)
+        self.assertEqual(list, type(python))
+        self.assertEqual(type(python[0][0]), str)
+        self.assertEqual(type(python[0][1]), str)
+        self.assertIn(type(python[0][2]), [str, None])
+        self.assertEqual(type(python[0][3]), str)
+
     def are_in(self, members: list, container: list):
         for i in members:
             self.assertIn(i, container)

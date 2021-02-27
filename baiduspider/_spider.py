@@ -3,7 +3,7 @@ import requests
 import os
 
 
-class BaseSpider(object):  # pragma: no cover
+class BaseSpider(object):
     def __init__(self) -> None:
         """所有爬虫的基类
 
@@ -81,8 +81,8 @@ class BaseSpider(object):  # pragma: no cover
             #     '&title=%5BBUG%5D%20%E6%AD%A4%E5%A4%84%E5%A1%AB%E5%86%99%E4%BD%A0%E7%9A%84%E6%A0%87%E9%A2%98 提交一个新的issue。\033[31;m')
             return None
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:       # pragma: no cover
         return "<Spider %s>" % self.spider_name
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:        # pragma: no cover
         return self.__repr__()
