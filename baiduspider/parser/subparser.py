@@ -130,8 +130,12 @@ class WebSubParser(BaseSpider):
             for hot in t_hot_:
                 t_h_title = self._format(hot.find("a").text)
                 t_h_url = hot.find("a")["href"]
-                t_h_clicks = self._format(hot.find('div', class_='c-span2').find("span").find("span").text)
-                t_h_replies = self._format(hot.find('div', class_='c-span-last').find("span").find("span").text)
+                t_h_clicks = self._format(
+                    hot.find("div", class_="c-span2").find("span").find("span").text
+                )
+                t_h_replies = self._format(
+                    hot.find("div", class_="c-span-last").find("span").find("span").text
+                )
                 t_hot.append(
                     {
                         "title": t_h_title,

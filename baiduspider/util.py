@@ -2,7 +2,7 @@ import inspect
 import os
 
 
-def handle_err(func):   # pragma: no cover
+def handle_err(func):  # pragma: no cover
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)

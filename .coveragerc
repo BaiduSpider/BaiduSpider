@@ -1,3 +1,5 @@
 [coverage:run]
 omit =
     venv/*
+    tests/test_other.py
+    tests/test_spider.py
