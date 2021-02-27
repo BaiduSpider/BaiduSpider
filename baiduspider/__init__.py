@@ -6,6 +6,8 @@
 :GitLab: https://gitlab.com/samzhangjy
 """
 from urllib.parse import quote
+import re
+import threading
 
 import requests
 from bs4 import BeautifulSoup
@@ -288,6 +290,37 @@ class BaiduSpider(BaseSpider):
             if i['type'] == 'result':
                 flat_result.append([i['title'], i['des'], i['url'], 'result'])
         return flat_result
+
+    def convert_links(self, result: list):  # pragma: no cover
+        """
+        解析百度搜索结果中的链接，这个过程是多线程的，最多需要1.5秒。
+        目前不可用
+        """
+        convert = {}
+
+        def get_link_url(link):
+            if 'www.baidu.com/link?url=' not in link:
+                convert[link] = link
+                return
+            try:
+                r = requests.get(link, timeout=1).text
+                convert[link] = re.findall(r"URL='(http\S+)'", r)[0]
+            except (requests.exceptions.ConnectTimeout, requests.exceptions.ReadTimeout):
+                convert[link] = link
+
+        # from concurrent.futures import ThreadPoolExecutor
+        # pool = ThreadPoolExecutor(10)
+        for i in result:
+            # pool.submit(get_link_url, link=i[1])
+            print(i[1])
+            if i[3] != 'blog':
+                get_link_url(i[1])
+        # pool.shutdown(wait=True)
+
+        for i in result:
+            i[1] = convert[i[1]]
+
+        return result
 
     def search_pic(self, query: str, pn: int = 1) -> dict:
         """百度图片搜索.
