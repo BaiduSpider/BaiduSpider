@@ -49,7 +49,7 @@ class BaiduSpider(BaseSpider):
         BaiduSpider.`search_baike(self: BaiduSpider, query: str) -> dict`: 百度百科搜索
         """
         super().__init__()
-        # 爬虫名称（不是请求的，只是用来表识）
+        # 爬虫名称（不是请求的，只是用来标识）
         self.spider_name = "BaiduSpider"
         # 设置请求头
         self.headers = {
