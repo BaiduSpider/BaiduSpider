@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  <link rel="stylesheet" href="{{ 'overrides/stylesheets/main.css' | url }}">
+{% endblock %}
+
+{% block announce %}
+  <a href="https://github.com/BaiduSpider/BaiduSpider/tree/dev">
+    <span class="" style="font-size: 110%">
+        💥
+    </span>
+    BaiduSpider v1.0正式版发布，使用类型注释，让开发者获得更好的开发体验！
+  </a>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ 'overrides/javascripts/main.js' | url }}"></script>
+{% endblock %}

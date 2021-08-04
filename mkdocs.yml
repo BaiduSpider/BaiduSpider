@@ -1,0 +1,143 @@
+site_name: BaiduSpider
+# site_url: http://127.0.0.1:8000/
+
+repo_url: https://github.com/BaiduSpider/BaiduSpider
+repo_name: BaiduSpider/BaiduSpider
+
+copyright: Copyright &copy; 2019 - 2021 BaiduSpider
+
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  custom_dir: ./docs/overrides
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.expand
+    - navigation.instant
+    - navigation.sections
+  language: zh
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+nav:
+  - 快速上手: index.md
+  - 指南:
+    - 简介: guide/index.md
+    - PC端:
+      - 网页搜索: guide/pc/web.md
+      - 资讯搜索: guide/pc/news.md
+      - 文库搜索: guide/pc/wenku.md
+      - 知道搜索: guide/pc/zhidao.md
+      - 视频搜索: guide/pc/video.md
+      - 经验搜索: guide/pc/jingyan.md
+      - 图片搜索: guide/pc/pic.md
+      - 百科搜索: guide/pc/baike.md
+    - 移动端:
+      - 网页搜索: guide/mobile/web.md
+  - FAQ: FAQ/index.md
+  - API:
+    - 简介: api/index.md
+    - baiduspider:
+      - __init__.py: api/baiduspider/__init__.md
+      - _spider.py: api/baiduspider/_spider.md
+      - util.py: api/baiduspider/util.md
+      - errors:
+        - __init__.py: api/baiduspider/errors/__init__.md
+      - parser:
+        - __init__.py: api/baiduspider/parser/__init__.md
+        - subparser.py: api/baiduspider/parser/subparser.md
+      - models:
+        - typings:
+          - typings_baike.py: api/baiduspider/models/typings/typings_baike.md
+          - typings_jingyan.py: api/baiduspider/models/typings/typings_jingyan.md
+          - typings_news.py: api/baiduspider/models/typings/typings_news.md
+          - typings_pic.py: api/baiduspider/models/typings/typings_pic.md
+          - typings_video.py: api/baiduspider/models/typings/typings_video.md
+          - typings_web.py: api/baiduspider/models/typings/typings_web.md
+          - typings_wenku.py: api/baiduspider/models/typings/typings_wenku.md
+          - typings_zhidao.py: api/baiduspider/models/typings/typings_zhidao.md
+        - __init__.py: api/baiduspider/models/__init__.md
+        - baike.py: api/baiduspider/models/baike.md
+        - jingyan.py: api/baiduspider/models/jingyan.md
+        - news.py: api/baiduspider/models/news.md
+        - pic.py: api/baiduspider/models/pic.md
+        - video.py: api/baiduspider/models/video.md
+        - web.py: api/baiduspider/models/web.md
+        - wenku.py: api/baiduspider/models/wenku.md
+        - zhidao.py: api/baiduspider/models/zhidao.md
+      - mobile:
+        - __init__.py: api/baiduspider/mobile/__init__.md
+        - parser:
+          - __init__.py: api/baiduspider/mobile/parser/__init__.md
+          - subparser.py: api/baiduspider/mobile/parser/subparser.md
+        - models:
+          - web.py: api/baiduspider/mobile/models/web.md
+          - typings:
+            - typings_web.py: api/baiduspider/mobile/models/typings/typings_web.md
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - admonition
+  - pymdownx.details
+  - pymdownx.keys
+  - footnotes
+  - attr_list
+  - def_list
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.smartsymbols
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - toc:
+      permalink: ⚓︎
+      slugify: !!python/name:pymdownx.slugs.uslugify_cased
+
+plugins:
+  - search
+  - mkdocstrings:
+      watch:
+        - baiduspider
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  disqus: BaiduSpider
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/BaiduSpider/BaiduSpider
+      name: GitHub Repo
+    - icon: material/language-python
+      link: https://pypi.org/project/BaiduSpider/
+      name: PyPI
+    - icon: material/web
+      link: https://baidus.vercel.app
+      name: BaiduSpider Web
+    - icon: material/television-guide
+      link: https://baiduspider.github.io
+      name: BaiduSpider Docs
