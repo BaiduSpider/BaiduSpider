@@ -53,14 +53,18 @@ class Parser(BaseSpider):
         # 预处理相关搜索
         if "related" not in exclude:
             try:
-                _related = soup.find("div", id="rs").find("table").find_all("th")
+                _related = (
+                    soup.find("div", class_="result-molecule")
+                    .find("table")
+                    .findAll("td")
+                )
             except AttributeError:
                 _related = []
             related = []
             # 一个一个append相关搜索
             for _ in _related:
                 if _.text:
-                    related.append(_.text)
+                    related.append(self._format(_.text))
         # 预处理百科
         if "baike" not in exclude:
             baike = soup.find("div", class_="c-container", tpl="bk_polysemy")
