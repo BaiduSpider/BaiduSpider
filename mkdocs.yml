@@ -127,7 +127,7 @@ extra_css:
   - stylesheets/extra.css
 
 extra:
-  disqus: BaiduSpider
+  disqus: baiduspider
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/BaiduSpider/BaiduSpider
