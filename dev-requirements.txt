@@ -33,7 +33,7 @@ mkdocstrings==0.15.2
 mypy-extensions==0.4.3
 packaging==20.9
 pathspec==0.8.1
-pkginfo==1.7.0
+pkginfo==1.7.1
 pycodestyle==2.7.0
 Pygments==2.9.0
 pymdown-extensions==8.2
