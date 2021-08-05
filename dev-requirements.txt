@@ -23,7 +23,7 @@ Markdown==3.3.4
 MarkupSafe==2.0.1
 mergedeep==1.3.4
 mike==1.0.1
-mkdocs==1.2.1
+mkdocs==1.2.2
 mkdocs-autorefs==0.2.1
 mkdocs-material==7.1.10
 mkdocs-material-extensions==1.0.1
