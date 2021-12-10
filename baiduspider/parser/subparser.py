@@ -111,7 +111,7 @@ class WebSubParser(BaseSpider):
         if baike:
             b_title = self._format(baike.find("h3").text)
             b_url = baike.find("a")["href"]
-            b_des = self._format(baike.find("div", class_="c-span-last").find("p").text)
+            b_des = self._format(baike.find("div", class_="c-span-last").find("div", class_="c-font-normal").text)
             try:
                 b_cover = baike.find("div", class_="c-span3").find("img")["src"]
                 b_cover_type = "image"
@@ -169,17 +169,17 @@ class WebSubParser(BaseSpider):
                 )["src"]
             except AttributeError:
                 t_cover = None
-            t_hot_ = tieba.findAll("div", class_="c-row")[1:]
+            t_hot_ = tieba.findAll("div", class_="c-row")[1:-1]
             t_hot = []
             i = 1
             for hot in t_hot_:
                 t_h_title = self._format(hot.find("a").text)
                 t_h_url = hot.find("a")["href"]
                 t_h_clicks = self._format(
-                    hot.find("div", class_="c-span2").find("span").find("span").text
+                    hot.find("div", class_="c-color-gray2").find("span").text
                 )
                 t_h_replies = self._format(
-                    hot.find("div", class_="c-span-last").find("span").find("span").text
+                    hot.findAll("div", class_="c-color-gray2")[-1].find("span").text
                 )
                 t_hot.append(
                     {

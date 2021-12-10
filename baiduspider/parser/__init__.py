@@ -32,7 +32,7 @@ class Parser(BaseSpider):
             return {"results": [], "pages": 0}
         # 获取搜索结果总数
         num = int(
-            str(soup.find("span", class_="nums_text").text)
+            str(soup.find("div", class_="result-molecule").findAll("span")[-1].text)
             .strip("百度为您找到相关结果约")
             .strip("个")
             .replace(",", "")
