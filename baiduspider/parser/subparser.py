@@ -111,7 +111,11 @@ class WebSubParser(BaseSpider):
         if baike:
             b_title = self._format(baike.find("h3").text)
             b_url = baike.find("a")["href"]
-            b_des = self._format(baike.find("div", class_="c-span-last").find("div", class_="c-font-normal").text)
+            b_des = self._format(
+                baike.find("div", class_="c-span-last")
+                .find("div", class_="c-font-normal")
+                .text
+            )
             try:
                 b_cover = baike.find("div", class_="c-span3").find("img")["src"]
                 b_cover_type = "image"
