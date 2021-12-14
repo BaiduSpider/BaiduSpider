@@ -15,7 +15,7 @@ docutils==0.17.1
 ghp-import==2.0.1
 htmlmin==0.1.12
 idna==2.10
-importlib-metadata==4.6.0
+importlib-metadata==4.8.2
 Jinja2==3.0.1
 jsmin==2.2.2
 keyring==23.0.1
