@@ -8,15 +8,10 @@
 """
 import datetime
 import time as time_lib
-from time import mktime, strptime, time
 from typing import Tuple, Union
-from urllib.parse import SplitResult, quote
-
-import requests
-from bs4 import BeautifulSoup
+from urllib.parse import quote
 
 from baiduspider._spider import BaseSpider
-from baiduspider.errors import ParseError, UnknownError
 from baiduspider.parser import Parser
 from baiduspider.models.web import WebResult
 from baiduspider.models.pic import PicResult
