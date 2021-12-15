@@ -1,6 +1,6 @@
 appdirs==1.4.4
 autopep8==1.5.7
-beautifulsoup4==4.9.3
+beautifulsoup4==4.10.0
 black==21.12b0
 bleach==3.3.0
 bs4==0.0.1
