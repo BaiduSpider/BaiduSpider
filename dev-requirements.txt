@@ -39,7 +39,7 @@ Pygments==2.9.0
 pymdown-extensions==8.2
 pyparsing==3.0.6
 python-dateutil==2.8.1
-pytkdocs==0.11.1
+pytkdocs==0.14.0
 pywin32-ctypes==0.2.0
 PyYAML==5.4.1
 pyyaml-env-tag==0.1
