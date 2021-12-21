@@ -14,7 +14,6 @@ def get_attr(d: dict, t: str):
         return None
 
 
-
 class TiebaPredictorResult(TiebaPredictorResult):
     """贴吧搜索搜索结果预测结果模型类型注释类。
 
@@ -54,4 +53,3 @@ class TiebaPredictorResult(TiebaPredictorResult):
 
     def __repr__(self) -> str:
         return "<object TiebaPredictorResult>"
-

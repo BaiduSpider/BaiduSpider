@@ -31,12 +31,17 @@ class Parser(BaseSpider):
         if soup.find("div", id="content_left") is None:
             return {"results": [], "pages": 0}
         # 获取搜索结果总数
-        num = int(
-            str(soup.find("div", class_="result-molecule").findAll("span")[-1].text)
-            .strip("百度为您找到相关结果约")
-            .strip("个")
-            .replace(",", "")
-        )
+        tmp1 = soup.findAll("div", class_="result-molecule")
+        idx_ = 0
+        ele = None
+        while ele is None:
+            tmp = tmp1[idx_].findAll("span")
+            for t in tmp:
+                if "百度为您找到相关结果约" in t.text:
+                    ele = t
+                    break
+            idx_ += 1
+        num = int(str(ele.text).strip("百度为您找到相关结果约").strip("个").replace(",", ""))
         # 定义预结果（运算以及相关搜索）
         pre_results = []
         # 预处理新闻

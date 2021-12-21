@@ -61,6 +61,12 @@ nav:
       - parser:
         - __init__.py: api/baiduspider/parser/__init__.md
         - subparser.py: api/baiduspider/parser/subparser.md
+      - predictor:
+        - models:
+          - typings:
+            - __init__.py: api/baiduspider/predictor/models/typings/__init__.md
+          - __init__.py: api/baiduspider/predictor/models/__init__.md
+        - __init__.py: api/baiduspider/predictor/__init__.md
       - models:
         - typings:
           - typings_baike.py: api/baiduspider/models/typings/typings_baike.md

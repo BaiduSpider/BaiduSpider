@@ -24,8 +24,11 @@ class BaiduPredictor(BaseSpider):
         Returns:
             List[str]: 百度网页搜索搜索词预测
         """
-        data = json.loads(self._get_response(
-            f"https://www.baidu.com/sugrec?ie=utf-8&json=1&prod=pc&from=pc_web&wd={query}"))
+        data = json.loads(
+            self._get_response(
+                f"https://www.baidu.com/sugrec?ie=utf-8&json=1&prod=pc&from=pc_web&wd={query}"
+            )
+        )
         ret = [i["q"] for i in data["g"]]
         if "g" not in data:
             return [data["q"]]
@@ -40,8 +43,9 @@ class BaiduPredictor(BaseSpider):
         Returns:
             List[str]: 百度资讯搜索搜索词预测
         """
-        data = json.loads(self._get_response(
-            f"http://news.baidu.com/sn/api/sug?wd={query}&prod=news"))
+        data = json.loads(
+            self._get_response(f"http://news.baidu.com/sn/api/sug?wd={query}&prod=news")
+        )
         return data["data"]
 
     def predict_pic(self, query: str) -> List[str]:
@@ -53,8 +57,11 @@ class BaiduPredictor(BaseSpider):
         Returns:
             List[str]: 百度图片搜索搜索词预测
         """
-        data = json.loads(self._get_response(
-            f"https://www.baidu.com/sugrec?ie=utf-8&wd={query}&prod=open_image"))
+        data = json.loads(
+            self._get_response(
+                f"https://www.baidu.com/sugrec?ie=utf-8&wd={query}&prod=open_image"
+            )
+        )
         ret = [i["q"] for i in data["g"]]
         if "g" not in data:
             return [data["q"]]
@@ -69,8 +76,11 @@ class BaiduPredictor(BaseSpider):
         Returns:
             List[str]: 百度文库搜索搜索词预测
         """
-        data = json.loads(self._get_response(
-            f"https://www.baidu.com/sugrec?prod=open_wenku&wd={query}"))
+        data = json.loads(
+            self._get_response(
+                f"https://www.baidu.com/sugrec?prod=open_wenku&wd={query}"
+            )
+        )
         ret = [i["q"] for i in data["g"]]
         if "g" not in data:
             return [data["q"]]
@@ -85,8 +95,11 @@ class BaiduPredictor(BaseSpider):
         Returns:
             List[str]: 百度知道搜索搜索词预测
         """
-        data = json.loads(self._get_response(
-            f"https://www.baidu.com/sugrec?wd={query}&prod=open_zhidao"))
+        data = json.loads(
+            self._get_response(
+                f"https://www.baidu.com/sugrec?wd={query}&prod=open_zhidao"
+            )
+        )
         if "g" not in data:
             return [data["q"]]
         ret = [i["q"] for i in data["g"]]
@@ -101,16 +114,22 @@ class BaiduPredictor(BaseSpider):
         Returns:
             List[TiebaPredictorResult]: 百度贴吧搜索搜索词预测
         """
-        data = json.loads(self._get_response(
-            f"https://tieba.baidu.com/suggestion?query={query}&ie=utf-8"))
+        data = json.loads(
+            self._get_response(
+                f"https://tieba.baidu.com/suggestion?query={query}&ie=utf-8"
+            )
+        )
         if data["query_match"]["search_data"] is None:
             return []
-        ret = [{
-            "name": i["fname"],
-            "cover": i["fpic"],
-            "members": i["member_num"],
-            "threads": i["thread_num"],
-            "classifiers": [i["fclass1"], i["fclass2"]],
-            "desc": i["forum_desc"]
-        } for i in data["query_match"]["search_data"]]
+        ret = [
+            {
+                "name": i["fname"],
+                "cover": i["fpic"],
+                "members": i["member_num"],
+                "threads": i["thread_num"],
+                "classifiers": [i["fclass1"], i["fclass2"]],
+                "desc": i["forum_desc"],
+            }
+            for i in data["query_match"]["search_data"]
+        ]
         return ret

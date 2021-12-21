@@ -1,3 +1,3 @@
-black ./baiduspider
-black ./setup.py
-black ./generate_typings.py
+black -q ./baiduspider
+black -q ./setup.py
+black -q ./generate_typings.py
