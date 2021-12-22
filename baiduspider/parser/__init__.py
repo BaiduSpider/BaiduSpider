@@ -34,14 +34,20 @@ class Parser(BaseSpider):
         tmp1 = soup.findAll("div", class_="result-molecule")
         idx_ = 0
         ele = None
-        while ele is None:
+        while ele is None and idx_ < len(tmp1):
             tmp = tmp1[idx_].findAll("span")
+            found = False
             for t in tmp:
-                if "百度为您找到相关结果约" in t.text:
+                if "百度为您找到相关结果" in t.text:
                     ele = t
+                    found = True
                     break
+            if found:
+                break
             idx_ += 1
-        num = int(str(ele.text).strip("百度为您找到相关结果约").strip("个").replace(",", ""))
+        num = int(
+            str(ele.text).strip("百度为您找到相关结果").strip("约").strip("个").replace(",", "")
+        )
         # 定义预结果（运算以及相关搜索）
         pre_results = []
         # 预处理新闻
