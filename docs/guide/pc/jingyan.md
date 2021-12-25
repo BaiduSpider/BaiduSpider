@@ -15,9 +15,9 @@ BaiduSpider.search_jingyan(
 ## 参数
 
 - query `#!py str`: 要查询知道搜索的字符串
-- pn `#!py int`: 要爬取的页码，默认为`#!py 1`，为可选参数
-- scope `#!py str`: 搜索结果筛选范围，默认为`#!py "all"`，为可选参数
-- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，为可选参数
+- pn `#!py int`: 要爬取的页码，默认为`#!py 1`，可选
+- scope `#!py str`: 搜索结果筛选范围，默认为`#!py "all"`，可选
+- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 
@@ -56,8 +56,8 @@ pprint(BaiduSpider().search_jingyan("要搜索的关键词", scope="original")) 
 
 ### 字典返回值
 
-详见[API文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_jingyan)。
+详见 [API 文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_jingyan)。
 
 ### 模型结果返回值
 
-详见[API文档](/api/baiduspider/models/jingyan.html)。
+详见 [API 文档](/api/baiduspider/models/jingyan.html)。
