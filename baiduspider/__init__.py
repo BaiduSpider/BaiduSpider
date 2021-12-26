@@ -7,22 +7,22 @@
 :GitHub: https://github.com/BaiduSpider/BaiduSpider
 """
 import datetime
+import hashlib
+import random
 import time as time_lib
 from typing import Tuple, Union
 from urllib.parse import quote
 
 from baiduspider._spider import BaseSpider
-from baiduspider.parser import Parser
-from baiduspider.models.web import WebResult
-from baiduspider.models.pic import PicResult
-from baiduspider.models.news import NewsResult
-from baiduspider.models.video import VideoResult
-from baiduspider.models.zhidao import ZhidaoResult
-from baiduspider.models.wenku import WenkuResult
-from baiduspider.models.jingyan import JingyanResult
 from baiduspider.models.baike import BaikeResult
-import hashlib
-import random
+from baiduspider.models.jingyan import JingyanResult
+from baiduspider.models.news import NewsResult
+from baiduspider.models.pic import PicResult
+from baiduspider.models.video import VideoResult
+from baiduspider.models.web import WebResult
+from baiduspider.models.wenku import WenkuResult
+from baiduspider.models.zhidao import ZhidaoResult
+from baiduspider.parser import Parser
 
 __all__ = ["BaiduSpider"]
 

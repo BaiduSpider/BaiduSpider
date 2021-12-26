@@ -1,7 +1,8 @@
 import json
-from baiduspider._spider import BaseSpider
-from pprint import pprint
 import os
+from pprint import pprint
+
+from baiduspider._spider import BaseSpider
 
 
 class Generator(BaseSpider):

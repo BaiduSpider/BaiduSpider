@@ -1,4 +1,5 @@
 import json
+import math
 from datetime import datetime, time
 from html import unescape
 from time import localtime, strftime
@@ -8,7 +9,6 @@ from baiduspider.errors import ParseError
 from baiduspider.parser.subparser import WebSubParser
 from baiduspider.util import handle_err
 from bs4 import BeautifulSoup
-import math
 
 
 class Parser(BaseSpider):

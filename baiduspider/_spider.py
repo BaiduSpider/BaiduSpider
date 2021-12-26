@@ -1,10 +1,12 @@
-from baiduspider.util import convert_time
-import re
-from typing import Union
-import requests
-import os
-from datetime import datetime, timedelta
 import math
+import os
+import re
+from datetime import datetime, timedelta
+from typing import Union
+
+import requests
+
+from baiduspider.util import convert_time
 
 
 class BaseSpider(object):

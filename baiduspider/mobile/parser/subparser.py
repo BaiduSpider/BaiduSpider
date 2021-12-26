@@ -1,5 +1,5 @@
 import json
-from datetime import time, datetime
+from datetime import datetime, time
 
 import requests
 from baiduspider._spider import BaseSpider

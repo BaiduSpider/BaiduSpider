@@ -3,8 +3,9 @@
 此文件定义的所有现有的移动端网页搜索返回值模型并编写了自动构建函数。
 """
 from datetime import datetime, time
+
+from baiduspider.mobile.models import convert_time, get_attr
 from baiduspider.mobile.models.typings.typings_web import *
-from baiduspider.mobile.models import get_attr, convert_time
 
 
 class WebVideoDetail(WebVideoDetail):

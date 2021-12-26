@@ -4,10 +4,9 @@
 """
 from typing import Union
 
-from requests.api import get
-
 from baiduspider.models import convert_time, get_attr
 from baiduspider.models.typings.typings_wenku import *
+from requests.api import get
 
 
 class WenkuUploader(WenkuUploader):

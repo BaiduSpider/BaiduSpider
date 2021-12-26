@@ -3,6 +3,7 @@
 此文件定义了所有现有的搜索词预测模块内返回值模型并编写了自动构建函数。
 """
 from typing import Union
+
 from baiduspider.predictor.models.typings import TiebaPredictorResult
 
 
