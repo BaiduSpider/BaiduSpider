@@ -29,7 +29,7 @@ class Parser(BaseSpider):
         """
         soup = BeautifulSoup(content, "html.parser")
         if soup.find("div", id="content_left") is None:
-            return {"results": [], "pages": 0}
+            return {"results": [], "pages": 0,"total": 0}
         # 获取搜索结果总数
         tmp1 = soup.findAll("div", class_="result-molecule")
         idx_ = 0
