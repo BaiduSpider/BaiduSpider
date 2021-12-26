@@ -19,19 +19,19 @@ BaiduSpider.search_wenku(
 ## 参数
 
 - query `#!py str`: 要查询文库搜索的字符串
-- pn `#!py int`: 要爬取的页码，默认为`#!py 1`，为可选参数
-- scope `#!py str`: 搜索结果筛选范围，默认为`#!py "all"`，为可选参数
-- format `#!py str`: 搜索结果格式筛选方式，默认为`#!py "all"`，为可选参数
-- time `#!py str`: 搜索结果时间筛选方式，默认为`#!py "all"`，为可选参数
-- page_range `#!py Union[Tuple[int], str]`，搜索结果页码范围，默认为`#!py "all`，为可选参数
-- sort_by `#!py str`: 搜索结果排序方式，默认为`#!py "relation"`，为可选参数
-- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，为可选参数
+- pn `#!py int`: 要爬取的页码，默认为`#!py 1`，可选
+- scope `#!py str`: 搜索结果筛选范围，默认为`#!py "all"`，可选
+- format `#!py str`: 搜索结果格式筛选方式，默认为`#!py "all"`，可选
+- time `#!py str`: 搜索结果时间筛选方式，默认为`#!py "all"`，可选
+- page_range `#!py Union[Tuple[int], str]`，搜索结果页码范围，默认为`#!py "all`，可选
+- sort_by `#!py str`: 搜索结果排序方式，默认为`#!py "relation"`，可选
+- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 
 ### 基本的调用
 
-```python hl_lines="6"
+```python
 from baiduspider import BaiduSpider
 from pprint import pprint
 
@@ -42,7 +42,7 @@ pprint(spider.search_wenku(query="要搜索的关键词"))
 
 ### 指定页码
 
-```python hl_lines="4"
+```python
 from baiduspider import BaiduSpider
 from pprint import pprint
 
@@ -59,7 +59,7 @@ pprint(BaiduSpider().search_wenku("要搜索的关键词", pn=2))
 
 正如百度文库搜索本身所提供的一样，BaiduSpider也提供这项筛选。它的选项分别为`#!py "all"`（显示全部，即不筛选，默认）、`#!py "vip-only"`（VIP专享）、`#!py "vip-free"`（VIP免费）、`#!py "free"`（免费）和`#!py "high-quality"`（精品）。参数`scope`负责这项功能。
 
-值得一提的是，当使用`#!py "free"`作为筛选的时候，需要额外[提供Cookie](/guide/index.html#设置Cookie)。
+值得一提的是，当使用`#!py "free"`作为筛选的时候，需要额外[提供 Cookie](/guide/index.html#设置Cookie)。
 
 ```python hl_lines="4"
 from baiduspider import BaiduSpider
@@ -70,7 +70,7 @@ pprint(BaiduSpider().search_wenku("要搜索的关键词", scope="vip-only"))  #
 
 #### 按格式筛选
 
-目前BaiduSpider支持六种格式可供筛选，分别为`#!py ["all", "doc", "ppt", "txt", "pdf", "xls"]`。其中，`#!py "all"`的含义为不筛选格式（默认），其余含义如字面。
+目前 BaiduSpider 支持六种格式可供筛选，分别为`#!py ["all", "doc", "ppt", "txt", "pdf", "xls"]`。其中，`#!py "all"`的含义为不筛选格式（默认），其余含义如字面。
 
 你可以通过设置`format`参数来改变筛选。
 
@@ -107,7 +107,7 @@ pprint(BaiduSpider().search_wenku("要搜索的关键词", page_range=(5, 19))) 
 
 ### 搜索结果排序方式
 
-对于文库搜索，BaiduSpider提供四种不同的排序方式，分别为：按相关性、按时间、按下载量和按评分。你可以通过更改`sort_by`参数的值来修改排序方式。
+对于文库搜索，BaiduSpider 提供四种不同的排序方式，分别为：按相关性、按时间、按下载量和按评分。你可以通过更改`sort_by`参数的值来修改排序方式。
 
 `sort_by`参数接受四种字符串的值：`#!py ["relation", "time", "downloads", "score"]`。其含义分别如上述。
 
@@ -122,8 +122,8 @@ pprint(BaiduSpider().search_wenku("要搜索的关键词", sort_by="downloads"))
 
 ### 字典返回值
 
-详见[API文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_wenku)。
+详见 [API 文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_wenku)。
 
 ### 模型结果返回值
 
-详见[API文档](/api/baiduspider/models/wenku.html)。
+详见 [API 文档](/api/baiduspider/models/wenku.html)。

@@ -15,10 +15,10 @@ BaiduSpider.search_web(
 ## 参数
 
 - query `#!python str`: 要查询网页搜索的字符串
-- pn `#!python int`: 要爬取的页码，默认为`#!py 1`，为可选参数
-- exclude `#!python dict`: 要屏蔽的子部件列表，为可选参数
-- time `#!python str | List[datetime.datetime]`: 要指定的搜索时间范围
-- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，为可选参数
+- pn `#!python int`: 要爬取的页码，默认为`#!py 1`，可选
+- exclude `#!python dict`: 要屏蔽的子部件列表，可选
+- time `#!python str | List[datetime.datetime]`: 搜索时间范围
+- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 
@@ -40,7 +40,7 @@ pprint(spider.search_web(query="要搜索的关键词"))
 
 ### 指定页码
 
-你可以通过设置`pn`参数来更改BaiduSpider所获取的页码。
+你可以通过设置`pn`参数来更改 BaiduSpider 所获取的页码。
 
 ```python hl_lines="7"
 from baiduspider import BaiduSpider
@@ -53,13 +53,13 @@ pprint(spider.search_web(query="要搜索的关键词", pn=2))
 ```
 
 !!! warning
-    传入页码参数的时候一定要小心，务必不要传入过大的页码，因为百度搜索会自动跳转回第一页
+    传入页码参数的时候一定要小心，务必不要传入过大的页码，否则百度搜索会自动跳转回第一页
 
 ### 屏蔽特定的搜索结果
 
 这个参数可以为你提供很大的便捷。通过设置`exclude`列表，你可以屏蔽某些特定的网页搜索子搜索结果来提高解析速度。
 
-```python hl_lines="8"
+```python
 from baiduspider import BaiduSpider
 from pprint import pprint
 
@@ -72,7 +72,7 @@ pprint(spider.search_web(query="要搜索的关键词", exclude=["tieba", "blog"
 
 `exclude`的值可以包含：`#!python ["news", "video", "baike", "tieba", "blog", "gitee", "related", "calc"]`，分别表示：资讯，视频，百科，贴吧，博客，Gitee代码仓库，相关搜索，计算。`exclude`的值也可以是`#!python ["all"]`，表示屏蔽除了普通搜索结果外的所有搜索结果。实例：
 
-```python hl_lines="8"
+```python
 from baiduspider import BaiduSpider
 from pprint import pprint
 
@@ -100,7 +100,7 @@ spider = BaiduSpider()
 pprint(spider.search_web(query="要搜索的关键词", time="week"))
 ```
 
-此功能使用百度内置的搜索时间筛选器筛选结果，并非使用程序筛选。在这个样例中，`time`的值是`#!python "week"`，代表筛选一周内的搜索结果。`time`的可选值如下：`#!python ["day", "week", "month", "year"]`。分别表示：一天内、一周内、一月内、一年内。除此以外，BaiduSpider还支持自定义时间段。例如：
+此功能使用百度内置的搜索时间筛选器筛选结果，并非使用程序筛选。在这个样例中，`time`的值是`#!python "week"`，代表筛选一周内的搜索结果。`time`的可选值如下：`#!python ["day", "week", "month", "year"]`。分别表示：一天内、一周内、一月内、一年内。除此以外，BaiduSpider 还支持自定义时间段。例如：
 
 ```python hl_lines="8"
 from baiduspider import BaiduSpider
@@ -118,8 +118,8 @@ pprint(spider.search_web(query="要搜索的关键词", time=(datetime(2020, 1, 
 
 ### 字典返回值
 
-详见[API文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_web)。
+详见 [API 文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_web)。
 
 ### 模型结果返回值
 
-详见[API文档](/api/baiduspider/models/web.html)。
+详见 [API 文档](/api/baiduspider/models/web.html)。

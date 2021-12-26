@@ -14,8 +14,8 @@ BaiduSpider.search_video(
 ## 参数
 
 - query `#!python str`: 要查询视频搜索的字符串
-- pn `#!python int`: 要爬取的页码，默认为`#!py 1`，为可选参数
-- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，为可选参数
+- pn `#!python int`: 要爬取的页码，默认为`#!py 1`，可选
+- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 
@@ -41,8 +41,8 @@ pprint(BaiduSpider().search_video("要搜索的关键词", pn=2))
 
 ### 字典返回值
 
-详见[API文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_video)。
+详见 [API 文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_video)。
 
 ### 模型结果返回值
 
-详见[API文档](/api/baiduspider/models/video.html)。
+详见 [API 文档](/api/baiduspider/models/video.html)。

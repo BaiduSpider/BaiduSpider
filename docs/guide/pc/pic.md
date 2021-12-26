@@ -1,6 +1,6 @@
 # 图片搜索
 
-> 百度图片搜索，用于检索互联网上繁多的图片。
+> 百度图片搜索，检索互联网上繁多的图片。
 
 ```python
 BaiduSpider.search_pic(
@@ -14,8 +14,8 @@ BaiduSpider.search_pic(
 ## 参数
 
 - query `#!python str`: 要查询图片搜索的字符串
-- pn `#!python int`: 要爬取的页码，默认为`#!py 1`，为可选参数
-- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，为可选参数
+- pn `#!python int`: 要爬取的页码，默认为`#!py 1`，可选
+- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 
@@ -43,8 +43,8 @@ pprint(BaiduSpider().search_pic("要搜索的关键词", pn=2))
 
 ### 字典返回值
 
-详见[API文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_pic)。
+详见 [API 文档](/api/baiduspider/__init__.html#baiduspider.__init__.BaiduSpider.search_pic)。
 
 ### 模型结果返回值
 
-详见[API文档](/api/baiduspider/models/pic.html)。
+详见 [API 文档](/api/baiduspider/models/pic.html)。
