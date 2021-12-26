@@ -29,7 +29,7 @@ class Parser(BaseSpider):
         """
         soup = BeautifulSoup(content, "html.parser")
         if soup.find("div", id="content_left") is None:
-            return {"results": [], "pages": 0,"total": 0}
+            return {"results": [], "pages": 0, "total": 0}
         # 获取搜索结果总数
         tmp1 = soup.findAll("div", class_="result-molecule")
         idx_ = 0
@@ -64,11 +64,7 @@ class Parser(BaseSpider):
         # 预处理相关搜索
         if "related" not in exclude:
             try:
-                _related = (
-                    soup.find("div", class_="result-molecule")
-                    .find("table")
-                    .findAll("td")
-                )
+                _related = soup.findAll("table")[-1].findAll("td")
             except AttributeError:
                 _related = []
             related = []
