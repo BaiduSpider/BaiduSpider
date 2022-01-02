@@ -18,6 +18,7 @@ class WebNormal(object):
         self.title: str
         self.url: str
         self.time: datetime
+        self.snapshot: str
         self.plain: dict
 
 

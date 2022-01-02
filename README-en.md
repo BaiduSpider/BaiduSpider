@@ -83,9 +83,9 @@
 </details>
 
 
-## WARNING
+<!-- ## WARNING
 
-This is the `dev` branch, which is the development branch. All code or features may be unstable, it is for reference only. We do NOT recommend using this version of BaiduSpider in open source projects.
+This is the `dev` branch, which is the development branch. All code or features may be unstable, it is for reference only. We do NOT recommend using this version of BaiduSpider in open source projects. -->
 
 
 <!-- ABOUT THE PROJECT -->

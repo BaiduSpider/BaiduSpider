@@ -19,6 +19,7 @@ class WebNormal(WebNormal):
         title (str): 搜索结果标题
         url (str): 搜索结果链接
         time (datetime): 搜索结果发布时间
+        snapshot (str): 搜索结果快照链接
         plain (dict): 源搜索结果字典
     """
 
@@ -29,6 +30,7 @@ class WebNormal(WebNormal):
         self.title = ""
         self.url = ""
         self.time = None
+        self.snapshot = ""
         self.plain = {}
 
     @staticmethod
@@ -40,6 +42,7 @@ class WebNormal(WebNormal):
         __returns.title = get_attr(plain, "title")
         __returns.url = get_attr(plain, "url")
         __returns.time = convert_time(get_attr(plain, "time"))
+        __returns.snapshot = get_attr(plain, "snapshot")
         return __returns
 
 

@@ -2,6 +2,7 @@ import json
 import math
 from datetime import datetime, time
 from html import unescape
+import re
 from time import localtime, strftime
 
 from baiduspider._spider import BaseSpider
@@ -251,6 +252,10 @@ class Parser(BaseSpider):
                             domain = None
                 if domain:
                     domain = domain.replace(" ", "")
+            # 百度快照
+            snapshot = result.find("a", class_="kuaizhao")
+            if snapshot is not None:
+                snapshot = snapshot["href"]
             # 加入结果
             if title and href and is_not_special:
                 res.append(
@@ -260,6 +265,7 @@ class Parser(BaseSpider):
                         "origin": domain,
                         "url": href,
                         "time": time,
+                        "snapshot": snapshot,
                         "type": "result",
                     }
                 )
