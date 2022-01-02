@@ -31,7 +31,7 @@ from pprint import pprint
 
 spider = BaiduSpider()
 
-pprint(spider.search_news(query="要搜索的关键词"))
+pprint(spider.search_news(query="要搜索的关键词").plain)
 ```
 
 ### 指定页码
@@ -40,7 +40,7 @@ pprint(spider.search_news(query="要搜索的关键词"))
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_news("要搜索的关键词", pn=2))
+pprint(BaiduSpider().search_news("要搜索的关键词", pn=2).plain)
 ```
 
 ### 搜索结果排序方式
@@ -53,7 +53,7 @@ BaiduSpider 提供两种不同的资讯搜索搜索结果排序方式：焦点�
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_news("要搜索的关键词", sort_by="time"))  # 按时间排序
+pprint(BaiduSpider().search_news("要搜索的关键词", sort_by="time").plain)  # 按时间排序
 ```
 
 ### 筛选资讯来源
@@ -66,7 +66,7 @@ pprint(BaiduSpider().search_news("要搜索的关键词", sort_by="time"))  # �
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_news("要搜索的关键词", show="media"))  # 仅显示来自媒体的资讯
+pprint(BaiduSpider().search_news("要搜索的关键词", show="media").plain)  # 仅显示来自媒体的资讯
 ```
 
 ## 返回值

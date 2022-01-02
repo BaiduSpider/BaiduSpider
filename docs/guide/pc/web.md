@@ -35,7 +35,7 @@ from pprint import pprint
 spider = BaiduSpider()
 
 # 搜索网页
-pprint(spider.search_web(query="要搜索的关键词"))
+pprint(spider.search_web(query="要搜索的关键词").plain)
 ```
 
 ### 指定页码
@@ -49,7 +49,7 @@ from pprint import pprint
 spider = BaiduSpider()
 
 # 搜索网页，并传入页码参数（此处为第二页）
-pprint(spider.search_web(query="要搜索的关键词", pn=2))
+pprint(spider.search_web(query="要搜索的关键词", pn=2).plain)
 ```
 
 !!! warning
@@ -67,7 +67,7 @@ spider = BaiduSpider()
 
 # 搜索网页，并传入要屏蔽的结果
 # 在本样例中，屏蔽了贴吧和博客
-pprint(spider.search_web(query="要搜索的关键词", exclude=["tieba", "blog"]))
+pprint(spider.search_web(query="要搜索的关键词", exclude=["tieba", "blog"]).plain)
 ```
 
 `exclude`的值可以包含：`#!python ["news", "video", "baike", "tieba", "blog", "gitee", "related", "calc"]`，分别表示：资讯，视频，百科，贴吧，博客，Gitee代码仓库，相关搜索，计算。`exclude`的值也可以是`#!python ["all"]`，表示屏蔽除了普通搜索结果外的所有搜索结果。实例：
@@ -80,7 +80,7 @@ spider = BaiduSpider()
 
 # 搜索网页，并传入要屏蔽的结果
 # 在本样例中，屏蔽了所有非普通的搜索结果
-pprint(spider.search_web(query="要搜索的关键词", exclude=["all"]))
+pprint(spider.search_web(query="要搜索的关键词", exclude=["all"]).plain)
 ```
 
 如果`exclude`中包含`all`且还有其他参数，那么将按照只有`all`的方式过滤搜索结果。
@@ -97,7 +97,7 @@ spider = BaiduSpider()
 
 # 搜索网页，仅显示时间段内的搜索结果
 # 在本样例中，筛选后仅显示一周内的搜索结果
-pprint(spider.search_web(query="要搜索的关键词", time="week"))
+pprint(spider.search_web(query="要搜索的关键词", time="week").plain)
 ```
 
 此功能使用百度内置的搜索时间筛选器筛选结果，并非使用程序筛选。在这个样例中，`time`的值是`#!python "week"`，代表筛选一周内的搜索结果。`time`的可选值如下：`#!python ["day", "week", "month", "year"]`。分别表示：一天内、一周内、一月内、一年内。除此以外，BaiduSpider 还支持自定义时间段。例如：
@@ -110,7 +110,7 @@ from datetime import datetime
 spider = BaiduSpider()
 
 # 在本样例中，筛选后仅显示2020.1.5 - 2020.4.9的搜索结果
-pprint(spider.search_web(query="要搜索的关键词", time=(datetime(2020, 1, 5), datetime(2020, 4, 9))))
+pprint(spider.search_web(query="要搜索的关键词", time=(datetime(2020, 1, 5), datetime(2020, 4, 9))).plain)
 ```
 在这个样例中，`time`的值是一个元组（`#!python tuple`）。元组的第一个值是起始时间，第二个值是结束时间。BaiduSpider会把他们都转化成`#!python time.time()`形式的浮点数（然后仅保留整数），所以你也可以将`#!python datetime`替换为一个整数。
 

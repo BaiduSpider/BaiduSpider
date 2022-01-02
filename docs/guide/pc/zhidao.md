@@ -29,7 +29,7 @@ from pprint import pprint
 
 spider = BaiduSpider()
 
-pprint(spider.search_zhidao(query="要搜索的关键词"))
+pprint(spider.search_zhidao(query="要搜索的关键词").plain)
 ```
 
 ### 指定页码
@@ -38,7 +38,7 @@ pprint(spider.search_zhidao(query="要搜索的关键词"))
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_zhidao("要搜索的关键词", pn=2))
+pprint(BaiduSpider().search_zhidao("要搜索的关键词", pn=2).plain)
 ```
 
 ### 按时间筛选
@@ -49,7 +49,7 @@ pprint(BaiduSpider().search_zhidao("要搜索的关键词", pn=2))
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_zhidao("要搜索的关键词", time="month"))  # 仅显示发布时间在一个月内的问答
+pprint(BaiduSpider().search_zhidao("要搜索的关键词", time="month").plain)  # 仅显示发布时间在一个月内的问答
 ```
 
 ## 返回值

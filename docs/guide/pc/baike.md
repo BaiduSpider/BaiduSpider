@@ -23,7 +23,7 @@ BaiduSpider.search_baike(
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_baike("要搜索的关键词"))
+pprint(BaiduSpider().search_baike("要搜索的关键词").plain)
 ```
 
 ## 返回值

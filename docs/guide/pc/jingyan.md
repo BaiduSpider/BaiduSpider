@@ -29,7 +29,7 @@ from pprint import pprint
 
 spider = BaiduSpider()
 
-pprint(spider.search_jingyan(query="要搜索的关键词"))
+pprint(spider.search_jingyan(query="要搜索的关键词").plain)
 ```
 
 ### 指定页码
@@ -38,7 +38,7 @@ pprint(spider.search_jingyan(query="要搜索的关键词"))
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_jingyan("要搜索的关键词", pn=2))
+pprint(BaiduSpider().search_jingyan("要搜索的关键词", pn=2).plain)
 ```
 
 ### 筛选范围
@@ -49,7 +49,7 @@ pprint(BaiduSpider().search_jingyan("要搜索的关键词", pn=2))
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_jingyan("要搜索的关键词", scope="original"))  # 仅显示原创经验
+pprint(BaiduSpider().search_jingyan("要搜索的关键词", scope="original").plain)  # 仅显示原创经验
 ```
 
 ## 返回值

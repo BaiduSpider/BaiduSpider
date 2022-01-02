@@ -37,7 +37,7 @@ from pprint import pprint
 
 spider = BaiduSpider()
 
-pprint(spider.search_wenku(query="要搜索的关键词"))
+pprint(spider.search_wenku(query="要搜索的关键词").plain)
 ```
 
 ### 指定页码
@@ -46,7 +46,7 @@ pprint(spider.search_wenku(query="要搜索的关键词"))
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_wenku("要搜索的关键词", pn=2))
+pprint(BaiduSpider().search_wenku("要搜索的关键词", pn=2).plain)
 ```
 
 ### 筛选文档来源
@@ -65,7 +65,7 @@ pprint(BaiduSpider().search_wenku("要搜索的关键词", pn=2))
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_wenku("要搜索的关键词", scope="vip-only"))  # 仅显示VIP专享的文档
+pprint(BaiduSpider().search_wenku("要搜索的关键词", scope="vip-only").plain)  # 仅显示VIP专享的文档
 ```
 
 #### 按格式筛选
@@ -78,7 +78,7 @@ pprint(BaiduSpider().search_wenku("要搜索的关键词", scope="vip-only"))  #
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_wenku("要搜索的关键词", format="ppt"))  # 仅显示PPT格式的文档
+pprint(BaiduSpider().search_wenku("要搜索的关键词", format="ppt").plain)  # 仅显示PPT格式的文档
 ```
 
 #### 按时间筛选
@@ -89,7 +89,7 @@ pprint(BaiduSpider().search_wenku("要搜索的关键词", format="ppt"))  # 仅
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_wenku("要搜索的关键词", time="last-year"))  # 仅显示去年发布的文档
+pprint(BaiduSpider().search_wenku("要搜索的关键词", time="last-year").plain)  # 仅显示去年发布的文档
 ```
 
 #### 按页数筛选
@@ -102,7 +102,7 @@ pprint(BaiduSpider().search_wenku("要搜索的关键词", time="last-year"))  #
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_wenku("要搜索的关键词", page_range=(5, 19)))  # 仅显示页数为5页到19页的文档
+pprint(BaiduSpider().search_wenku("要搜索的关键词", page_range=(5, 19)).plain)  # 仅显示页数为5页到19页的文档
 ```
 
 ### 搜索结果排序方式
@@ -115,7 +115,7 @@ pprint(BaiduSpider().search_wenku("要搜索的关键词", page_range=(5, 19))) 
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_wenku("要搜索的关键词", sort_by="downloads"))  # 按下载量排序
+pprint(BaiduSpider().search_wenku("要搜索的关键词", sort_by="downloads").plain)  # 按下载量排序
 ```
 
 ## 返回值

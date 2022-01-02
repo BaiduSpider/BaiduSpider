@@ -27,7 +27,7 @@ BaiduSpider.search_pic(
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_pic("要搜索的关键词"))
+pprint(BaiduSpider().search_pic("要搜索的关键词").plain)
 ```
 
 ### 指定页码
@@ -36,7 +36,7 @@ pprint(BaiduSpider().search_pic("要搜索的关键词"))
 from baiduspider import BaiduSpider
 from pprint import pprint
 
-pprint(BaiduSpider().search_pic("要搜索的关键词", pn=2))
+pprint(BaiduSpider().search_pic("要搜索的关键词", pn=2).plain)
 ```
 
 ## 返回值
