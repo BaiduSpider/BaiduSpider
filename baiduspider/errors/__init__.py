@@ -1,6 +1,6 @@
-"""BaiduSpider自定义错误
+"""BaiduSpider 自定义错误
 
-本文件定义了BaiduSpider的自定义错误，如`ParseError`，`UnknownError`等。
+本文件定义了 BaiduSpider 的自定义错误。
 """
 
 
@@ -9,7 +9,7 @@ class ParseError(Exception):  # pragma: no cover
         """分析HTML的自定义错误
 
         Args:
-            msg (str, optional): 错误信息. Defaults to ''.
+            msg (str, optional): 错误信息. Defaults to "".
         """
         super().__init__(*args, **kwargs)
         self.msg = msg
@@ -23,7 +23,7 @@ class UnknownError(Exception):  # pragma: no cover
         """未知错误
 
         Args:
-            msg (str, optional): 错误信息. Defaults to ''.
+            msg (str, optional): 错误信息. Defaults to "".
         """
         super().__init__(*args, **kwargs)
         self.msg = msg

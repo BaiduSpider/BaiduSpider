@@ -4,7 +4,7 @@
 """
 from datetime import datetime, time
 
-from baiduspider.mobile.models import convert_time, get_attr
+from baiduspider.mobile.models import convert_time
 from baiduspider.mobile.models.typings.typings_web import *
 
 
@@ -42,22 +42,22 @@ class WebVideoDetail(WebVideoDetail):
     def _build_instance(plain: dict) -> WebVideoDetail:
         __returns = WebVideoDetail()
         __returns.plain = plain
-        __returns.author = get_attr(plain, "author")
-        __returns.author_avatar = get_attr(plain, "author_avatar")
+        __returns.author = plain.get("author")
+        __returns.author_avatar = plain.get("author_avatar")
         try:
             __returns.duration = time(
-                minute=int(get_attr(plain, "duration").split(":")[0]),
-                second=int(get_attr(plain, "duration").split(":")[1]),
+                minute=int(plain.get("duration").split(":")[0]),
+                second=int(plain.get("duration").split(":")[1]),
             )
         except:
             __returns.duration = None
-        for i in get_attr(plain, "labels"):
+        for i in plain.get("labels"):
             __returns.labels.append(i)
-        __returns.poster = get_attr(plain, "poster")
-        __returns.pub_time = convert_time(get_attr(plain, "pub_time"))
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        __returns.video_num = get_attr(plain, "video_num")
+        __returns.poster = plain.get("poster")
+        __returns.pub_time = convert_time(plain.get("pub_time"))
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        __returns.video_num = plain.get("video_num")
         return __returns
 
     def __repr__(self) -> str:
@@ -84,8 +84,8 @@ class WebVideoTag(WebVideoTag):
     def _build_instance(plain: dict) -> WebVideoTag:
         __returns = WebVideoTag()
         __returns.plain = plain
-        __returns.text = get_attr(plain, "text")
-        __returns.url = get_attr(plain, "url")
+        __returns.text = plain.get("text")
+        __returns.url = plain.get("url")
         return __returns
 
     def __repr__(self) -> str:
@@ -114,11 +114,11 @@ class WebVideo(WebVideo):
     def _build_instance(plain: dict) -> WebVideo:
         __returns = WebVideo()
         __returns.plain = plain
-        for i in get_attr(plain, "results"):
+        for i in plain.get("results"):
             __returns.results.append(WebVideoDetail._build_instance(i))
-        for i in get_attr(plain, "tags"):
+        for i in plain.get("tags"):
             __returns.tags.append(WebVideoTag._build_instance(i))
-        __returns.url = get_attr(plain, "url")
+        __returns.url = plain.get("url")
         return __returns
 
     def __repr__(self) -> str:
@@ -153,12 +153,12 @@ class WebShortVideoDetail(WebShortVideoDetail):
     def _build_instance(plain: dict) -> WebShortVideoDetail:
         __returns = WebShortVideoDetail()
         __returns.plain = plain
-        __returns.author = get_attr(plain, "author")
-        __returns.author_avatar = get_attr(plain, "author_avatar")
-        __returns.play_times = get_attr(plain, "play_times")
-        __returns.poster = get_attr(plain, "poster")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.author = plain.get("author")
+        __returns.author_avatar = plain.get("author_avatar")
+        __returns.play_times = plain.get("play_times")
+        __returns.poster = plain.get("poster")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         return __returns
 
     def __repr__(self) -> str:
@@ -187,11 +187,11 @@ class WebShortVideo(WebShortVideo):
     def _build_instance(plain: dict) -> WebShortVideo:
         __returns = WebShortVideo()
         __returns.plain = plain
-        if get_attr(plain, "results") is not None:
-            for i in get_attr(plain, "results"):
+        if plain.get("results") is not None:
+            for i in plain.get("results"):
                 __returns.results.append(WebShortVideoDetail._build_instance(i))
-        __returns.total = get_attr(plain, "total")
-        __returns.url = get_attr(plain, "url")
+        __returns.total = plain.get("total")
+        __returns.url = plain.get("url")
         return __returns
 
     def __repr__(self) -> str:
@@ -218,8 +218,8 @@ class WebSection(WebSection):
     def _build_instance(plain: dict) -> WebSection:
         __returns = WebSection()
         __returns.plain = plain
-        __returns.text = get_attr(plain, "text")
-        __returns.url = get_attr(plain, "url")
+        __returns.text = plain.get("text")
+        __returns.url = plain.get("url")
         return __returns
 
     def __repr__(self) -> str:
@@ -256,16 +256,16 @@ class WebBaike(WebBaike):
     def _build_instance(plain: dict) -> WebBaike:
         __returns = WebBaike()
         __returns.plain = plain
-        __returns.des = get_attr(plain, "des")
-        for i in get_attr(plain, "labels"):
+        __returns.des = plain.get("des")
+        for i in plain.get("labels"):
             __returns.labels.append(i)
-        __returns.origin = get_attr(plain, "origin")
-        __returns.poster = get_attr(plain, "poster")
-        if get_attr(plain, "sections") is not None:
-            for i in get_attr(plain, "sections"):
+        __returns.origin = plain.get("origin")
+        __returns.poster = plain.get("poster")
+        if plain.get("sections") is not None:
+            for i in plain.get("sections"):
                 __returns.sections.append(WebSection._build_instance(i))
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         return __returns
 
     def __repr__(self) -> str:
@@ -306,17 +306,17 @@ class WebReyiDetail(WebReyiDetail):
     def _build_instance(plain: dict) -> WebReyiDetail:
         __returns = WebReyiDetail()
         __returns.plain = plain
-        __returns.author = get_attr(plain, "author")
-        __returns.author_avatar = get_attr(plain, "author_avatar")
-        __returns.comments = get_attr(plain, "comments")
-        __returns.des = get_attr(plain, "des")
-        if get_attr(plain, "images") is not None:
-            for i in get_attr(plain, "images"):
+        __returns.author = plain.get("author")
+        __returns.author_avatar = plain.get("author_avatar")
+        __returns.comments = plain.get("comments")
+        __returns.des = plain.get("des")
+        if plain.get("images") is not None:
+            for i in plain.get("images"):
                 __returns.images.append(i)
-        __returns.likes = get_attr(plain, "likes")
-        __returns.origin = get_attr(plain, "origin")
-        __returns.pub_time = convert_time(get_attr(plain, "pub_time"))
-        __returns.site = get_attr(plain, "site")
+        __returns.likes = plain.get("likes")
+        __returns.origin = plain.get("origin")
+        __returns.pub_time = convert_time(plain.get("pub_time"))
+        __returns.site = plain.get("site")
         return __returns
 
     def __repr__(self) -> str:
@@ -347,11 +347,11 @@ class WebReyi(WebReyi):
     def _build_instance(plain: dict) -> WebReyi:
         __returns = WebReyi()
         __returns.plain = plain
-        if get_attr(plain, "results") is not None:
-            for i in get_attr(plain, "results"):
+        if plain.get("results") is not None:
+            for i in plain.get("results"):
                 __returns.results.append(WebReyiDetail._build_instance(i))
-        __returns.total = get_attr(plain, "total")
-        __returns.url = get_attr(plain, "url")
+        __returns.total = plain.get("total")
+        __returns.url = plain.get("url")
         return __returns
 
     def __repr__(self) -> str:
@@ -382,10 +382,10 @@ class WebKnowledgeDetail(WebKnowledgeDetail):
     def _build_instance(plain: dict) -> WebKnowledgeDetail:
         __returns = WebKnowledgeDetail()
         __returns.plain = plain
-        __returns.des = get_attr(plain, "des")
-        __returns.image = get_attr(plain, "image")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.des = plain.get("des")
+        __returns.image = plain.get("image")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         return __returns
 
     def __repr__(self) -> str:
@@ -412,9 +412,9 @@ class WebKnowledge(WebKnowledge):
     def _build_instance(plain: dict) -> WebKnowledge:
         __returns = WebKnowledge()
         __returns.plain = plain
-        for i in get_attr(plain, "results"):
+        for i in plain.get("results"):
             __returns.results.append(WebKnowledgeDetail._build_instance(i))
-        __returns.title = get_attr(plain, "title")
+        __returns.title = plain.get("title")
         return __returns
 
     def __repr__(self) -> str:
@@ -446,12 +446,12 @@ class WebNormal(WebNormal):
     def _build_instance(plain: dict) -> WebNormal:
         __returns = WebNormal()
         __returns.plain = plain
-        __returns.des = get_attr(plain, "des")
-        __returns.image = get_attr(plain, "image")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        if get_attr(plain, "sections") is not None:
-            for i in get_attr(plain, "sections"):
+        __returns.des = plain.get("des")
+        __returns.image = plain.get("image")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        if plain.get("sections") is not None:
+            for i in plain.get("sections"):
                 __returns.sections.append(WebSection._build_instance(i))
         return __returns
 
@@ -479,8 +479,8 @@ class WebVideoNormalInfo(WebVideoNormalInfo):
     def _build_instance(plain: dict) -> WebVideoNormalInfo:
         __returns = WebVideoNormalInfo()
         __returns.plain = plain
-        __returns.data = get_attr(plain, "data")
-        __returns.type = get_attr(plain, "type")
+        __returns.data = plain.get("data")
+        __returns.type = plain.get("type")
         return __returns
 
     def __repr__(self) -> str:
@@ -519,20 +519,20 @@ class WebVideoNormal(WebVideoNormal):
     def _build_instance(plain: dict) -> WebVideoNormal:
         __returns = WebVideoNormal()
         __returns.plain = plain
-        __returns.poster = get_attr(plain, "poster")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.poster = plain.get("poster")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         __returns.duration = time(
-            minute=int(get_attr(plain, "duration").split(":")[0]),
-            second=int(get_attr(plain, "duration").split(":")[1]),
+            minute=int(plain.get("duration").split(":")[0]),
+            second=int(plain.get("duration").split(":")[1]),
         )
-        __returns.origin = get_attr(plain, "origin")
-        for i in get_attr(plain, "labels"):
+        __returns.origin = plain.get("origin")
+        for i in plain.get("labels"):
             __returns.info.append(i)
-        if get_attr(plain, "info") is not None:
-            for i in get_attr(plain, "info"):
+        if plain.get("info") is not None:
+            for i in plain.get("info"):
                 __returns.info.append(WebVideoNormalInfo._build_instance(i))
-        __returns.video_num = get_attr(plain, "video_num")
+        __returns.video_num = plain.get("video_num")
         return __returns
 
     def __repr__(self) -> str:
@@ -573,19 +573,19 @@ class WebResult(WebResult):
         __returns.plain = plain
         __returns.query = query
         for p in plain:
-            if get_attr(p, "type") == "result":
+            if plain.get("type") == "result":
                 __returns.normal.append(WebNormal._build_instance(p))
-            elif get_attr(p, "type") == "video":
+            elif plain.get("type") == "video":
                 __returns.video = WebVideo._build_instance(p)
-            elif get_attr(p, "type") == "short_video":
+            elif plain.get("type") == "short_video":
                 __returns.short_video = WebShortVideo._build_instance(p)
-            elif get_attr(p, "type") == "reyi":
+            elif plain.get("type") == "reyi":
                 __returns.reyi = WebReyi._build_instance(p)
-            elif get_attr(p, "type") == "knowledge":
+            elif plain.get("type") == "knowledge":
                 __returns.knowledge = WebKnowledge._build_instance(p)
-            elif get_attr(p, "type") == "baike":
-                __returns.baike = WebBaike._build_instance(get_attr(p, "result"))
-            elif get_attr(p, "type") == "video_normal":
+            elif plain.get("type") == "baike":
+                __returns.baike = WebBaike._build_instance(plain.get("result"))
+            elif plain.get("type") == "video_normal":
                 __returns.video_normal.append(WebVideoNormal._build_instance(p))
         return __returns
 
