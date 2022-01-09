@@ -1,10 +1,8 @@
 import json
-from datetime import datetime, time
 
-import requests
 from baiduspider._spider import BaseSpider
 from baiduspider.util import handle_err
-from bs4 import BeautifulSoup, Comment
+from bs4 import BeautifulSoup
 
 
 class WebSubParser(BaseSpider):
