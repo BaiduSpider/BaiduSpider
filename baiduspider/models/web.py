@@ -4,7 +4,7 @@
 """
 from typing import Any
 
-from baiduspider.models import convert_time, get_attr
+from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_web import *
 
 
@@ -37,12 +37,12 @@ class WebNormal(WebNormal):
     def _build_instance(plain: dict) -> WebNormal:
         __returns = WebNormal()
         __returns.plain = plain
-        __returns.des = get_attr(plain, "des")
-        __returns.origin = get_attr(plain, "origin")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        __returns.time = convert_time(get_attr(plain, "time"))
-        __returns.snapshot = get_attr(plain, "snapshot")
+        __returns.des = plain.get("des")
+        __returns.origin = plain.get("origin")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        __returns.time = convert_time(plain.get("time"))
+        __returns.snapshot = plain.get("snapshot")
         return __returns
 
 
@@ -67,8 +67,8 @@ class WebCalc(WebCalc):
     def _build_instance(plain: dict) -> WebCalc:
         __returns = WebCalc()
         __returns.plain = plain
-        __returns.process = get_attr(plain, "process")
-        __returns.result = int(get_attr(plain, "result"))
+        __returns.process = plain.get("process")
+        __returns.result = int(plain.get("result"))
         return __returns
 
 
@@ -97,11 +97,11 @@ class WebNews(WebNews):
     def _build_instance(plain: dict) -> WebNews:
         __returns = WebNews()
         __returns.plain = plain
-        __returns.author = get_attr(plain, "author")
-        __returns.time = convert_time(get_attr(plain, "time"))
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        __returns.des = get_attr(plain, "des")
+        __returns.author = plain.get("author")
+        __returns.time = convert_time(plain.get("time"))
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        __returns.des = plain.get("des")
         return __returns
 
 
@@ -132,11 +132,11 @@ class WebVideo(WebVideo):
     def _build_instance(plain: dict) -> WebVideo:
         __returns = WebVideo()
         __returns.plain = plain
-        __returns.cover = get_attr(plain, "cover")
-        __returns.origin = get_attr(plain, "origin")
-        __returns.length = get_attr(plain, "length")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.cover = plain.get("cover")
+        __returns.origin = plain.get("origin")
+        __returns.length = plain.get("length")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         return __returns
 
 
@@ -167,11 +167,11 @@ class WebBaike(WebBaike):
     def _build_instance(plain: dict) -> WebBaike:
         __returns = WebBaike()
         __returns.plain = plain
-        __returns.cover = get_attr(plain, "cover")
-        __returns.cover_type = get_attr(plain, "cover-type")
-        __returns.des = get_attr(plain, "des")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.cover = plain.get("cover")
+        __returns.cover_type = plain.get("cover-type")
+        __returns.des = plain.get("des")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         return __returns
 
 
@@ -200,10 +200,10 @@ class WebTiebaHot(WebTiebaHot):
     def _build_instance(plain: dict) -> WebTiebaHot:
         __returns = WebTiebaHot()
         __returns.plain = plain
-        __returns.clicks = get_attr(plain, "clicks")
-        __returns.replies = get_attr(plain, "replies")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.clicks = plain.get("clicks")
+        __returns.replies = plain.get("replies")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         return __returns
 
 
@@ -238,14 +238,14 @@ class WebTieba(WebTieba):
     def _build_instance(plain: dict) -> WebTieba:
         __returns = WebTieba()
         __returns.plain = plain
-        __returns.cover = get_attr(plain, "cover")
-        __returns.des = get_attr(plain, "des")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        __returns.followers = get_attr(plain, "followers")
-        __returns.total = get_attr(plain, "total")
-        __returns.url = get_attr(plain, "url")
-        for i in get_attr(plain, "hot"):
+        __returns.cover = plain.get("cover")
+        __returns.des = plain.get("des")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        __returns.followers = plain.get("followers")
+        __returns.total = plain.get("total")
+        __returns.url = plain.get("url")
+        for i in plain.get("hot"):
             __returns.hot.append(WebTiebaHot._build_instance(i))
         return __returns
 
@@ -277,11 +277,11 @@ class WebBlogDetail(WebBlogDetail):
     def _build_instance(plain: dict) -> WebBlogDetail:
         __returns = WebBlogDetail()
         __returns.plain = plain
-        __returns.des = get_attr(plain, "des")
-        __returns.origin = get_attr(plain, "origin")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        for i in get_attr(plain, "tags"):
+        __returns.des = plain.get("des")
+        __returns.origin = plain.get("origin")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        for i in plain.get("tags"):
             __returns.tags.append(i)
         return __returns
 
@@ -308,9 +308,9 @@ class WebBlog(WebBlog):
     def _build_instance(plain: dict) -> WebBlog:
         __returns = WebBlog()
         __returns.plain = plain
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        for i in get_attr(plain, "blogs"):
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        for i in plain.get("blogs"):
             __returns.blogs.append(WebBlogDetail._build_instance(i))
         return __returns
 
@@ -350,15 +350,15 @@ class WebGitee(WebGitee):
     def _build_instance(plain: dict) -> WebGitee:
         __returns = WebGitee()
         __returns.plain = plain
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        __returns.des = get_attr(plain, "des")
-        __returns.star = get_attr(plain, "star")
-        __returns.fork = get_attr(plain, "fork")
-        __returns.watch = get_attr(plain, "watch")
-        __returns.license = get_attr(plain, "license")
-        __returns.lang = get_attr(plain, "lang")
-        __returns.status = get_attr(plain, "status")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        __returns.des = plain.get("des")
+        __returns.star = plain.get("star")
+        __returns.fork = plain.get("fork")
+        __returns.watch = plain.get("watch")
+        __returns.license = plain.get("license")
+        __returns.lang = plain.get("lang")
+        __returns.status = plain.get("status")
         return __returns
 
 
@@ -400,17 +400,17 @@ class WebMusicSong(WebMusicSong):
     def _build_instance(plain: dict) -> WebMusicSong:
         __returns = WebMusicSong()
         __returns.plain = plain
-        __returns.copyright = get_attr(plain, "copyright")
-        __returns.duration = get_attr(plain, "duration")
-        __returns.is_original = get_attr(plain, "is_original")
-        __returns.labels = get_attr(plain, "labels")
-        __returns.name = get_attr(plain, "name")
-        __returns.other_sites = get_attr(plain, "other_sites")
-        __returns.poster = get_attr(plain, "poster")
-        __returns.pub_company = get_attr(plain, "pub_company")
-        __returns.pub_date = get_attr(plain, "pub_date")
-        __returns.site = get_attr(plain, "site")
-        __returns.url = get_attr(plain, "url")
+        __returns.copyright = plain.get("copyright")
+        __returns.duration = plain.get("duration")
+        __returns.is_original = plain.get("is_original")
+        __returns.labels = plain.get("labels")
+        __returns.name = plain.get("name")
+        __returns.other_sites = plain.get("other_sites")
+        __returns.poster = plain.get("poster")
+        __returns.pub_company = plain.get("pub_company")
+        __returns.pub_date = plain.get("pub_date")
+        __returns.site = plain.get("site")
+        __returns.url = plain.get("url")
         return __returns
 
 
@@ -434,8 +434,8 @@ class WebMusicAlbum(WebMusicAlbum):
     def _build_instance(plain: dict) -> WebMusicAlbum:
         __returns = WebMusicAlbum()
         __returns.plain = plain
-        __returns.name = get_attr(plain, "name")
-        __returns.url = get_attr(plain, "url")
+        __returns.name = plain.get("name")
+        __returns.url = plain.get("url")
         return __returns
 
 
@@ -459,8 +459,8 @@ class WebMusicSinger(WebMusicSinger):
     def _build_instance(plain: dict) -> WebMusicSinger:
         __returns = WebMusicSinger()
         __returns.plain = plain
-        __returns.name = get_attr(plain, "name")
-        __returns.url = get_attr(plain, "url")
+        __returns.name = plain.get("name")
+        __returns.url = plain.get("url")
         return __returns
 
 
@@ -486,10 +486,10 @@ class WebMusicSongs(WebMusicSongs):
     def _build_instance(plain: dict) -> WebMusicSongs:
         __returns = WebMusicSongs()
         __returns.plain = plain
-        __returns.album = WebMusicAlbum._build_instance(get_attr(plain, "album"))
-        for i in get_attr(plain, "singer"):
+        __returns.album = WebMusicAlbum._build_instance(plain.get("album"))
+        for i in plain.get("singer"):
             __returns.singers.append(WebMusicSinger._build_instance(i))
-        __returns.song = WebMusicSong._build_instance(get_attr(plain, "song"))
+        __returns.song = WebMusicSong._build_instance(plain.get("song"))
         return __returns
 
 
@@ -515,9 +515,9 @@ class WebMusic(WebMusic):
     def _build_instance(plain: dict) -> WebMusic:
         __returns = WebMusic()
         __returns.plain = plain
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        for i in get_attr(plain, "songs"):
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        for i in plain.get("songs"):
             __returns.songs.append(WebMusicSongs._build_instance(i))
         return __returns
 

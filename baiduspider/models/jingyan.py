@@ -4,9 +4,8 @@
 """
 from typing import Union
 
-from baiduspider.models import convert_time, get_attr
+from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_jingyan import *
-from requests.api import get
 
 
 class JingyanPublisher(JingyanPublisher):
@@ -30,8 +29,8 @@ class JingyanPublisher(JingyanPublisher):
     def _build_instance(plain: dict) -> JingyanPublisher:
         __returns = JingyanPublisher()
         __returns.plain = plain
-        __returns.name = get_attr(plain, "name")
-        __returns.url = get_attr(plain, "url")
+        __returns.name = plain.get("name")
+        __returns.url = plain.get("url")
         return __returns
 
 
@@ -70,17 +69,17 @@ class JingyanNormal(JingyanNormal):
     def _build_instance(plain: dict) -> JingyanNormal:
         __returns = JingyanNormal()
         __returns.plain = plain
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        __returns.des = get_attr(plain, "des")
-        __returns.pub_date = convert_time(get_attr(plain, "pub_date"))
-        __returns.category = get_attr(plain, "category")
-        __returns.votes = get_attr(plain, "votes")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        __returns.des = plain.get("des")
+        __returns.pub_date = convert_time(plain.get("pub_date"))
+        __returns.category = plain.get("category")
+        __returns.votes = plain.get("votes")
         __returns.publisher = JingyanPublisher._build_instance(
-            get_attr(plain, "publisher")
+            plain.get("publisher")
         )
-        __returns.is_original = get_attr(plain, "is_original")
-        __returns.is_outstanding = get_attr(plain, "is_outstanding")
+        __returns.is_original = plain.get("is_original")
+        __returns.is_outstanding = plain.get("is_outstanding")
         return __returns
 
 

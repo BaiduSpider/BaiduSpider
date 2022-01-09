@@ -4,9 +4,8 @@
 """
 from typing import Union
 
-from baiduspider.models import convert_time, get_attr
+from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_wenku import *
-from requests.api import get
 
 
 class WenkuUploader(WenkuUploader):
@@ -30,8 +29,8 @@ class WenkuUploader(WenkuUploader):
     def _build_instance(plain: dict) -> WenkuUploader:
         __returns = WenkuUploader()
         __returns.plain = plain
-        __returns.name = get_attr(plain, "name")
-        __returns.url = get_attr(plain, "url")
+        __returns.name = plain.get("name")
+        __returns.url = plain.get("url")
         return __returns
 
 
@@ -72,16 +71,16 @@ class WenkuNormal(WenkuNormal):
     def _build_instance(plain: dict) -> WenkuNormal:
         __returns = WenkuNormal()
         __returns.plain = plain
-        __returns.title = get_attr(plain, "title")
-        __returns.des = get_attr(plain, "des")
-        __returns.downloads = get_attr(plain, "downloads")
-        __returns.pages = get_attr(plain, "pages")
-        __returns.type = get_attr(plain, "type")
-        __returns.quality = get_attr(plain, "quality")
-        __returns.uploader = WenkuUploader._build_instance(get_attr(plain, "uploader"))
-        __returns.is_vip = get_attr(plain, "is_vip")
-        __returns.pub_date = convert_time(get_attr(plain, "pub_date"))
-        __returns.url = get_attr(plain, "url")
+        __returns.title = plain.get("title")
+        __returns.des = plain.get("des")
+        __returns.downloads = plain.get("downloads")
+        __returns.pages = plain.get("pages")
+        __returns.type = plain.get("type")
+        __returns.quality = plain.get("quality")
+        __returns.uploader = WenkuUploader._build_instance(plain.get("uploader"))
+        __returns.is_vip = plain.get("is_vip")
+        __returns.pub_date = convert_time(plain.get("pub_date"))
+        __returns.url = plain.get("url")
         return __returns
 
 

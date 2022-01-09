@@ -4,7 +4,6 @@
 """
 from typing import Union
 
-from baiduspider.models import get_attr
 from baiduspider.models.typings.typings_pic import *
 
 
@@ -31,9 +30,9 @@ class PicNormal(PicNormal):
     def _build_instance(plain: dict) -> PicNormal:
         __returns = PicNormal()
         __returns.plain = plain
-        __returns.host = get_attr(plain, "host")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.host = plain.get("host")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         return __returns
 
 

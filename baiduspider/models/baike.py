@@ -4,7 +4,7 @@
 """
 from typing import Union
 
-from baiduspider.models import convert_time, get_attr
+from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_baike import *
 
 
@@ -33,10 +33,10 @@ class BaikeNormal(BaikeNormal):
     def _build_instance(plain: dict) -> BaikeNormal:
         __returns = BaikeNormal()
         __returns.plain = plain
-        __returns.upd_date = convert_time(get_attr(plain, "upd_date"))
-        __returns.des = get_attr(plain, "des")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.upd_date = convert_time(plain.get("upd_date"))
+        __returns.des = plain.get("des")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         return __returns
 
 

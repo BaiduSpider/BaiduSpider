@@ -4,7 +4,6 @@
 """
 from typing import Union
 
-from baiduspider.models import get_attr
 from baiduspider.models.typings.typings_video import *
 
 
@@ -39,13 +38,13 @@ class VideoNormal(VideoNormal):
     def _build_instance(plain: dict) -> VideoNormal:
         __returns = VideoNormal()
         __returns.plain = plain
-        __returns.des = get_attr(plain, "des")
-        __returns.img = get_attr(plain, "img")
-        __returns.origin = get_attr(plain, "origin")
-        __returns.pub_time = get_attr(plain, "pub_time")
-        __returns.length = get_attr(plain, "length")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
+        __returns.des = plain.get("des")
+        __returns.img = plain.get("img")
+        __returns.origin = plain.get("origin")
+        __returns.pub_time = plain.get("pub_time")
+        __returns.length = plain.get("length")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
         return __returns
 
 

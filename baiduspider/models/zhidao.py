@@ -4,9 +4,8 @@
 """
 from typing import Union
 
-from baiduspider.models import convert_time, get_attr
+from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_zhidao import *
-from requests.api import get
 
 
 class ZhidaoNormal(ZhidaoNormal):
@@ -42,14 +41,14 @@ class ZhidaoNormal(ZhidaoNormal):
     def _build_instance(plain: dict) -> ZhidaoNormal:
         __returns = ZhidaoNormal()
         __returns.plain = plain
-        __returns.title = get_attr(plain, "title")
-        __returns.question = get_attr(plain, "question")
-        __returns.answer = get_attr(plain, "answer")
-        __returns.count = get_attr(plain, "count")
-        __returns.agree = get_attr(plain, "agree")
-        __returns.answerer = get_attr(plain, "answerer")
-        __returns.date = convert_time(get_attr(plain, "date"))
-        __returns.url = get_attr(plain, "url")
+        __returns.title = plain.get("title")
+        __returns.question = plain.get("question")
+        __returns.answer = plain.get("answer")
+        __returns.count = plain.get("count")
+        __returns.agree = plain.get("agree")
+        __returns.answerer = plain.get("answerer")
+        __returns.date = convert_time(plain.get("date"))
+        __returns.url = plain.get("url")
         return __returns
 
 

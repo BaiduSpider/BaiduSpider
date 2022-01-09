@@ -4,7 +4,7 @@
 """
 from typing import Union
 
-from baiduspider.models import convert_time, get_attr
+from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_news import *
 
 
@@ -37,12 +37,12 @@ class NewsNormal(NewsNormal):
     def _build_instance(plain: dict) -> NewsNormal:
         __returns = NewsNormal()
         __returns.plain = plain
-        __returns.author = get_attr(plain, "author")
-        __returns.date = convert_time(get_attr(plain, "date"))
-        __returns.des = get_attr(plain, "des")
-        __returns.title = get_attr(plain, "title")
-        __returns.url = get_attr(plain, "url")
-        __returns.cover = get_attr(plain, "cover")
+        __returns.author = plain.get("author")
+        __returns.date = convert_time(plain.get("date"))
+        __returns.des = plain.get("des")
+        __returns.title = plain.get("title")
+        __returns.url = plain.get("url")
+        __returns.cover = plain.get("cover")
         return __returns
 
 
