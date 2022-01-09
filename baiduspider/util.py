@@ -14,7 +14,7 @@ def handle_err(func):  # pragma: no cover
         try:
             return func(*args, **kwargs)
         except Exception as err:
-            if bool(int(os.environ.get("DEBUG", 0))):
+            if bool(int(os.environ.get("DEBUG", 0))):  # DEBUG 模式开启
                 raise err
             func_name = (
                 func.__name__.strip("parse_").strip("_block")
@@ -51,25 +51,26 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
     Returns:
         datetime: 转换后的`datetime.datetime`结果
     """
-    if t is None:
+    if not t:
         return None
+
     t = t.strip()
-    mappings = {"昨天": 1, "前天": 2, "今天": 0}
-    if t in mappings:
-        return datetime.now() - timedelta(days=mappings[t])
-    delta = int(re.findall("\d+", t)[0])
+    days_in_chinese = {"昨天": 1, "前天": 2, "今天": 0}
+    if t in days_in_chinese:
+        return datetime.now() - timedelta(days=days_in_chinese[t])
+
+    delta = int(re.findall(r"\d+", t)[0])
     # print( t.replace(str(delta), "").strip(), delta)
     if "秒" in t:
         s = datetime.now() - timedelta(seconds=delta)
     elif "分钟" in t:
         s = datetime.now() - timedelta(minutes=delta)
-
     elif "小时" in t:
         s = datetime.now() - timedelta(hours=delta)
-    elif t.replace(str(delta), "").split(":")[0].strip() in mappings:
+    elif t.replace(str(delta), "").split(":")[0].strip() in days_in_chinese:
         _ = int(re.findall("\d+", t)[-1])
         __ = t.replace(str(delta), "").split(":")[0].strip()
-        s = datetime.now() - timedelta(days=mappings[__])
+        s = datetime.now() - timedelta(days=days_in_chinese[__])
         s = datetime(s.year, s.month, s.day, delta, _)
     elif "天" in t:
         s = datetime.now() - timedelta(days=delta)
@@ -79,6 +80,8 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
         s = datetime.strptime(t, "%Y年%m月%d日")
     else:
         s = datetime.now()
+
     if not as_list:
         return s
-    return [s.year, s.month, s.day, s.hour, s.minute, s.second]
+    else:
+        return (s.year, s.month, s.day, s.hour, s.minute, s.second)
