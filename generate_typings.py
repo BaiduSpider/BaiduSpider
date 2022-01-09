@@ -1,6 +1,7 @@
 import json
 import os
 from pprint import pprint
+from typing import Dict
 
 from baiduspider._spider import BaseSpider
 
@@ -29,7 +30,7 @@ from typing import List, Union
         filepath: str,
         jsonpath: str,
         basename: str,
-        json_plain: dict = None,
+        json_plain: Dict = None,
         write_template: bool = True,
     ):
         if json_plain is not None:
@@ -113,7 +114,7 @@ from typing import List, Union
             if name == "plain":
                 continue
             data.append({"name": name, "type": type_})
-        out = f"    @staticmethod\n    def _build_instance(plain: dict) -> {class_name}:\n        __returns = {class_name}()\n"
+        out = f"    @staticmethod\n    def _build_instance(plain: Dict) -> {class_name}:\n        __returns = {class_name}()\n"
         out += "        __returns.plain = plain\n"
         for d in data:
             out += "        "

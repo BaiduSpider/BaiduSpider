@@ -95,7 +95,7 @@
 
 搜索引擎是一个十分强大的工具，如果能让其他工具集成搜索引擎的众多强大功能，那么这些工具必将变得更加强大。但目前我没有找到一个可以精准提取搜索引擎搜索结果的开源爬虫。于是，我便编写了这个爬取百度搜索引擎的项目：BaiduSpider。
 
-BaiduSpider的独特功能:
+BaiduSpider 的独特功能:
 * 节省提取数据的时间，对于类似深度学习项目的数据模型建立与训练起到了良好的帮助。
 
 * 精准提取数据，并删除广告。
@@ -175,7 +175,7 @@ _更多样例和配置，请参照[文档](https://baiduspider.github.io)_
 <!-- ROADMAP -->
 ## 项目路线图
 
-请参考[Opening Issues](https://github.com/BaiduSpider/BaiduSpider/issues)以获取最新的项目规划以及已知问题。
+请参考 [Opening Issues](https://github.com/BaiduSpider/BaiduSpider/issues) 以获取最新的项目规划以及已知问题。
 
 
 
@@ -186,7 +186,7 @@ _更多样例和配置，请参照[文档](https://baiduspider.github.io)_
 
 具体参与步骤如下：
 
-1. For k此项目
+1. Fork 此项目
 2. 创建 Feature 分支 (`git checkout -b NewFeatures`)
 3. 在每次修改代码后，提交你的更改 (`git commit -m 'Add some AmazingFeature'`)
 4. 将更改推送到自己的远程仓库 (`git push origin username/BaiduSpider`)
@@ -206,7 +206,7 @@ _更多样例和配置，请参照[文档](https://baiduspider.github.io)_
 
 samzhangjy - [@samzhangjy](https://twitter.com/samzhangjy) - samzhang951@outlook.com
 
-项目链接: [https://github.com/BaiduSpider/BaiduSpider](https://github.com/BaiduSpider/BaiduSpider)
+项目链接：[https://github.com/BaiduSpider/BaiduSpider](https://github.com/BaiduSpider/BaiduSpider)
 
 
 ## 免责声明
