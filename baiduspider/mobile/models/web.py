@@ -2,9 +2,10 @@
 
 此文件定义的所有现有的移动端网页搜索返回值模型并编写了自动构建函数。
 """
-from datetime import datetime, time
+from datetime import time
+from typing import Dict
 
-from baiduspider.mobile.models import convert_time
+from baiduspider.util import convert_time
 from baiduspider.mobile.models.typings.typings_web import *
 
 
@@ -23,7 +24,7 @@ class WebVideoDetail(WebVideoDetail):
         title (str): 搜索结果标题
         url (str): 搜索结果链接
         video_num (int): 搜索结果“合集”中视频数量
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -39,7 +40,7 @@ class WebVideoDetail(WebVideoDetail):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebVideoDetail:
+    def _build_instance(plain: Dict) -> WebVideoDetail:
         __returns = WebVideoDetail()
         __returns.plain = plain
         __returns.author = plain.get("author")
@@ -61,7 +62,7 @@ class WebVideoDetail(WebVideoDetail):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebVideoDetail %s>" % self.title
+        return f"<WebVideoDetail {self.title}>"
 
 
 class WebVideoTag(WebVideoTag):
@@ -72,7 +73,7 @@ class WebVideoTag(WebVideoTag):
     Attributes:
         text (str): 标签文字
         url (str): 标签链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -81,7 +82,7 @@ class WebVideoTag(WebVideoTag):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebVideoTag:
+    def _build_instance(plain: Dict) -> WebVideoTag:
         __returns = WebVideoTag()
         __returns.plain = plain
         __returns.text = plain.get("text")
@@ -89,7 +90,7 @@ class WebVideoTag(WebVideoTag):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebVideoTag %s>" % self.text
+        return f"<WebVideoTag {self.text}>"
 
 
 class WebVideo(WebVideo):
@@ -101,7 +102,7 @@ class WebVideo(WebVideo):
         results (List[WebVideoDetail]): 搜索结果详情列表
         tags (List[WebVideoTag]): 搜索结果标签列表
         url (str): 搜索结果链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -111,7 +112,7 @@ class WebVideo(WebVideo):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebVideo:
+    def _build_instance(plain: Dict) -> WebVideo:
         __returns = WebVideo()
         __returns.plain = plain
         for i in plain.get("results"):
@@ -122,7 +123,7 @@ class WebVideo(WebVideo):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebVideo %s>" % self.url[:20] + "..."
+        return f"<WebVideo {self.url[:20]}...>"
 
 
 class WebShortVideoDetail(WebShortVideoDetail):
@@ -137,7 +138,7 @@ class WebShortVideoDetail(WebShortVideoDetail):
         poster (str): 搜索结果海报图片链接
         title (str): 搜索结果标题
         url (str): 搜索结果链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -150,7 +151,7 @@ class WebShortVideoDetail(WebShortVideoDetail):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebShortVideoDetail:
+    def _build_instance(plain: Dict) -> WebShortVideoDetail:
         __returns = WebShortVideoDetail()
         __returns.plain = plain
         __returns.author = plain.get("author")
@@ -162,7 +163,7 @@ class WebShortVideoDetail(WebShortVideoDetail):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebShortVideoDetail %s>" % self.title
+        return f"<WebShortVideoDetail {self.title}>"
 
 
 class WebShortVideo(WebShortVideo):
@@ -174,7 +175,7 @@ class WebShortVideo(WebShortVideo):
         results (List[WebShortVideoDetail]): 搜索结果详情列表
         total (int): 搜索结果总数
         url (str): 搜索结果链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -184,7 +185,7 @@ class WebShortVideo(WebShortVideo):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebShortVideo:
+    def _build_instance(plain: Dict) -> WebShortVideo:
         __returns = WebShortVideo()
         __returns.plain = plain
         if plain.get("results") is not None:
@@ -195,7 +196,7 @@ class WebShortVideo(WebShortVideo):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebShortVideo %s>" % self.url[:20] + "..."
+        return f"<WebShortVideo {self.url[:20]}>..."
 
 
 class WebSection(WebSection):
@@ -206,7 +207,7 @@ class WebSection(WebSection):
     Attributes:
         text (str): 搜索结果文字
         url (str): 搜索结果链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -215,7 +216,7 @@ class WebSection(WebSection):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebSection:
+    def _build_instance(plain: Dict) -> WebSection:
         __returns = WebSection()
         __returns.plain = plain
         __returns.text = plain.get("text")
@@ -223,7 +224,7 @@ class WebSection(WebSection):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebSection %s>" % self.text
+        return f"<WebSection {self.text}>"
 
 
 class WebBaike(WebBaike):
@@ -239,7 +240,7 @@ class WebBaike(WebBaike):
         sections (List[WebSection]): 搜索结果章节列表
         title (str): 搜索结果标题
         url (str): 搜索结果链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -253,7 +254,7 @@ class WebBaike(WebBaike):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebBaike:
+    def _build_instance(plain: Dict) -> WebBaike:
         __returns = WebBaike()
         __returns.plain = plain
         __returns.des = plain.get("des")
@@ -269,7 +270,7 @@ class WebBaike(WebBaike):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebBaike %s>" % self.title
+        return f"<WebBaike {self.title}>"
 
 
 class WebReyiDetail(WebReyiDetail):
@@ -287,7 +288,7 @@ class WebReyiDetail(WebReyiDetail):
         origin (str): 搜索结果来源（作者）
         pub_time (datetime.datetime): 搜索结果发布时间
         site (str): 搜索结果发布站点
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -303,7 +304,7 @@ class WebReyiDetail(WebReyiDetail):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebReyiDetail:
+    def _build_instance(plain: Dict) -> WebReyiDetail:
         __returns = WebReyiDetail()
         __returns.plain = plain
         __returns.author = plain.get("author")
@@ -320,9 +321,10 @@ class WebReyiDetail(WebReyiDetail):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebReyiDetail %s>" % (
-            self.des if len(self.des) <= 10 else self.des[:10] + "..."
-        )
+        if len(self.des) <= 10:
+            return f"<WebReyiDetail {self.des}>"
+        else:
+            return f"<WebReyiDetail {self.des[:10]}...>"
 
 
 class WebReyi(WebReyi):
@@ -334,7 +336,7 @@ class WebReyi(WebReyi):
         results (List[WebReyiDetail]): 搜索结果详情列表
         total (int): 搜索结果总数
         url (str): 搜索结果链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -344,7 +346,7 @@ class WebReyi(WebReyi):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebReyi:
+    def _build_instance(plain: Dict) -> WebReyi:
         __returns = WebReyi()
         __returns.plain = plain
         if plain.get("results") is not None:
@@ -355,7 +357,7 @@ class WebReyi(WebReyi):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebReyi %s>" % self.url[:20] + "..."
+        return f"<WebReyi {self.url[:20]}>..."
 
 
 class WebKnowledgeDetail(WebKnowledgeDetail):
@@ -368,7 +370,7 @@ class WebKnowledgeDetail(WebKnowledgeDetail):
         image (str): 搜索结果图片链接
         title (str): 搜索结果标题
         url (str): 搜索结果链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -379,7 +381,7 @@ class WebKnowledgeDetail(WebKnowledgeDetail):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebKnowledgeDetail:
+    def _build_instance(plain: Dict) -> WebKnowledgeDetail:
         __returns = WebKnowledgeDetail()
         __returns.plain = plain
         __returns.des = plain.get("des")
@@ -389,7 +391,7 @@ class WebKnowledgeDetail(WebKnowledgeDetail):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebKnowledgeDetail %s>" % self.title
+        return f"<WebKnowledgeDetail {self.title}>"
 
 
 class WebKnowledge(WebKnowledge):
@@ -400,7 +402,7 @@ class WebKnowledge(WebKnowledge):
     Attributes:
         results (List[WebKnowledgeDetail]): 搜索结果详情列表
         title (str): 搜索结果标题
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -409,7 +411,7 @@ class WebKnowledge(WebKnowledge):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebKnowledge:
+    def _build_instance(plain: Dict) -> WebKnowledge:
         __returns = WebKnowledge()
         __returns.plain = plain
         for i in plain.get("results"):
@@ -418,7 +420,7 @@ class WebKnowledge(WebKnowledge):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebKnowledge %s>" % self.title
+        return f"<WebKnowledge {self.title}>"
 
 
 class WebNormal(WebNormal):
@@ -431,7 +433,7 @@ class WebNormal(WebNormal):
         image (str): 搜索结果图片链接
         title (str): 搜索结果标题
         url (str): 搜索结果链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -443,7 +445,7 @@ class WebNormal(WebNormal):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebNormal:
+    def _build_instance(plain: Dict) -> WebNormal:
         __returns = WebNormal()
         __returns.plain = plain
         __returns.des = plain.get("des")
@@ -456,7 +458,7 @@ class WebNormal(WebNormal):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebNormal %s>" % self.title
+        return f"<WebNormal {self.title}>"
 
 
 class WebVideoNormalInfo(WebVideoNormalInfo):
@@ -467,7 +469,7 @@ class WebVideoNormalInfo(WebVideoNormalInfo):
     Attributes:
         data (str): 搜索结果数据
         type (str): 搜索结果类型
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -476,7 +478,7 @@ class WebVideoNormalInfo(WebVideoNormalInfo):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebVideoNormalInfo:
+    def _build_instance(plain: Dict) -> WebVideoNormalInfo:
         __returns = WebVideoNormalInfo()
         __returns.plain = plain
         __returns.data = plain.get("data")
@@ -484,7 +486,7 @@ class WebVideoNormalInfo(WebVideoNormalInfo):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebVideoNormalInfo %s>" % self.type
+        return f"<WebVideoNormalInfo {self.type}>"
 
 
 class WebVideoNormal(WebVideoNormal):
@@ -501,7 +503,7 @@ class WebVideoNormal(WebVideoNormal):
         origin (str): 搜索结果来源（作者）
         labels (List[str]): 搜索结果标签列表
         video_num (int): 搜索结果视频数量
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -516,7 +518,7 @@ class WebVideoNormal(WebVideoNormal):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebVideoNormal:
+    def _build_instance(plain: Dict) -> WebVideoNormal:
         __returns = WebVideoNormal()
         __returns.plain = plain
         __returns.poster = plain.get("poster")
@@ -536,7 +538,7 @@ class WebVideoNormal(WebVideoNormal):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebVideoNormal %s>" % self.title
+        return f"<WebVideoNormal {self.title}>"
 
 
 class WebResult(WebResult):
@@ -553,7 +555,7 @@ class WebResult(WebResult):
         normal (List[WebNormal]): 普通搜索结果列表
         video_normal (List[WebVideoNormal]): 普通视频搜索结果列表
         query (str): 搜索词
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -590,4 +592,4 @@ class WebResult(WebResult):
         return __returns
 
     def __repr__(self) -> str:
-        return "<WebResult %s>" % self.query
+        return f"<WebResult {self.query}>"
