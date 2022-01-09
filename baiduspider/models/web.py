@@ -568,32 +568,32 @@ class WebResult(WebResult):
         __returns.pages = pages
         __returns.total = total
         for p in plain:
-            if get_attr(p, "type") == "result":
+            if p.get("type") == "result":
                 __returns.normal.append(WebNormal._build_instance(p))
-            elif get_attr(p, "type") == "total":
-                __returns.total = get_attr(p, "result")
-            elif get_attr(p, "type") == "related":
-                __returns.related = get_attr(p, "results")
-            elif get_attr(p, "type") == "calc":
+            elif p.get("type") == "total":
+                __returns.total = p.get("result")
+            elif p.get("type") == "related":
+                __returns.related = p.get("results")
+            elif p.get("type") == "calc":
                 __returns.calc = WebCalc._build_instance(p)
-            elif get_attr(p, "type") == "news":
+            elif p.get("type") == "news":
                 __returns.news = [
-                    WebNews._build_instance(i) for i in get_attr(p, "results")
+                    WebNews._build_instance(i) for i in p.get("results")
                 ]
-            elif get_attr(p, "type") == "video":
+            elif p.get( "type") == "video":
                 __returns.video = [
-                    WebVideo._build_instance(i) for i in get_attr(p, "results")
+                    WebVideo._build_instance(i) for i in p.get("results")
                 ]
-            elif get_attr(p, "type") == "baike":
-                __returns.baike = WebBaike._build_instance(get_attr(p, "result"))
-            elif get_attr(p, "type") == "tieba":
-                __returns.baike = WebTieba._build_instance(get_attr(p, "result"))
-            elif get_attr(p, "type") == "blog":
-                __returns.blog = WebBlog._build_instance(get_attr(p, "result"))
-            elif get_attr(p, "type") == "gitee":
-                __returns.gitee = WebGitee._build_instance(get_attr(p, "result"))
-            elif get_attr(p, "type") == "music":
-                __returns.music = WebMusic._build_instance(get_attr(p, "result"))
+            elif p.get( "type") == "baike":
+                __returns.baike = WebBaike._build_instance(p.get("result"))
+            elif p.get( "type") == "tieba":
+                __returns.baike = WebTieba._build_instance(p.get("result"))
+            elif p.get( "type") == "blog":
+                __returns.blog = WebBlog._build_instance(p.get("result"))
+            elif p.get( "type") == "gitee":
+                __returns.gitee = WebGitee._build_instance(p.get("result"))
+            elif p.get( "type") == "music":
+                __returns.music = WebMusic._build_instance(p.get( "result"))
         return __returns
 
     def __getitem__(self, key) -> Any:
