@@ -68,7 +68,7 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
     elif "小时" in t:
         s = datetime.now() - timedelta(hours=delta)
     elif t.replace(str(delta), "").split(":")[0].strip() in days_in_chinese:
-        _ = int(re.findall("\d+", t)[-1])
+        _ = int(re.findall(r"\d+", t)[-1])
         __ = t.replace(str(delta), "").split(":")[0].strip()
         s = datetime.now() - timedelta(days=days_in_chinese[__])
         s = datetime(s.year, s.month, s.day, delta, _)

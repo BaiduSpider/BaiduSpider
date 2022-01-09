@@ -10,7 +10,7 @@ import datetime
 import hashlib
 import random
 import time as time_lib
-from typing import Tuple, Union
+from typing import Dict, Tuple, Union
 from urllib.parse import quote
 
 from baiduspider._spider import BaseSpider
@@ -45,14 +45,14 @@ class BaiduSpider(BaseSpider):
         pn: int = 1,
         exclude: list = [],
         time: Union[tuple, str, None] = None,
-        proxies: dict = None
+        proxies: Dict = None
     ) -> WebResult`: 百度网页搜索
 
     - BaiduSpider.`#!python search_pic(
         self: BaiduSpider,
         query: str,
         pn: int = 1,
-        proxies: dict = None
+        proxies: Dict = None
     ) -> PicResult`: 百度图片搜索
 
     - BaiduSpider.`#!python search_zhidao(
@@ -60,14 +60,14 @@ class BaiduSpider(BaseSpider):
         query: str,
         pn: int = 1,
         time: Union[str, None] = None,
-        proxies: dict = None
+        proxies: Dict = None
     ) -> ZhidaoResult`: 百度知道搜索
 
     - BaiduSpider.`#!python search_video(
         self: BaiduSpider,
         query: str,
         pn: int = 1,
-        proxies: dict = None
+        proxies: Dict = None
     ) -> VideoResult`: 百度视频搜索
 
     - BaiduSpider.`#!python search_news(
@@ -76,7 +76,7 @@ class BaiduSpider(BaseSpider):
         pn: int = 1,
         sort_by: str = "focus",
         show: str = "all",
-        proxies: dict = None
+        proxies: Dict = None
     ) -> NewsResult`: 百度资讯搜索
 
     - BaiduSpider.`#!python search_wenku(
@@ -88,7 +88,7 @@ class BaiduSpider(BaseSpider):
         time: str = "all",
         page_range: Union[Tuple[int], str] = "all",
         sort_by: str = "relation",
-        proxies: dict = None
+        proxies: Dict = None
     ) -> WenkuResult`: 百度文库搜索
 
     - BaiduSpider.`#!python search_jingyan(
@@ -96,13 +96,13 @@ class BaiduSpider(BaseSpider):
         query: str,
         pn: int = 1,
         scope: str = "all",
-        proxies: dict = None
+        proxies: Dict = None
     ) -> JingyanResult`: 百度经验搜索
 
     - BaiduSpider.`#!python search_baike(
         self: BaiduSpider,
         query: str,
-        proxies: dict = None
+        proxies: Dict = None
     )`: 百度百科搜索
     """
 
@@ -127,11 +127,11 @@ class BaiduSpider(BaseSpider):
             cookie (Union[str, None], optional): 浏览器抓包得到的cookie. Defaults to None.
         """
         super().__init__()
-        # 爬虫名称（不是请求的，只是用来表识）
+        # 爬虫名称（不是请求的，只是用来标识）
         self.spider_name = "BaiduSpider"
         # 解析Cookie
         if cookie is not None:
-            if cookie.find("__yjs_duid") == -1:
+            if "__yjs_duid" not in cookie:
                 cookie += "; __yjs_duid=1_" + str(hashlib.md5().hexdigest()) + "; "
             else:
                 _ = cookie.split("__yjs_duid=")
@@ -165,7 +165,7 @@ class BaiduSpider(BaseSpider):
         pn: int = 1,
         exclude: list = [],
         time: Union[tuple, str, None] = None,
-        proxies: dict = None,
+        proxies: Dict = None,
     ) -> WebResult:
         """百度网页搜索。
 
@@ -296,7 +296,7 @@ class BaiduSpider(BaseSpider):
                         'result': {
                             {
                                 'songs': [{  # list, 歌曲信息
-                                    'album': {  # dict, 歌曲专辑
+                                    'album': {  # Dict, 歌曲专辑
                                         'name': str,  # 专辑名称
                                         'url': str,  # 专辑链接
                                     },
@@ -304,7 +304,7 @@ class BaiduSpider(BaseSpider):
                                         'name': str,  # 歌手名称
                                         'url': str,  # 歌手链接
                                     }],
-                                    'song': {  # dict, 歌曲信息
+                                    'song': {  # Dict, 歌曲信息
                                         'copyright': bool,  # 歌曲是否有版权
                                         'duration': datetime.time,  # 歌曲时长
                                         'is_original': bool,  # 歌曲是否为原唱
@@ -379,13 +379,12 @@ class BaiduSpider(BaseSpider):
             pn (int, optional): 爬取的页码. Defaults to 1.
             exclude (list, optional): 要屏蔽的控件. Defaults to [].
             time (Union[tuple, str, None]): 按时间筛选参数. Defaults to None.
-            proxies (Union[dict, None]): 代理配置. Defaults to None.
+            proxies (Union[Dict, None]): 代理配置. Defaults to None.
 
         Returns:
             WebResult: 爬取的返回值和搜索结果
         """
         error = None
-        result = self.EMPTY
         # 按需解析
         if "all" in exclude:
             exclude = [
@@ -405,14 +404,14 @@ class BaiduSpider(BaseSpider):
             from_ = datetime.datetime(
                 to.year, to.month, to.day, to.hour, to.minute, to.second, to.microsecond
             )
-            if time == "day":
-                from_ += datetime.timedelta(days=-1)
-            elif time == "week":
-                from_ += datetime.timedelta(days=-7)
-            elif time == "month":
-                from_ += datetime.timedelta(days=-31)
-            elif time == "year":
-                from_ += datetime.timedelta(days=-365)
+            time_str_to_timedelta = {
+                "day": datetime.timedelta(days=-1),
+                "week": datetime.timedelta(days=-7),
+                "month": datetime.timedelta(days=-31),
+                "year": datetime.timedelta(days=-365)
+            }
+            from_ = time_str_to_timedelta[time]
+
         elif type(time) == tuple or type(time) == list:
             from_ = time[0]
             to = time[1]
@@ -426,17 +425,13 @@ class BaiduSpider(BaseSpider):
             )
         try:
             text = quote(query, "utf-8")
-            url = "https://www.baidu.com/s?wd=%s&pn=%d&inputT=%d" % (
-                text,
-                (pn - 1) * 10,
-                random.randint(500, 4000),
-            )
-            if to is not None and from_ is not None:
+            url = f"https://www.baidu.com/s?wd={text}&pn={(pn - 1) * 10}&inputT={random.randint(500, 4000)}"
+            if all((to, from_)):
                 url += "&gpc=" + quote(f"stf={from_},{to}|stftype=2")
             # 解析Cookie
             cookie = self.headers["Cookie"]
-            if cookie is not None:
-                if cookie.find("__yjs_duid") == -1:
+            if cookie:
+                if "__yjs_duid" not in cookie:
                     pass
                 else:
                     _ = cookie.split("__yjs_duid=")
@@ -455,7 +450,7 @@ class BaiduSpider(BaseSpider):
             plain=results["results"], pages=pages, total=results["total"]
         )
 
-    def search_pic(self, query: str, pn: int = 1, proxies: dict = None) -> PicResult:
+    def search_pic(self, query: str, pn: int = 1, proxies: Dict = None) -> PicResult:
         """百度图片搜索。
 
         - 实例：
@@ -497,7 +492,7 @@ class BaiduSpider(BaseSpider):
         Args:
             query (str): 要爬取的query
             pn (int, optional): 爬取的页码. Defaults to 1.
-            proxies (Union[dict, None]): 代理配置. Defaults to None.
+            proxies (Union[Dict, None]): 代理配置. Defaults to None.
 
         Returns:
             PicResult: 爬取的搜索结果
@@ -526,7 +521,7 @@ class BaiduSpider(BaseSpider):
         query: str,
         pn: int = 1,
         time: Union[str, None] = None,
-        proxies: dict = None,
+        proxies: Dict = None,
     ) -> ZhidaoResult:
         """百度知道搜索。
 
@@ -583,10 +578,10 @@ class BaiduSpider(BaseSpider):
             query (str): 要搜索的query
             pn (int, optional): 搜索结果的页码. Defaults to 1.
             time (Union[str, None], optional): 时间筛选参数. Defaults to None.
-            proxies (Union[dict, None]): 代理配置. Defaults to None.
+            proxies (Union[Dict, None]): 代理配置. Defaults to None.
 
         Returns:
-            dict: 搜索结果以及总页码
+            Dict: 搜索结果以及总页码
         """
         error = None
         result = self.EMPTY
@@ -615,7 +610,7 @@ class BaiduSpider(BaseSpider):
         return ZhidaoResult._build_instance(result["results"], pages, result["total"])
 
     def search_video(
-        self, query: str, pn: int = 1, proxies: dict = None
+        self, query: str, pn: int = 1, proxies: Dict = None
     ) -> VideoResult:
         """百度视频搜索。
 
@@ -658,7 +653,7 @@ class BaiduSpider(BaseSpider):
         Args:
             query (str): 要搜索的query
             pn (int, optional): 搜索结果的页码. Defaults to 1.
-            proxies (Union[dict, None]): 代理配置. Defaults to None.
+            proxies (Union[Dict, None]): 代理配置. Defaults to None.
 
         Returns:
             VideoResult: 爬取的搜索结果
@@ -666,14 +661,11 @@ class BaiduSpider(BaseSpider):
         error = None
         result = self.EMPTY
         try:
-            url = (
-                "https://www.baidu.com/sf/vsearch?pd=video&tn=vsearch&wd=%s&pn=%d&async=1"
-                % (quote(query), (pn - 1) * 10)
-            )
+            url = f"https://www.baidu.com/sf/vsearch?pd=video&tn=vsearch&wd={quote(query)}&pn={(pn - 1) * 10}&async=1"
             # 获取源码
             code = self._get_response(url, proxies)
             result = self.parser.parse_video(code)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:
@@ -687,7 +679,7 @@ class BaiduSpider(BaseSpider):
         pn: int = 1,
         sort_by: str = "focus",
         show: str = "all",
-        proxies: dict = None,
+        proxies: Dict = None,
     ) -> NewsResult:
         """百度资讯搜索。
 
@@ -748,7 +740,7 @@ class BaiduSpider(BaseSpider):
             pn (int, optional): 搜索结果的页码. Defaults to 1.
             sort_by (str, optional): 搜索结果排序方式. Defaults to "focus".
             show (str, optional): 搜索结果筛选方式. Defaults to "all".
-            proxies (Union[dict, None]): 代理配置. Defaults to None.
+            proxies (Union[Dict, None]): 代理配置. Defaults to None.
 
         Returns:
             NewsResult: 爬取的搜索结果与总页码。
@@ -766,10 +758,7 @@ class BaiduSpider(BaseSpider):
                 show = 2
             else:
                 show = 0
-            url = (
-                "https://www.baidu.com/s?tn=news&wd=%s&pn=%d&rtt=%d&medium=%d&cl=2"
-                % (quote(query), (pn - 1) * 10, sort_by, show)
-            )
+            url = f"https://www.baidu.com/s?tn=news&wd={quote(query)}&pn={(pn - 1) * 10}&rtt={sort_by}&medium={show}&cl=2"
             # 源码
             code = self._get_response(url, proxies)
             result = self.parser.parse_news(code)
@@ -791,7 +780,7 @@ class BaiduSpider(BaseSpider):
         time: str = "all",
         page_range: Union[Tuple[int], str] = "all",
         sort_by: str = "relation",
-        proxies: dict = None,
+        proxies: Dict = None,
     ) -> WenkuResult:
         """百度文库搜索。
 
@@ -816,7 +805,7 @@ class BaiduSpider(BaseSpider):
                         'type': str,  # 文档格式，为全部大写字母
                         'url': str,  # 文档链接
                         'quality': float,  # 文档质量分
-                        'uploader': {  # dict, 文档上传者信息
+                        'uploader': {  # Dict, 文档上传者信息
                             'name': str,  # 文档上传者用户名
                             'url': str  # 文档上传者链接
                         },
@@ -895,7 +884,7 @@ class BaiduSpider(BaseSpider):
             time (str, optional): 按时间筛选. Defaults to "all".
             page_range (Union[str, Tuple[int]]): 按页数筛选. Defaults to "all".
             sort_by (str): 排序方式. Defaults to "relation".
-            proxies (Union[dict, None]): 代理配置. Defaults to None.
+            proxies (Union[Dict, None]): 代理配置. Defaults to None.
 
         Returns:
             WenkuResult: 搜索结果和总计页数
@@ -942,12 +931,12 @@ class BaiduSpider(BaseSpider):
                 % (quote(query), (pn - 1) * 10, scope, format, time, sort_by)
             )
             if page_range != -1:
-                url += "&pb=%d&pe=%d" % (page_range[0], page_range[1])
+                url += f"&pb={page_range[0]}&pe={page_range[1]}"
             else:
                 url += "&pg=0"
             code = self._get_response(url, proxies)
             result = self.parser.parse_wenku(code)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:
@@ -956,7 +945,7 @@ class BaiduSpider(BaseSpider):
         return WenkuResult._build_instance(result["results"], result["pages"])
 
     def search_jingyan(
-        self, query: str, pn: int = 1, scope: str = "all", proxies: dict = None
+        self, query: str, pn: int = 1, scope: str = "all", proxies: Dict = None
     ) -> JingyanResult:
         """百度经验搜索。
 
@@ -975,7 +964,7 @@ class BaiduSpider(BaseSpider):
                         'date': str,  # 经验发布日期
                         'category': List[str],  # 经验分类
                         'votes': int,  # 经验的支持票数
-                        'publisher': {  # dict, 经验发布者信息
+                        'publisher': {  # Dict, 经验发布者信息
                             'name': str,  # 经验发布者用户名
                             'url': str  # 经验发布者链接
                         },
@@ -1016,7 +1005,7 @@ class BaiduSpider(BaseSpider):
             query (str): 要搜索的关键词
             pn (int, optional): 搜索结果的页码. Defaults to 1.
             scope (str, optional): 筛选范围. Defaults to "all".
-            proxies (Union[dict, None]): 代理配置. Defaults to None.
+            proxies (Union[Dict, None]): 代理配置. Defaults to None.
 
         Returns:
             JingyanResult: 搜索结果以及总计的页码.
@@ -1029,14 +1018,10 @@ class BaiduSpider(BaseSpider):
         else:
             scope = 0
         try:
-            url = "https://jingyan.baidu.com/search?word=%s&pn=%d&lm=%d" % (
-                quote(query),
-                (pn - 1) * 10,
-                scope,
-            )
+            url = f"https://jingyan.baidu.com/search?word={quote(query)}&pn={(pn - 1) * 10}&lm={scope}"
             code = self._get_response(url, proxies)
             result = self.parser.parse_jingyan(code)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:
@@ -1045,7 +1030,7 @@ class BaiduSpider(BaseSpider):
         pages = self._calc_pages(result["total"], self.RESULTS_PER_PAGE["jingyan"])
         return JingyanResult._build_instance(result["results"], pages, result["total"])
 
-    def search_baike(self, query: str, proxies: dict = None) -> BaikeResult:
+    def search_baike(self, query: str, proxies: Dict = None) -> BaikeResult:
         """百度百科搜索。
 
         - 使用方法：
@@ -1081,18 +1066,18 @@ class BaiduSpider(BaseSpider):
 
         Args:
             query (str): 要搜索的关键词.
-            proxies (Union[dict, None]): 代理配置. Defaults to None.
+            proxies (Union[Dict, None]): 代理配置. Defaults to None.
 
         Returns:
-            dict: 搜索结果和总页数
+            Dict: 搜索结果和总页数
         """
         error = None
         result = self.EMPTY
         try:
-            url = "https://baike.baidu.com/search?word=%s" % quote(query)
+            url = f"https://baike.baidu.com/search?word={quote(query)}"
             code = self._get_response(url, proxies)
             result = self.parser.parse_baike(code)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:

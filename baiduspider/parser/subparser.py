@@ -1,7 +1,7 @@
 import json
 from datetime import datetime, time
+from typing import Dict
 
-import requests
 from baiduspider._spider import BaseSpider
 from baiduspider.util import handle_err
 from bs4 import BeautifulSoup, Comment
@@ -19,14 +19,14 @@ class WebSubParser(BaseSpider):
         self.spider_name = "WebSubSpider"
 
     @handle_err
-    def parse_news_block(self, news: BeautifulSoup) -> dict:
+    def parse_news_block(self, news: BeautifulSoup) -> Dict:
         """解析资讯子块
 
         Args:
             news (BeautifulSoup): 从源HTML代码中提取的资讯块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         try:
             self._format(news.find("h3", class_="t").find("a").text)
@@ -58,14 +58,14 @@ class WebSubParser(BaseSpider):
         return news_detail
 
     @handle_err
-    def parse_video_block(self, video: BeautifulSoup) -> dict:
+    def parse_video_block(self, video: BeautifulSoup) -> Dict:
         """解析视频子块
 
         Args:
             video (BeautifulSoup): 从源HTML代码中提取的视频块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if video:
             video_rows = video.findAll("div", class_="c-row")
@@ -99,14 +99,14 @@ class WebSubParser(BaseSpider):
         return video_results
 
     @handle_err
-    def parse_baike_block(self, baike: BeautifulSoup) -> dict:
+    def parse_baike_block(self, baike: BeautifulSoup) -> Dict:
         """解析百科子块
 
         Args:
             baike (BeautifulSoup): 从源HTML代码中提取的百科块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if baike:
             b_title = self._format(baike.find("h3").text)
@@ -142,14 +142,14 @@ class WebSubParser(BaseSpider):
         return baike
 
     @handle_err
-    def parse_tieba_block(self, tieba: BeautifulSoup) -> dict:
+    def parse_tieba_block(self, tieba: BeautifulSoup) -> Dict:
         """解析贴吧子块
 
         Args:
             tieba (BeautifulSoup): 从源HTML代码中提取的贴吧块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if tieba:
             t_title = self._format(tieba.find("h3").text)
@@ -207,14 +207,14 @@ class WebSubParser(BaseSpider):
         return tieba
 
     @handle_err
-    def parse_blog_block(self, blog: BeautifulSoup) -> dict:
+    def parse_blog_block(self, blog: BeautifulSoup) -> Dict:
         """解析博客子块
 
         Args:
             blog (BeautifulSoup): 从源HTML代码中提取的博客块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if blog is not None:
             blog = blog.find("section")
@@ -253,14 +253,14 @@ class WebSubParser(BaseSpider):
         return blog
 
     @handle_err
-    def parse_gitee_block(self, gitee: BeautifulSoup) -> dict:
+    def parse_gitee_block(self, gitee: BeautifulSoup) -> Dict:
         """解析Gitee仓库子块
 
         Args:
             gitee (BeautifulSoup): 从源HTML代码中提取的码云仓库块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if gitee is not None:
             g_title = gitee.find("h3", class_="c-title").text
@@ -302,14 +302,14 @@ class WebSubParser(BaseSpider):
         return gitee
 
     @handle_err
-    def parse_music_block(self, music: BeautifulSoup) -> dict:
+    def parse_music_block(self, music: BeautifulSoup) -> Dict:
         """解析音乐子块
 
         Args:
             music (BeautifulSoup): 从源HTML代码中提取的音乐块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if music is not None:
             # 从注释中获取结果JSON

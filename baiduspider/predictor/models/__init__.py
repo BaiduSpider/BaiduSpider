@@ -2,8 +2,6 @@
 
 此文件定义了所有现有的搜索词预测模块内返回值模型并编写了自动构建函数。
 """
-from typing import Union
-
 from baiduspider.predictor.models.typings import TiebaPredictorResult
 
 
@@ -27,7 +25,7 @@ class TiebaPredictorResult(TiebaPredictorResult):
         members (int): 预测结果成员数
         name (str): 预测结果名称
         threads (int): 预测结果帖子数
-        plain (list): 源预测结果字典
+        plain (List): 源预测结果字典
     """
 
     def __init__(self) -> None:
@@ -44,12 +42,12 @@ class TiebaPredictorResult(TiebaPredictorResult):
     def _build_instance(plain: dict) -> TiebaPredictorResult:
         __returns = TiebaPredictorResult()
         __returns.plain = plain
-        __returns.classifiers = get_attr(plain, "classifiers")
-        __returns.cover = get_attr(plain, "cover")
-        __returns.desc = get_attr(plain, "desc")
-        __returns.members = get_attr(plain, "members")
-        __returns.name = get_attr(plain, "name")
-        __returns.threads = get_attr(plain, "threads")
+        __returns.classifiers = plain.get("classifiers")
+        __returns.cover = plain.get("cover")
+        __returns.desc = plain.get("desc")
+        __returns.members = plain.get("members")
+        __returns.name = plain.get("name")
+        __returns.threads = plain.get("threads")
         return __returns
 
     def __repr__(self) -> str:

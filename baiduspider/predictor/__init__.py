@@ -119,7 +119,7 @@ class BaiduPredictor(BaseSpider):
                 f"https://tieba.baidu.com/suggestion?query={query}&ie=utf-8"
             )
         )
-        if data["query_match"]["search_data"] is None:
+        if not data["query_match"]["search_data"]:
             return []
         ret = [
             {
