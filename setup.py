@@ -23,5 +23,5 @@ setuptools.setup(
         "Topic :: Utilities",
     ],
     python_requires=">=3.6",
-    install_requires=["requests", "bs4"],
+    install_requires=["requests>=2.25.1", "bs4>=0.0.1"],
 )
