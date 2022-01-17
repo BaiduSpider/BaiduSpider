@@ -778,10 +778,13 @@ class Parser(BaseSpider):
         container = soup.findAll("dd")
         results = []
         for res in container:
+            if res.select('.ad-footer'):
+                continue
             # 链接
-            url = "https://baike.baidu.com" + self._format(
+            url_pre = self._format(
                 res.find("a", class_="result-title")["href"]
             )
+            url = ("https://baike.baidu.com" if url_pre.startswith("https://baike.baidu.com") else "") + url_pre
             # 标题
             title = self._format(res.find("a", class_="result-title").text)
             # 简介
