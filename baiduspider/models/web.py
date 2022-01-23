@@ -577,23 +577,21 @@ class WebResult(WebResult):
             elif p.get("type") == "calc":
                 __returns.calc = WebCalc._build_instance(p)
             elif p.get("type") == "news":
-                __returns.news = [
-                    WebNews._build_instance(i) for i in p.get("results")
-                ]
-            elif p.get( "type") == "video":
+                __returns.news = [WebNews._build_instance(i) for i in p.get("results")]
+            elif p.get("type") == "video":
                 __returns.video = [
                     WebVideo._build_instance(i) for i in p.get("results")
                 ]
-            elif p.get( "type") == "baike":
+            elif p.get("type") == "baike":
                 __returns.baike = WebBaike._build_instance(p.get("result"))
-            elif p.get( "type") == "tieba":
+            elif p.get("type") == "tieba":
                 __returns.baike = WebTieba._build_instance(p.get("result"))
-            elif p.get( "type") == "blog":
+            elif p.get("type") == "blog":
                 __returns.blog = WebBlog._build_instance(p.get("result"))
-            elif p.get( "type") == "gitee":
+            elif p.get("type") == "gitee":
                 __returns.gitee = WebGitee._build_instance(p.get("result"))
-            elif p.get( "type") == "music":
-                __returns.music = WebMusic._build_instance(p.get( "result"))
+            elif p.get("type") == "music":
+                __returns.music = WebMusic._build_instance(p.get("result"))
         return __returns
 
     def __getitem__(self, key) -> Any:

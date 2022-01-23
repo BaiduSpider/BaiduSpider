@@ -75,9 +75,7 @@ class JingyanNormal(JingyanNormal):
         __returns.pub_date = convert_time(plain.get("pub_date"))
         __returns.category = plain.get("category")
         __returns.votes = plain.get("votes")
-        __returns.publisher = JingyanPublisher._build_instance(
-            plain.get("publisher")
-        )
+        __returns.publisher = JingyanPublisher._build_instance(plain.get("publisher"))
         __returns.is_original = plain.get("is_original")
         __returns.is_outstanding = plain.get("is_outstanding")
         return __returns
