@@ -14,6 +14,7 @@ download.py
 /BaiduSpider.egg-info/
 htmlcov/
 /site/
+/venv-win/
 .coverage
 .coveragerc
 exp.*

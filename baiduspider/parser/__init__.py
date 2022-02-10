@@ -367,13 +367,20 @@ class Parser(BaseSpider):
         """
         bs = BeautifulSoup(self._minify(content), "html.parser")
         # 搜索结果总数
-        total = int(
-            bs.find("div", class_="wgt-picker")
-            .find("span", class_="f-lighter")
-            .text.split("共", 1)[-1]
-            .split("条结果", 1)[0]
-            .replace(",", "")
-        )
+        try:
+            total = int(
+                bs.find("div", class_="wgt-picker")
+                .find("span", class_="f-lighter")
+                .text.split("共", 1)[-1]
+                .split("条结果", 1)[0]
+                .replace(",", "")
+            )
+        except AttributeError:
+            # 没有搜索结果
+            return {
+                "results": [],
+                "total": 0
+            }
         # 所有搜索结果
         list_ = bs.find("div", class_="list").findAll("dl")
         results = []
@@ -429,7 +436,7 @@ class Parser(BaseSpider):
                 except:
                     count = None
                 # 回答者
-                answerer = tmp[-2].text.strip("\n").strip("回答者:\xa0")
+                answerer = tmp[(-2 if len(tmp) >= 2 else -1)].text.strip("\n").strip("回答者:\xa0")
                 # 赞同数
                 __ = item.find("dd", class_="explain").find("span", class_="ml-10")
                 agree = int(__.text.strip()) if __ is not None else 0
