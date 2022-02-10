@@ -150,7 +150,13 @@ class Parser(BaseSpider):
             pre_results.append(dict(type="music", result=music))
         # 预处理源码
         soup = BeautifulSoup(content, "html.parser")
-        results = soup.findAll("div", class_="result")
+        results = []
+        for res in soup.findAll("div", class_="result-op"):
+            try:
+                if res["srcid"] in ["1599"]:
+                    results.append(res)
+            except KeyError:
+                pass
         res = []
         for result in results:
             des = None
@@ -165,18 +171,39 @@ class Parser(BaseSpider):
             title = self._format(str(soup.find("a").text))
             # 时间
             try:
-                time = self._format(
-                    soup.findAll("div", class_="c-abstract")[0]
-                    .find("span", class_="newTimeFactor_before_abs")
-                    .text
-                )
+                _ = soup.find("div", class_="c-span-last")
+                if _ is None: _ = soup.find("div", class_="c-gap-top-small")
+                if _ is not None:
+                    time = self._format(
+                        _.find("span", class_="c-color-gray2")
+                        .text
+                    )
             except (AttributeError, IndexError):
                 time = None
             try:
                 # 简介
-                des = soup.find_all("div", class_="c-abstract")[0].text
+                des = None
+                _ = soup.find("div", class_="c-span-last")
+                if _ is not None:
+                    for des_ in _.findAll("span"):
+                        try:
+                            if des_["class"][0].startswith("content-right"):
+                                des = des_.text
+                                break
+                        except KeyError:
+                            pass
+                else:
+                    _ = soup.find("div", class_="c-gap-top-small")
+                    if _ is not None:
+                        for des_ in _.findAll("span"):
+                            try:
+                                if des_["class"][0].startswith("content-right"):
+                                    des = des_.text
+                                    break
+                            except KeyError:
+                                pass
                 soup = BeautifulSoup(str(result), "html.parser")
-                des = self._format(des).lstrip(str(time)).strip()
+                if des is not None: des = self._format(des)
             except IndexError:
                 try:
                     des = des.replace("mn", "")
@@ -222,40 +249,21 @@ class Parser(BaseSpider):
                 and result.find("article") is None
             )
             domain = None
-            if is_not_special:  # 确保不是特殊类型的结果
-                # 获取可见的域名
-                try:
-                    domain = (
-                        result.find("div", class_="c-row")
-                        .find("div", class_="c-span-last")
-                        .find("div", class_="se_st_footer")
-                        .find("a", class_="c-showurl")
-                        .text
-                    )
-                except Exception:
-                    try:
-                        domain = (
-                            result.find("div", class_="c-row")
-                            .find("div", class_="c-span-last")
-                            .find("p", class_="op-bk-polysemy-move")
-                            .find("span", class_="c-showurl")
-                            .text
-                        )
-                    except Exception:
-                        try:
-                            domain = (
-                                result.find("div", class_="se_st_footer")
-                                .find("a", class_="c-showurl")
-                                .text
-                            )
-                        except:
-                            domain = None
-                if domain:
-                    domain = domain.replace(" ", "")
+            domain_ = result.findAll("div", class_="c-row")
+            for _ in domain_:
+                flag = False
+                if _.has_attr("class"):
+                    for __ in _["class"]:
+                        if __.startswith("source"):
+                            domain = _
+                            flag = True
+                            break
+                if flag: break
+            domain = self._format(domain.find("a").text)
             # 百度快照
             snapshot = result.find("a", class_="kuaizhao")
             if snapshot is not None:
-                snapshot = snapshot["href"]
+                snapshot = self._format(snapshot["href"].replace("\n", "").replace(" ", ""))
             # 加入结果
             if title and href and is_not_special:
                 res.append(

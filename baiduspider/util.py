@@ -51,7 +51,7 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
     Returns:
         datetime: 转换后的`datetime.datetime`结果
     """
-    if not t:
+    if t is None or t.strip() == "":
         return None
 
     t = t.strip()

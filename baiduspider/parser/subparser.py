@@ -312,6 +312,7 @@ class WebSubParser(BaseSpider):
             Dict: 解析后自动生成的Python结果字典对象
         """
         if music is not None:
+            music_bs = music
             # 从注释中获取结果JSON
             music = json.loads(
                 music.find(text=lambda text: isinstance(text, Comment)).strip(
@@ -319,7 +320,7 @@ class WebSubParser(BaseSpider):
                 )
             )
             m_title = music["title"].replace("<em>", "").replace("</em>", "")  # 搜索结果标题
-            m_url = music["url"]  # 搜索结果链接
+            m_url = "https://www.baidu.com" + music_bs.find("h3").find("a")["href"] # 搜索结果链接
             m_songs = []  # 搜索结果歌曲
             for song in music["data"]["site"]:
                 # 歌手信息
@@ -365,7 +366,7 @@ class WebSubParser(BaseSpider):
                         "name": song["album"]["albumName"],
                     }
                 except KeyError:
-                    s_album = None
+                    s_album = {}
                 m_songs.append({"song": s_song, "singer": s_singer, "album": s_album})
             music = {"title": m_title, "url": m_url, "songs": m_songs}
         return music
