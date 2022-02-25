@@ -19,34 +19,32 @@ class BaseSpider(object):
         self.spider_name = "BaseSpider"
         self.headers = {}
 
-    def _format(self, s: str) -> str:
+    def _format(self, string: str) -> str:
         """去除字符串中不必要的成分并返回
 
         Args:
-            s (str): 要整理的字符串
+            string (str): 要整理的字符串
 
         Returns:
             str: 处理后的字符串
         """
-        return (
-            s.strip()
-            .replace("\xa0", "")
-            .replace("\u2002", "")
-            .replace("\u3000", "")
-            .strip()
-        )
+        text_to_replace = ("\xa0", "\u2002""\u3000")
+        string = string.strip()
+        for text in text_to_replace:
+            string = string.replace(text, "")
+        return string
 
-    def _remove_html(self, s: str) -> str:
+    def _remove_html(self, string: str) -> str:
         """从字符串中去除HTML标签
 
         Args:
-            s (str): 要处理的字符串
+            string (str): 要处理的字符串
 
         Returns:
             str: 处理完的去除了HTML标签的字符串
         """
         pattern = re.compile(r"<[^*>]+>", re.S)
-        removed = pattern.sub("", s)
+        removed = pattern.sub("", string)
         return removed
 
     def _minify(self, html: str) -> str:
@@ -61,7 +59,7 @@ class BaseSpider(object):
         return html.replace("\u00a0", "")
 
     def _get_response(
-        self, url: str, proxies: dict = None, encoding: str = None
+        self, url: str, proxies: dict = {}, encoding: str = None
     ) -> str:
         """获取网站响应，并返回源码
 
@@ -73,10 +71,7 @@ class BaseSpider(object):
         Returns:
             str: 获取到的网站HTML代码
         """
-        if proxies:
-            response = requests.get(url, headers=self.headers, proxies=proxies)
-        else:
-            response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=self.headers, proxies=proxies)
         if encoding:
             response.encoding = encoding
             return response.text
@@ -86,7 +81,7 @@ class BaseSpider(object):
     def _handle_error(self, err: Exception, parent="", cause="") -> None:
         if not err:
             return None
-        if bool(int(os.environ.get("DEBUG", 0))):
+        if int(os.environ.get("DEBUG", 0)):
             raise err
         else:
             print(
@@ -103,17 +98,17 @@ class BaseSpider(object):
             #     '&title=%5BBUG%5D%20%E6%AD%A4%E5%A4%84%E5%A1%AB%E5%86%99%E4%BD%A0%E7%9A%84%E6%A0%87%E9%A2%98 提交一个新的issue。\033[31;m')
             return None
 
-    def _convert_time(self, t: str, as_list: bool = False) -> Union[datetime, bool]:
+    def _convert_time(self, time_str: str, as_list: bool = False) -> Union[datetime, bool]:
         """转换有时间差的汉字表示的时间到`datetime.datetime`形式的时间
 
         Args:
-            t (str): 要转换的字符串
+            time_str (str): 要转换的字符串
             as_list (bool): 是否以列表形式返回
 
         Returns:
             datetime: 转换后的`datetime.datetime`结果
         """
-        return convert_time(t, as_list)
+        return convert_time(time_str, as_list)
 
     def _reformat_big_num(self, t: str, r: str = "") -> int:
         delta = 1
@@ -127,7 +122,7 @@ class BaseSpider(object):
         return 1 if tot / per < 0 else math.ceil(tot / float(per))
 
     def __repr__(self) -> str:  # pragma: no cover
-        return "<Spider %s>" % self.spider_name
+        return f"<Spider {self.spider_name}>"
 
     def __str__(self) -> str:  # pragma: no cover
         return self.__repr__()

@@ -131,7 +131,7 @@ class WebSubParser(BaseSpider):
                     .strip("(")
                 )
                 b_cover_type = "video"
-            except (TypeError):
+            except TypeError:
                 b_cover = None
                 b_cover_type = None
         baike = {
@@ -179,7 +179,6 @@ class WebSubParser(BaseSpider):
             t_cover = None
         t_hot_ = tieba.findAll("div", class_="c-row")[1:-1]
         t_hot = []
-        i = 1
         for hot in t_hot_:
             t_h_title = self._format(hot.find("a").text)
             t_h_url = hot.find("a")["href"]
@@ -197,8 +196,6 @@ class WebSubParser(BaseSpider):
                     "replies": t_h_replies,
                 }
             )
-            i += 1
-        del i
         tieba = {
             "title": t_title,
             "url": t_url,

@@ -656,7 +656,7 @@ class Parser(BaseSpider):
                 .replace(" - 百度文库", "")
             )
             des = info["content"].replace("<em>", "").replace("</em>", "")
-            pub_date = strftime("%Y-%m-%d", localtime(int(info["createTime"])))
+            pub_date = strftime(r"%Y-%m-%d", localtime(int(info["createTime"])))
             page_num = info["pageNum"]
             score = info["qualityScore"]
             downloads = info["downloadCount"]

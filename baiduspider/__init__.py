@@ -417,7 +417,7 @@ class BaiduSpider(BaseSpider):
         else:
             to = from_ = None
         if type(to) == datetime.datetime and type(from_) == datetime.datetime:
-            FORMAT = "%Y-%m-%d %H:%M:%S"
+            FORMAT = r"%Y-%m-%d %H:%M:%S"
             to = int(time_lib.mktime(time_lib.strptime(to.strftime(FORMAT), FORMAT)))
             from_ = int(
                 time_lib.mktime(time_lib.strptime(from_.strftime(FORMAT), FORMAT))
