@@ -130,7 +130,7 @@ class BaiduSpider(BaseSpider):
         # 爬虫名称（不是请求的，只是用来标识）
         self.spider_name = "BaiduSpider"
         # 解析Cookie
-        if cookie is not None:
+        if cookie:
             if "__yjs_duid" not in cookie:
                 cookie += "; __yjs_duid=1_" + str(hashlib.md5().hexdigest()) + "; "
             else:
@@ -505,7 +505,7 @@ class BaiduSpider(BaseSpider):
             )
             content = self._get_response(url, proxies)
             result = self.parser.parse_pic(content)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:
@@ -599,7 +599,7 @@ class BaiduSpider(BaseSpider):
             # source.encoding = "gb2312"
             # code = source.text
             result = self.parser.parse_zhidao(code)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:
@@ -761,7 +761,7 @@ class BaiduSpider(BaseSpider):
             # 源码
             code = self._get_response(url, proxies)
             result = self.parser.parse_news(code)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:

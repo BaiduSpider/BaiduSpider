@@ -188,7 +188,7 @@ class WebShortVideo(WebShortVideo):
     def _build_instance(plain: Dict) -> WebShortVideo:
         __returns = WebShortVideo()
         __returns.plain = plain
-        if plain.get("results") is not None:
+        if plain.get("results"):
             for i in plain.get("results"):
                 __returns.results.append(WebShortVideoDetail._build_instance(i))
         __returns.total = plain.get("total")
@@ -262,7 +262,7 @@ class WebBaike(WebBaike):
             __returns.labels.append(i)
         __returns.origin = plain.get("origin")
         __returns.poster = plain.get("poster")
-        if plain.get("sections") is not None:
+        if plain.get("sections"):
             for i in plain.get("sections"):
                 __returns.sections.append(WebSection._build_instance(i))
         __returns.title = plain.get("title")
@@ -311,7 +311,7 @@ class WebReyiDetail(WebReyiDetail):
         __returns.author_avatar = plain.get("author_avatar")
         __returns.comments = plain.get("comments")
         __returns.des = plain.get("des")
-        if plain.get("images") is not None:
+        if plain.get("images"):
             for i in plain.get("images"):
                 __returns.images.append(i)
         __returns.likes = plain.get("likes")
@@ -349,7 +349,7 @@ class WebReyi(WebReyi):
     def _build_instance(plain: Dict) -> WebReyi:
         __returns = WebReyi()
         __returns.plain = plain
-        if plain.get("results") is not None:
+        if plain.get("results"):
             for i in plain.get("results"):
                 __returns.results.append(WebReyiDetail._build_instance(i))
         __returns.total = plain.get("total")
@@ -452,7 +452,7 @@ class WebNormal(WebNormal):
         __returns.image = plain.get("image")
         __returns.title = plain.get("title")
         __returns.url = plain.get("url")
-        if plain.get("sections") is not None:
+        if plain.get("sections"):
             for i in plain.get("sections"):
                 __returns.sections.append(WebSection._build_instance(i))
         return __returns
@@ -531,7 +531,7 @@ class WebVideoNormal(WebVideoNormal):
         __returns.origin = plain.get("origin")
         for i in plain.get("labels"):
             __returns.info.append(i)
-        if plain.get("info") is not None:
+        if plain.get("info"):
             for i in plain.get("info"):
                 __returns.info.append(WebVideoNormalInfo._build_instance(i))
         __returns.video_num = plain.get("video_num")

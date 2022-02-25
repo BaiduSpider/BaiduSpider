@@ -73,11 +73,11 @@ class BaseSpider(object):
         Returns:
             str: 获取到的网站HTML代码
         """
-        if proxies is not None:
+        if proxies:
             response = requests.get(url, headers=self.headers, proxies=proxies)
         else:
             response = requests.get(url, headers=self.headers)
-        if encoding is not None:
+        if encoding:
             response.encoding = encoding
             return response.text
         content = bytes(response.text, response.encoding).decode("utf-8")

@@ -49,7 +49,7 @@ class WebSubParser(BaseSpider):
             poster = _.find("img")["src"]
             labels = []
             __ = _.find("span", class_="c-label-radius")
-            if __ is not None:
+            if __:
                 labels.append(self._format(__.text))
             duration = None
             video_num = None
@@ -69,7 +69,7 @@ class WebSubParser(BaseSpider):
                 else:
                     pub_time = None
                 __ = _.find("span", class_="c-label-radius")
-                if __ is not None:
+                if __:
                     labels.append(__.text)
             except:
                 author_avatar = None
@@ -122,7 +122,7 @@ class WebSubParser(BaseSpider):
                 author_avatar = None
             author = _.find("span", class_="c-color-white").text
             play_times = _.findAll("span")[-1].text
-            if play_times is not None and "次播放" in play_times:
+            if play_times and "次播放" in play_times:
                 delta = 1
                 if "万" in play_times:
                     delta = 10000

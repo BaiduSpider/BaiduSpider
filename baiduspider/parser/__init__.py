@@ -173,7 +173,7 @@ class Parser(BaseSpider):
             try:
                 _ = soup.find("div", class_="c-span-last")
                 if _ is None: _ = soup.find("div", class_="c-gap-top-small")
-                if _ is not None:
+                if _:
                     time = self._format(
                         _.find("span", class_="c-color-gray2")
                         .text
@@ -184,7 +184,7 @@ class Parser(BaseSpider):
                 # 简介
                 des = None
                 _ = soup.find("div", class_="c-span-last")
-                if _ is not None:
+                if _:
                     for des_ in _.findAll("span"):
                         try:
                             if des_["class"][0].startswith("content-right"):
@@ -194,7 +194,7 @@ class Parser(BaseSpider):
                             pass
                 else:
                     _ = soup.find("div", class_="c-gap-top-small")
-                    if _ is not None:
+                    if _:
                         for des_ in _.findAll("span"):
                             try:
                                 if des_["class"][0].startswith("content-right"):
@@ -203,7 +203,7 @@ class Parser(BaseSpider):
                             except KeyError:
                                 pass
                 soup = BeautifulSoup(str(result), "html.parser")
-                if des is not None: des = self._format(des)
+                if des: des = self._format(des)
             except IndexError:
                 try:
                     des = des.replace("mn", "")
@@ -213,7 +213,7 @@ class Parser(BaseSpider):
                 time = time.split("-")[0].strip()
             # 因为百度的链接是加密的了，所以需要一个一个去访问
             # 由于性能原因，分析链接部分暂略
-            # if href is not None:
+            # if href:
             #     try:
             #         # 由于性能原因，这里设置1秒超时
             #         r = requests.get(href, timeout=1)
@@ -262,7 +262,7 @@ class Parser(BaseSpider):
             domain = self._format(domain.find("a").text)
             # 百度快照
             snapshot = result.find("a", class_="kuaizhao")
-            if snapshot is not None:
+            if snapshot:
                 snapshot = self._format(snapshot["href"].replace("\n", "").replace(" ", ""))
             # 加入结果
             if title and href and is_not_special:
@@ -404,10 +404,10 @@ class Parser(BaseSpider):
                 url = item.find("dt").find("a")["href"]
             except KeyError:
                 url = item.find("dt").find("a")["data-href"]
-            if item.find("dd", class_="video-content") is not None:
+            if item.find("dd", class_="video-content"):
                 # 问题
                 __ = item.find("dd", class_="summary")
-                question = __.text.strip("问：") if __ is not None else None
+                question = __.text.strip("问：") if __ else None
                 item = item.find("div", class_="right")
                 tmp = item.findAll("div", class_="video-text")
                 # # 简介
@@ -429,10 +429,10 @@ class Parser(BaseSpider):
             else:
                 # 回答
                 __ = item.find("dd", class_="answer")
-                answer = __.text.strip("答：") if __ is not None else None
+                answer = __.text.strip("答：") if __ else None
                 # 问题
                 __ = item.find("dd", class_="summary")
-                question = __.text.strip("问：") if __ is not None else None
+                question = __.text.strip("问：") if __ else None
                 tmp = item.find("dd", class_="explain").findAll("span", class_="mr-8")
                 # 发布日期
                 date = (
@@ -447,7 +447,7 @@ class Parser(BaseSpider):
                 answerer = tmp[(-2 if len(tmp) >= 2 else -1)].text.strip("\n").strip("回答者:\xa0")
                 # 赞同数
                 __ = item.find("dd", class_="explain").find("span", class_="ml-10")
-                agree = int(__.text.strip()) if __ is not None else 0
+                agree = int(__.text.strip()) if __ else 0
                 type_ = "normal"
             # 生成结果
             result = {

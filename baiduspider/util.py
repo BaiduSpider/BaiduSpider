@@ -21,7 +21,7 @@ def handle_err(func):  # pragma: no cover
                 if "block" in func.__name__
                 else None
             )
-            if func_name is not None:
+            if func_name:
                 print(
                     f"\033[33mWARNING: An error occurred while parsing the {func_name} subcomponent of BaiduSpider.{inspect.stack()[1][0].f_code.co_name}, "
                     "which is currently ignored. However, the rest of the parsing process is still being executed normally. "

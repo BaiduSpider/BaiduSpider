@@ -216,7 +216,7 @@ class WebSubParser(BaseSpider):
         Returns:
             Dict: 解析后自动生成的Python结果字典对象
         """
-        if blog is not None:
+        if blog:
             blog = blog.find("section")
             b_title = blog.find("h3", class_="c-title").text
             b_url = blog.find("a")["href"]
@@ -262,7 +262,7 @@ class WebSubParser(BaseSpider):
         Returns:
             Dict: 解析后自动生成的Python结果字典对象
         """
-        if gitee is not None:
+        if gitee:
             g_title = gitee.find("h3", class_="c-title").text
             g_url = gitee.find("a", class_="c-blocka")["href"]
             gitee = gitee.find("section").find("div", class_="c-tabs-content-wrapper")
@@ -311,7 +311,7 @@ class WebSubParser(BaseSpider):
         Returns:
             Dict: 解析后自动生成的Python结果字典对象
         """
-        if music is not None:
+        if music:
             music_bs = music
             # 从注释中获取结果JSON
             music = json.loads(
@@ -342,7 +342,7 @@ class WebSubParser(BaseSpider):
                     "poster": song["poster"],  # 歌曲海报图片链接
                     "is_original": bool(int(song["isOriginal"])),  # 是否为原唱
                     "pub_date": datetime(int(__[0]), int(__[1]), int(__[2]))
-                    if __ is not None
+                    if __
                     else None,  # 歌曲发布时间
                     "labels": [i["txt"] for i in song["labels"]],  # 歌曲标签
                     "copyright": bool(int(song["copyRight"])),  # 歌曲是否有版权

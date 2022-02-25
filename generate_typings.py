@@ -33,7 +33,7 @@ from typing import List, Union
         json_plain: Dict = None,
         write_template: bool = True,
     ):
-        if json_plain is not None:
+        if json_plain:
             data = json_plain
         else:
             with open(jsonpath, "r", encoding="utf-8") as f:
