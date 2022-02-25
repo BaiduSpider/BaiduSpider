@@ -26,7 +26,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        if video is None:
+        if not video:
             return []
         video = video.find("article")
         tags_container = (
@@ -100,7 +100,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        if short_video is None:
+        if not short_video:
             return []
         s_total = self._reformat_big_num(
             short_video.find("div", class_="middle")
@@ -159,7 +159,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        if baike is None:
+        if not baike:
             return []
         b_url = json.loads(baike["data-log"])["mu"]
         baike = baike.find("article")
@@ -201,7 +201,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        if reyi is None:
+        if not reyi:
             return []
         reyi = reyi.find("section")
         r_url = reyi.find("a", class_="c-blocka")["href"]
@@ -271,9 +271,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        from pprint import pprint
-
-        if knowledge is None:
+        if not knowledge:
             return []
         knowledge = knowledge.find("article")
         k_title = knowledge.find("header").find("h3").text

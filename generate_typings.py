@@ -83,11 +83,11 @@ from typing import List, Union
                         if type(_[i]) in self.BASE_TYPES:
                             out += f"List[{self._reformat_type((type(_[i])))}]\n"
                             continue
-                    elif _[i] is None:
+                    elif not _[i]:
                         out += "None\n"
                         continue
                     # print(data[i])
-                    if _[i] is None:
+                    if not _[i]:
                         out += "None\n"
                         continue
                     _[i]["type"] = _["type"]

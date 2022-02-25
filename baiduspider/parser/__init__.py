@@ -29,13 +29,13 @@ class Parser(BaseSpider):
             dict: 解析后的结果
         """
         soup = BeautifulSoup(content, "html.parser")
-        if soup.find("div", id="content_left") is None:
+        if not soup.find("div", id="content_left"):
             return {"results": [], "pages": 0, "total": 0}
         # 获取搜索结果总数
         tmp1 = soup.findAll("div", class_="result-molecule")
         idx_ = 0
         ele = None
-        while ele is None and idx_ < len(tmp1):
+        while not ele and idx_ < len(tmp1):
             tmp = tmp1[idx_].findAll("span")
             found = False
             for t in tmp:
@@ -172,7 +172,7 @@ class Parser(BaseSpider):
             # 时间
             try:
                 _ = soup.find("div", class_="c-span-last")
-                if _ is None: _ = soup.find("div", class_="c-gap-top-small")
+                if not _: _ = soup.find("div", class_="c-gap-top-small")
                 if _:
                     time = self._format(
                         _.find("span", class_="c-color-gray2")
@@ -246,7 +246,7 @@ class Parser(BaseSpider):
                     "tieba_general",
                     "yl_music_song",
                 ]
-                and result.find("article") is None
+                and not result.find("article")
             )
             domain = None
             domain_ = result.findAll("div", class_="c-row")

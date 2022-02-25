@@ -1,7 +1,7 @@
 import math
 import os
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Union
 
 import requests
@@ -84,7 +84,7 @@ class BaseSpider(object):
         return content
 
     def _handle_error(self, err: Exception, parent="", cause="") -> None:
-        if err is None:
+        if not err:
             return None
         if bool(int(os.environ.get("DEBUG", 0))):
             raise err
