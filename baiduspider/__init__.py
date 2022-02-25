@@ -149,7 +149,7 @@ class BaiduSpider(BaseSpider):
             "Connection": "Keep-Alive",
         }
         self.parser = Parser()
-        self.EMPTY = {"results": [], "pages": 0}
+        self.EMPTY = {"results": [], "pages": 0, "total": 0}
         self.RESULTS_PER_PAGE = {
             "web": 10,
             "pic": 20,
