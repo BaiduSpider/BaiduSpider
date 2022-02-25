@@ -42,7 +42,7 @@ class MobileParser(BaseSpider):
             # 链接
             try:
                 url = _["rl-link-href"]
-            except:
+            except Exception:
                 url = header.find("a")["href"]
             __ = header.find("h3").find("span", class_="c-text-public")
             # “官方”标签
@@ -54,7 +54,7 @@ class MobileParser(BaseSpider):
             try:
                 date_ = _.find("span", class_="c-color-gray").text
                 date = date_.replace("年", "-").replace("月", "-").replace("日", "")
-            except:
+            except Exception:
                 date = None
             __ = res.find("section").find("div", class_="c-flexbox")
             ___ = __.find("span", class_="c-text-box")
@@ -69,12 +69,12 @@ class MobileParser(BaseSpider):
                     try:
                         if t.find("span").text:
                             continue
-                    except:
+                    except Exception:
                         pass
                     try:
                         if "c-color-gray" in t["class"]:
                             continue
-                    except:
+                    except Exception:
                         pass
                     des += t.text
                 des += "\n"
@@ -92,7 +92,7 @@ class MobileParser(BaseSpider):
             if _ and _.find("img"):
                 try:
                     img = _.find("img")["data-lazy-src"].replace("&amp;", "&")
-                except:
+                except Exception:
                     img = _.find("img")["src"].replace("&amp;", "&")
             else:
                 img = None

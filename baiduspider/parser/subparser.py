@@ -30,7 +30,7 @@ class WebSubParser(BaseSpider):
         """
         try:
             self._format(news.find("h3", class_="t").find("a").text)
-        except:
+        except Exception:
             news_detail = []
         else:
             news_rows = news.findAll("div", class_="c-row")

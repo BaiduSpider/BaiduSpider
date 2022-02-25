@@ -77,7 +77,7 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
     # elif '年' in t:
     #     s = (datetime.now() - timedelta(days=365 * delta))
     elif "年" in t and "月" in t and "日" in t:
-        s = datetime.strptime(t, "%Y年%m月%d日")
+        s = datetime.strptime(t, r"%Y年%m月%d日")
     else:
         s = datetime.now()
 

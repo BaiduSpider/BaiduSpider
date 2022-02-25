@@ -47,7 +47,7 @@ from typing import List, Union
             pre_out = ""
         try:
             new_basename = basename + (data["type"].capitalize())
-        except:
+        except Exception:
             new_basename = basename
         # if type(data) != list:
         #     print(new_basename, data["type"])
@@ -70,7 +70,7 @@ from typing import List, Union
                 # print(_)
                 # try:
                 #     print(_[i])
-                # except:
+                # except Exception:
                 #     print(data)
                 if type(_[i]) in self.BASE_TYPES:
                     out += self._reformat_type(type(_[i]))
@@ -78,7 +78,7 @@ from typing import List, Union
                     if type(_[i]) == list:
                         try:
                             _[i] = _[i][0]
-                        except:
+                        except Exception:
                             _[i] = None
                         if type(_[i]) in self.BASE_TYPES:
                             out += f"List[{self._reformat_type((type(_[i])))}]\n"

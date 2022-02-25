@@ -71,7 +71,7 @@ class WebSubParser(BaseSpider):
                 __ = _.find("span", class_="c-label-radius")
                 if __:
                     labels.append(__.text)
-            except:
+            except Exception:
                 author_avatar = None
                 author = None
                 pub_time = None
@@ -118,7 +118,7 @@ class WebSubParser(BaseSpider):
             _ = vid.find("div", class_="c-color-white")
             try:
                 author_avatar = _.find("img")["src"]
-            except:
+            except Exception:
                 author_avatar = None
             author = _.find("span", class_="c-color-white").text
             play_times = _.findAll("span")[-1].text
@@ -167,7 +167,7 @@ class WebSubParser(BaseSpider):
         baike = baike.find("section")
         try:
             poster = baike.find("img", class_="c-img-img")["src"]
-        except:
+        except Exception:
             poster = None
         des = baike.find("div", class_="c-abstract").text
         section_container = baike.findAll("a", class_="c-slink")
@@ -224,11 +224,11 @@ class WebSubParser(BaseSpider):
             for img in __:
                 try:
                     images.append(img["data-lazy-src"])
-                except:
+                except Exception:
                     pass
             try:
                 origin = _.find("div", class_="origin-content-new").text
-            except:
+            except Exception:
                 origin = None
             ___ = post.findAll("i", class_=["c-icon", "c-gap-inner-right-small"])
             __ = []
@@ -240,11 +240,11 @@ class WebSubParser(BaseSpider):
             __ = __[1:]
             try:
                 comments = int(__[0].find_next_sibling("span").text.strip())
-            except:
+            except Exception:
                 comments = 0
             try:
                 likes = int(__[1].find_next_sibling("span").text.strip())
-            except:
+            except Exception:
                 likes = 0
             posts.append(
                 {

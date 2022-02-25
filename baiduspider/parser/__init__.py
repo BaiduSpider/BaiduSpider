@@ -2,7 +2,6 @@ import json
 import math
 from datetime import datetime, time
 from html import unescape
-import re
 from time import localtime, strftime
 
 from baiduspider._spider import BaseSpider
@@ -162,7 +161,7 @@ class Parser(BaseSpider):
             des = None
             try:
                 result["tpl"]
-            except:
+            except KeyError:
                 continue
             soup = BeautifulSoup(self._minify(str(result)), "html.parser")
             # 链接
@@ -172,7 +171,8 @@ class Parser(BaseSpider):
             # 时间
             try:
                 _ = soup.find("div", class_="c-span-last")
-                if not _: _ = soup.find("div", class_="c-gap-top-small")
+                if not _:
+                    _ = soup.find("div", class_="c-gap-top-small")
                 if _:
                     time = self._format(
                         _.find("span", class_="c-color-gray2")
@@ -203,7 +203,8 @@ class Parser(BaseSpider):
                             except KeyError:
                                 pass
                 soup = BeautifulSoup(str(result), "html.parser")
-                if des: des = self._format(des)
+                if des:
+                    des = self._format(des)
             except IndexError:
                 try:
                     des = des.replace("mn", "")
@@ -218,7 +219,7 @@ class Parser(BaseSpider):
             #         # 由于性能原因，这里设置1秒超时
             #         r = requests.get(href, timeout=1)
             #         href = r.url
-            #     except:
+            #     except Exception:
             #         # 获取网页失败，默认换回原加密链接
             #         href = href
             #     # 分析链接
@@ -235,7 +236,7 @@ class Parser(BaseSpider):
             #         path = None
             try:
                 result["tpl"]
-            except:
+            except KeyError:
                 pass
             is_not_special = (
                 result["tpl"]
@@ -258,7 +259,8 @@ class Parser(BaseSpider):
                             domain = _
                             flag = True
                             break
-                if flag: break
+                if flag:
+                    break
             domain = self._format(domain.find("a").text)
             # 百度快照
             snapshot = result.find("a", class_="kuaizhao")
@@ -425,7 +427,7 @@ class Parser(BaseSpider):
                 except ValueError:
                     agree = 0
                     answer = tmp[2].text.strip()
-                type_ = "video"
+                # type_ = "video"
             else:
                 # 回答
                 __ = item.find("dd", class_="answer")
@@ -441,14 +443,14 @@ class Parser(BaseSpider):
                 # 回答总数
                 try:
                     count = int(str(tmp[-1].text).strip("\n").strip("个回答"))
-                except:
+                except Exception:
                     count = None
                 # 回答者
                 answerer = tmp[(-2 if len(tmp) >= 2 else -1)].text.strip("\n").strip("回答者:\xa0")
                 # 赞同数
                 __ = item.find("dd", class_="explain").find("span", class_="ml-10")
                 agree = int(__.text.strip()) if __ else 0
-                type_ = "normal"
+                # type_ = "normal"
             # 生成结果
             result = {
                 "title": title,
@@ -588,7 +590,7 @@ class Parser(BaseSpider):
             # 封面图片
             try:
                 cover = res.find("div", class_="c-img-radius-large").find("img")["src"]
-            except:
+            except Exception:
                 cover = None
             # 生成结果
             result = {
@@ -737,13 +739,13 @@ class Parser(BaseSpider):
             try:
                 res.find("span", class_="i-original").text
                 original = True
-            except:
+            except Exception:
                 original = False
             # 是否为优秀经验
             try:
                 res.find("span", class_="i-good-exp").text
                 outstanding = True
-            except:
+            except Exception:
                 outstanding = False
             # 生成结果
             result = {

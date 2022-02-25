@@ -50,7 +50,7 @@ class WebVideoDetail(WebVideoDetail):
                 minute=int(plain.get("duration").split(":")[0]),
                 second=int(plain.get("duration").split(":")[1]),
             )
-        except:
+        except Exception:
             __returns.duration = None
         for i in plain.get("labels"):
             __returns.labels.append(i)

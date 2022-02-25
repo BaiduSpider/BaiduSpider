@@ -777,7 +777,7 @@ class BaiduSpider(BaseSpider):
         scope: str = "all",
         format: str = "all",
         time: str = "all",
-        page_range: Union[Tuple[int], str] = "all",
+        page_range: Union[Tuple[int, int], str] = "all",
         sort_by: str = "relation",
         proxies: Dict = None,
     ) -> WenkuResult:
