@@ -1,17 +1,11 @@
 """BaiduSpider移动端爬虫"""
-import datetime
-import time as time_lib
-from time import mktime, strptime, time
-from typing import Tuple, Union
-from urllib.parse import SplitResult, quote
 
-import requests
-from bs4 import BeautifulSoup
+from typing import Dict
+from urllib.parse import quote
 
 from baiduspider._spider import BaseSpider
-from baiduspider.mobile.parser import MobileParser
 from baiduspider.mobile.models.web import WebResult
-
+from baiduspider.mobile.parser import MobileParser
 
 __all__ = ["BaiduMobileSpider"]
 
@@ -33,9 +27,9 @@ class BaiduMobileSpider(BaseSpider):
         """
         super().__init__()
         # 爬虫名称（不是请求的，只是用来表识）
-        self.spider_name = "BaiduSpider"
+        self.spider_name: str = "BaiduSpider"
         # 设置请求头
-        self.headers = {
+        self.headers: Dict[str, str] = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.59",
             "Referer": "https://m.baidu.com",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -43,7 +37,7 @@ class BaiduMobileSpider(BaseSpider):
             "Accept-Language": "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7",
         }
         self.parser = MobileParser()
-        self.EMPTY = {"results": []}
+        self.EMPTY: Dict = {"results": []}
 
     def search_web(self, query: str, pn: int = 1, proxies: dict = None) -> WebResult:
         """搜索百度移动端网页搜索结果。
