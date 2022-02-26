@@ -2,14 +2,13 @@
 
 此文件定义的所有现有的移动端网页搜索返回值模型并编写了自动构建函数。
 """
-from datetime import time
-from typing import Dict
+from datetime import datetime, time
+from typing import Dict, List, Optional
 
 from baiduspider.util import convert_time
-from baiduspider.mobile.models.typings.typings_web import *
 
 
-class WebVideoDetail(WebVideoDetail):
+class WebVideoDetail():
     """视频详情搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索视频详情搜索结果结果模型创建的返回模型类。
@@ -28,19 +27,19 @@ class WebVideoDetail(WebVideoDetail):
     """
 
     def __init__(self) -> None:
-        self.author = ""
-        self.author_avatar = ""
-        self.duration = None
-        self.labels = []
-        self.poster = ""
-        self.pub_time = None
-        self.title = ""
-        self.url = ""
-        self.video_num = 0
-        self.plain = {}
+        self.author: str = ""
+        self.author_avatar: str = ""
+        self.duration: Optional[time] = None
+        self.labels: List[str] = []
+        self.poster: str = ""
+        self.pub_time: datetime = None
+        self.title: str = ""
+        self.url: str = ""
+        self.video_num: int = 0
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebVideoDetail:
+    def _build_instance(plain: Dict) -> "WebVideoDetail":
         __returns = WebVideoDetail()
         __returns.plain = plain
         __returns.author = plain.get("author")
@@ -65,7 +64,7 @@ class WebVideoDetail(WebVideoDetail):
         return f"<WebVideoDetail {self.title}>"
 
 
-class WebVideoTag(WebVideoTag):
+class WebVideoTag():
     """视频标签搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索视频标签搜索结果结果模型创建的返回模型类。
@@ -77,12 +76,12 @@ class WebVideoTag(WebVideoTag):
     """
 
     def __init__(self) -> None:
-        self.text = ""
-        self.url = ""
-        self.plain = {}
+        self.text: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebVideoTag:
+    def _build_instance(plain: Dict) -> "WebVideoTag":
         __returns = WebVideoTag()
         __returns.plain = plain
         __returns.text = plain.get("text")
@@ -93,7 +92,7 @@ class WebVideoTag(WebVideoTag):
         return f"<WebVideoTag {self.text}>"
 
 
-class WebVideo(WebVideo):
+class WebVideo():
     """视频搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索视频搜索结果结果模型创建的返回模型类。
@@ -106,13 +105,13 @@ class WebVideo(WebVideo):
     """
 
     def __init__(self) -> None:
-        self.results = []
-        self.tags = []
-        self.url = ""
-        self.plain = {}
+        self.results: List[WebVideoDetail] = []
+        self.tags: List[WebVideoTag] = []
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebVideo:
+    def _build_instance(plain: Dict) -> "WebVideo":
         __returns = WebVideo()
         __returns.plain = plain
         for i in plain.get("results"):
@@ -126,7 +125,7 @@ class WebVideo(WebVideo):
         return f"<WebVideo {self.url[:20]}...>"
 
 
-class WebShortVideoDetail(WebShortVideoDetail):
+class WebShortVideoDetail():
     """短视频详情搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索短视频详情搜索结果结果模型创建的返回模型类。
@@ -142,16 +141,16 @@ class WebShortVideoDetail(WebShortVideoDetail):
     """
 
     def __init__(self) -> None:
-        self.author = ""
-        self.author_avatar = ""
-        self.play_times = 0
-        self.poster = ""
-        self.title = ""
-        self.url = ""
-        self.plain = {}
+        self.author: str = ""
+        self.author_avatar: str = ""
+        self.play_times: int = 0
+        self.poster: str = ""
+        self.title: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebShortVideoDetail:
+    def _build_instance(plain: Dict) -> "WebShortVideoDetail":
         __returns = WebShortVideoDetail()
         __returns.plain = plain
         __returns.author = plain.get("author")
@@ -166,7 +165,7 @@ class WebShortVideoDetail(WebShortVideoDetail):
         return f"<WebShortVideoDetail {self.title}>"
 
 
-class WebShortVideo(WebShortVideo):
+class WebShortVideo():
     """短视频搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索短视频搜索结果结果模型创建的返回模型类。
@@ -179,13 +178,13 @@ class WebShortVideo(WebShortVideo):
     """
 
     def __init__(self) -> None:
-        self.results = []
-        self.total = 0
-        self.url = ""
-        self.plain = {}
+        self.results: List[WebShortVideoDetail] = []
+        self.total: int = 0
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebShortVideo:
+    def _build_instance(plain: Dict) -> "WebShortVideo":
         __returns = WebShortVideo()
         __returns.plain = plain
         if plain.get("results"):
@@ -199,7 +198,7 @@ class WebShortVideo(WebShortVideo):
         return f"<WebShortVideo {self.url[:20]}>..."
 
 
-class WebSection(WebSection):
+class WebSection():
     """章节搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索章节搜索结果结果模型创建的返回模型类。
@@ -211,12 +210,12 @@ class WebSection(WebSection):
     """
 
     def __init__(self) -> None:
-        self.text = ""
-        self.url = ""
-        self.plain = {}
+        self.text: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebSection:
+    def _build_instance(plain: Dict) -> "WebSection":
         __returns = WebSection()
         __returns.plain = plain
         __returns.text = plain.get("text")
@@ -227,7 +226,7 @@ class WebSection(WebSection):
         return f"<WebSection {self.text}>"
 
 
-class WebBaike(WebBaike):
+class WebBaike():
     """百科搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索百科搜索结果结果模型创建的返回模型类。
@@ -244,17 +243,17 @@ class WebBaike(WebBaike):
     """
 
     def __init__(self) -> None:
-        self.des = ""
-        self.labels = []
-        self.origin = ""
-        self.poster = ""
-        self.sections = []
-        self.title = ""
-        self.url = ""
-        self.plain = {}
+        self.des: str = ""
+        self.labels: List[str] = []
+        self.origin: str = ""
+        self.poster: str = ""
+        self.sections: List[WebSection] = []
+        self.title: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebBaike:
+    def _build_instance(plain: Dict) -> "WebBaike":
         __returns = WebBaike()
         __returns.plain = plain
         __returns.des = plain.get("des")
@@ -273,7 +272,7 @@ class WebBaike(WebBaike):
         return f"<WebBaike {self.title}>"
 
 
-class WebReyiDetail(WebReyiDetail):
+class WebReyiDetail():
     """热议详情搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索热议详情搜索结果结果模型创建的返回模型类。
@@ -286,25 +285,25 @@ class WebReyiDetail(WebReyiDetail):
         images (List[str]): 搜索结果图片列表
         likes (int): 搜索结果喜欢数
         origin (str): 搜索结果来源（作者）
-        pub_time (datetime.datetime): 搜索结果发布时间
+        pub_time (datetime): 搜索结果发布时间
         site (str): 搜索结果发布站点
         plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
-        self.author = ""
-        self.author_avatar = ""
-        self.comments = 0
-        self.des = ""
-        self.images = []
-        self.likes = 0
-        self.origin = ""
-        self.pub_time = None
-        self.site = ""
-        self.plain = {}
+        self.author: str = ""
+        self.author_avatar: str = ""
+        self.comments: int = 0
+        self.des: str = ""
+        self.images: List[str] = []
+        self.likes: int = 0
+        self.origin: str = ""
+        self.pub_time: datetime = None
+        self.site: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebReyiDetail:
+    def _build_instance(plain: Dict) -> "WebReyiDetail":
         __returns = WebReyiDetail()
         __returns.plain = plain
         __returns.author = plain.get("author")
@@ -327,7 +326,7 @@ class WebReyiDetail(WebReyiDetail):
             return f"<WebReyiDetail {self.des[:10]}...>"
 
 
-class WebReyi(WebReyi):
+class WebReyi():
     """热议搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索视频详情搜索结果结果模型创建的返回模型类。
@@ -340,13 +339,13 @@ class WebReyi(WebReyi):
     """
 
     def __init__(self) -> None:
-        self.results = []
-        self.total = 0
-        self.url = ""
-        self.plain = {}
+        self.results: List[WebReyiDetail] = []
+        self.total: int = 0
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebReyi:
+    def _build_instance(plain: Dict) -> "WebReyi":
         __returns = WebReyi()
         __returns.plain = plain
         if plain.get("results"):
@@ -360,7 +359,7 @@ class WebReyi(WebReyi):
         return f"<WebReyi {self.url[:20]}>..."
 
 
-class WebKnowledgeDetail(WebKnowledgeDetail):
+class WebKnowledgeDetail():
     """相关知识详情搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索相关知识详情搜索结果结果模型创建的返回模型类。
@@ -374,14 +373,14 @@ class WebKnowledgeDetail(WebKnowledgeDetail):
     """
 
     def __init__(self) -> None:
-        self.des = ""
-        self.image = ""
-        self.title = ""
-        self.url = ""
-        self.plain = {}
+        self.des: str = ""
+        self.image: str = ""
+        self.title: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebKnowledgeDetail:
+    def _build_instance(plain: Dict) -> "WebKnowledgeDetail":
         __returns = WebKnowledgeDetail()
         __returns.plain = plain
         __returns.des = plain.get("des")
@@ -394,7 +393,7 @@ class WebKnowledgeDetail(WebKnowledgeDetail):
         return f"<WebKnowledgeDetail {self.title}>"
 
 
-class WebKnowledge(WebKnowledge):
+class WebKnowledge():
     """相关知识搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索相关知识搜索结果结果模型创建的返回模型类。
@@ -406,12 +405,12 @@ class WebKnowledge(WebKnowledge):
     """
 
     def __init__(self) -> None:
-        self.results = []
-        self.title = ""
-        self.plain = {}
+        self.results: Dict = []
+        self.title: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebKnowledge:
+    def _build_instance(plain: Dict) -> "WebKnowledge":
         __returns = WebKnowledge()
         __returns.plain = plain
         for i in plain.get("results"):
@@ -423,7 +422,7 @@ class WebKnowledge(WebKnowledge):
         return f"<WebKnowledge {self.title}>"
 
 
-class WebNormal(WebNormal):
+class WebNormal():
     """普通搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索普通搜索结果结果模型创建的返回模型类。
@@ -437,15 +436,15 @@ class WebNormal(WebNormal):
     """
 
     def __init__(self) -> None:
-        self.des = ""
-        self.image = ""
-        self.title = ""
-        self.url = ""
-        self.sections = []
-        self.plain = {}
+        self.des: str = ""
+        self.image: str = ""
+        self.title: str = ""
+        self.url: str = ""
+        self.sections: List[str] = []
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebNormal:
+    def _build_instance(plain: Dict) -> "WebNormal":
         __returns = WebNormal()
         __returns.plain = plain
         __returns.des = plain.get("des")
@@ -461,7 +460,7 @@ class WebNormal(WebNormal):
         return f"<WebNormal {self.title}>"
 
 
-class WebVideoNormalInfo(WebVideoNormalInfo):
+class WebVideoNormalInfo():
     """普通视频信息搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索普通视频信息搜索结果结果模型创建的返回模型类。
@@ -473,12 +472,12 @@ class WebVideoNormalInfo(WebVideoNormalInfo):
     """
 
     def __init__(self) -> None:
-        self.data = ""
-        self.type = ""
-        self.plain = {}
+        self.data: str = ""
+        self.type: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebVideoNormalInfo:
+    def _build_instance(plain: Dict) -> "WebVideoNormalInfo":
         __returns = WebVideoNormalInfo()
         __returns.plain = plain
         __returns.data = plain.get("data")
@@ -489,7 +488,7 @@ class WebVideoNormalInfo(WebVideoNormalInfo):
         return f"<WebVideoNormalInfo {self.type}>"
 
 
-class WebVideoNormal(WebVideoNormal):
+class WebVideoNormal():
     """普通视频搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索普通视频搜索结果结果模型创建的返回模型类。
@@ -507,18 +506,18 @@ class WebVideoNormal(WebVideoNormal):
     """
 
     def __init__(self) -> None:
-        self.title = ""
-        self.url = ""
-        self.poster = ""
-        self.duration = None
-        self.info = []
-        self.origin = ""
-        self.labels = []
-        self.video_num = 0
-        self.plain = {}
+        self.title: str = ""
+        self.url: str = ""
+        self.poster: str = ""
+        self.duration: time = None
+        self.info: List[WebVideoNormalInfo] = []
+        self.origin: str = ""
+        self.labels: List[str] = []
+        self.video_num: int = 0
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: Dict) -> WebVideoNormal:
+    def _build_instance(plain: Dict) -> "WebVideoNormal":
         __returns = WebVideoNormal()
         __returns.plain = plain
         __returns.poster = plain.get("poster")
@@ -541,17 +540,17 @@ class WebVideoNormal(WebVideoNormal):
         return f"<WebVideoNormal {self.title}>"
 
 
-class WebResult(WebResult):
+class WebResult():
     """网页搜索结果模型
 
     这是一个遵照BaiduSpider移动端网页搜索结果结果模型创建的返回模型类。
 
     Attributes:
-        video (Union[WebVideo, None]): 视频搜索结果
-        short_video (Union[WebShortVideo, None]): 短视频搜索结果
-        baike (Union[WebBaike, None]): 百科搜索结果
-        reyi (Union[WebReyi, None]): 热议搜索结果
-        knowledge (Union[WebKnowledge, None]): 相关知识搜索结果
+        video (Optional[WebVideo]): 视频搜索结果
+        short_video (Optional[WebShortVideo]): 短视频搜索结果
+        baike (Optional[WebBaike]): 百科搜索结果
+        reyi (Optional[WebReyi]): 热议搜索结果
+        knowledge (Optional[WebKnowledge]): 相关知识搜索结果
         normal (List[WebNormal]): 普通搜索结果列表
         video_normal (List[WebVideoNormal]): 普通视频搜索结果列表
         query (str): 搜索词
@@ -559,18 +558,18 @@ class WebResult(WebResult):
     """
 
     def __init__(self) -> None:
-        self.video = None
-        self.short_video = None
-        self.baike = None
-        self.reyi = None
-        self.knowledge = None
-        self.normal = []
-        self.video_normal = []
-        self.query = ""
-        self.plain = {}
+        self.video: Optional[WebVideo] = None
+        self.short_video: Optional[WebShortVideo] = None
+        self.baike: Optional[WebBaike] = None
+        self.reyi: Optional[WebReyi] = None
+        self.knowledge: Optional[WebKnowledge] = None
+        self.normal: List[WebNormal] = []
+        self.video_normal: List[WebVideoNormal] = []
+        self.query: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: list, query: str = "") -> WebResult:
+    def _build_instance(plain: Dict, query: str = "") -> "WebResult":
         __returns = WebResult()
         __returns.plain = plain
         __returns.query = query
