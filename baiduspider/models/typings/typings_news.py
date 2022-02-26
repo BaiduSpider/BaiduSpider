@@ -3,7 +3,7 @@
 此模块中定义了所有现有资讯搜索内所有模块的结果模型类型注释类，便于现代编辑器自动补全，提供更好的编码体验。
 """
 from datetime import datetime
-from typing import List, Union
+from typing import List, Optional
 
 
 class NewsNormal(object):
@@ -14,11 +14,11 @@ class NewsNormal(object):
 
     def __init__(self) -> None:
         self.author: str
-        self.date: Union[datetime, None]
+        self.date: Optional[datetime]
         self.des: str
         self.title: str
         self.url: str
-        self.cover: Union[str, None]
+        self.cover: Optional[str]
         self.plain: dict
 
 

@@ -7,7 +7,7 @@ BaiduSpider.search_video(
     self: BaiduSpider,
     query: str,
     pn: int = 1,
-    proxies: Union[dict, None] = None,
+    proxies: Optional[dict] = None,
 ) -> VideoResult
 ```
 
@@ -15,7 +15,7 @@ BaiduSpider.search_video(
 
 - query `#!python str`: 要查询视频搜索的字符串
 - pn `#!python int`: 要爬取的页码，默认为`#!py 1`，可选
-- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，可选
+- proxies `#!py Optional[dict]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 

@@ -2,7 +2,7 @@
 
 此文件定义的所有现有的经验搜索返回值模型并编写了自动构建函数。
 """
-from typing import Union
+from typing import Optional
 
 from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_jingyan import *
@@ -110,7 +110,7 @@ class JingyanResult(JingyanResult):
             __returns.results.append(JingyanNormal._build_instance(p))
         return __returns
 
-    def __getitem__(self, key) -> Union[JingyanNormal, None]:
+    def __getitem__(self, key) -> Optional[JingyanNormal]:
         return self.results[key]
 
     def __repr__(self) -> str:

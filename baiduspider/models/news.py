@@ -2,7 +2,7 @@
 
 此文件定义的所有现有的资讯搜索返回值模型并编写了自动构建函数。
 """
-from typing import Union
+from typing import List, Optional
 
 from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_news import *
@@ -55,7 +55,7 @@ class NewsResult(NewsResult):
         results (List[NewsNormal]): 普通搜索结果列表
         pages (int): 搜索结果页数
         total (int): 搜索结果总数
-        plain (list): 源搜索结果列表
+        plain (List): 源搜索结果列表
     """
 
     def __init__(self) -> None:
@@ -66,7 +66,7 @@ class NewsResult(NewsResult):
         self.plain = []
 
     @staticmethod
-    def _build_instance(plain: list, pages: int, total: int) -> NewsResult:
+    def _build_instance(plain: List, pages: int, total: int) -> NewsResult:
         __returns = NewsResult()
         __returns.plain = plain
         __returns.pages = pages
@@ -75,7 +75,7 @@ class NewsResult(NewsResult):
             __returns.results.append(NewsNormal._build_instance(p))
         return __returns
 
-    def __getitem__(self, key) -> Union[NewsNormal, None]:
+    def __getitem__(self, key) -> Optional[NewsNormal]:
         return self.results[key]
 
     def __repr__(self) -> str:

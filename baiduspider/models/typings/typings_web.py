@@ -3,7 +3,7 @@
 此模块中定义了所有现有网页搜索内所有模块的结果模型类型注释类，便于现代编辑器自动补全，提供更好的编码体验。
 """
 from datetime import datetime, time
-from typing import List, Union
+from typing import List, Optional
 
 
 class WebNormal(object):
@@ -170,8 +170,8 @@ class WebMusicSong(object):
         self.name: str
         self.other_sites: List[str]
         self.poster: str
-        self.pub_company: Union[str, None]
-        self.pub_date: Union[str, None]
+        self.pub_company: Optional[str]
+        self.pub_date: Optional[str]
         self.site: str
         self.url: str
 

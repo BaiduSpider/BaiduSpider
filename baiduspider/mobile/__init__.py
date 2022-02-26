@@ -1,6 +1,6 @@
 """BaiduSpider移动端爬虫"""
 
-from typing import Dict
+from typing import Dict, Optional
 from urllib.parse import quote
 
 from baiduspider._spider import BaseSpider
@@ -39,7 +39,7 @@ class BaiduMobileSpider(BaseSpider):
         self.parser = MobileParser()
         self.EMPTY: Dict = {"results": []}
 
-    def search_web(self, query: str, pn: int = 1, proxies: dict = None) -> WebResult:
+    def search_web(self, query: str, pn: int = 1, proxies: Optional[Dict] = None) -> WebResult:
         """搜索百度移动端网页搜索结果。
 
         - 基本使用：
@@ -64,7 +64,7 @@ class BaiduMobileSpider(BaseSpider):
         Args:
             query (str): 要爬取的搜索词.
             pn (int, optional): 爬取的页码. Defaults to 1.
-            proxies (Union[dict, None]): 代理配置. Defaults to None.
+            proxies (Optional[Dict]): 代理配置. Defaults to None.
 
         Returns:
             WebResult: 爬取的返回值和搜索结果

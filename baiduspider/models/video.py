@@ -2,7 +2,7 @@
 
 此文件定义的所有现有的视频搜索返回值模型并编写了自动构建函数。
 """
-from typing import Union
+from typing import List, Optional
 
 from baiduspider.models.typings.typings_video import *
 
@@ -56,7 +56,7 @@ class VideoResult(VideoResult):
     Attributes:
         results (List[VideoNormal]): 普通搜索结果列表
         is_last (bool): 当前页数是否为最后一页
-        plain (list): 源搜索结果列表
+        plain (List): 源搜索结果列表
     """
 
     def __init__(self) -> None:
@@ -66,7 +66,7 @@ class VideoResult(VideoResult):
         self.plain = []
 
     @staticmethod
-    def _build_instance(plain: list) -> VideoResult:
+    def _build_instance(plain: List) -> VideoResult:
         __returns = VideoResult()
         __returns.plain = plain
         if not plain:
@@ -76,7 +76,7 @@ class VideoResult(VideoResult):
             __returns.results.append(VideoNormal._build_instance(p))
         return __returns
 
-    def __getitem__(self, key) -> Union[VideoNormal, None]:
+    def __getitem__(self, key) -> Optional[VideoNormal]:
         return self.results[key]
 
     def __repr__(self) -> str:

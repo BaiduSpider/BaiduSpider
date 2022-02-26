@@ -3,7 +3,7 @@
 此模块中定义了所有现有视频搜索内所有模块的结果模型类型注释类，便于现代编辑器自动补全，提供更好的编码体验。
 """
 from datetime import datetime, time
-from typing import List, Union
+from typing import List, Optional
 
 
 class VideoNormal(object):
@@ -18,8 +18,8 @@ class VideoNormal(object):
         self.pub_time: datetime
         self.title: str
         self.url: str
-        self.des: Union[str, None]
-        self.origin: Union[str, None]
+        self.des: Optional[str]
+        self.origin: Optional[str]
         self.plain: dict
 
 

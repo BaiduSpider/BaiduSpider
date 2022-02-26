@@ -8,7 +8,7 @@ BaiduSpider.search_jingyan(
     query: str,
     pn: int = 1,
     scope: str = "all",
-    proxies: Union[dict, None] = None,
+    proxies: Optional[dict] = None,
 ) -> JingyanResult:
 ```
 
@@ -17,7 +17,7 @@ BaiduSpider.search_jingyan(
 - query `#!py str`: 要查询知道搜索的字符串
 - pn `#!py int`: 要爬取的页码，默认为`#!py 1`，可选
 - scope `#!py str`: 搜索结果筛选范围，默认为`#!py "all"`，可选
-- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，可选
+- proxies `#!py Optional[dict]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 

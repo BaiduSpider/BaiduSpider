@@ -2,7 +2,7 @@
 
 此文件定义的所有现有的文库搜索返回值模型并编写了自动构建函数。
 """
-from typing import Union
+from typing import List, Optional
 
 from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_wenku import *
@@ -110,7 +110,7 @@ class WenkuResult(WenkuResult):
             __returns.results.append(WenkuNormal._build_instance(p))
         return __returns
 
-    def __getitem__(self, key) -> Union[WenkuNormal, None]:
+    def __getitem__(self, key) -> Optional[WenkuNormal]:
         return self.results[key]
 
     def __repr__(self) -> str:

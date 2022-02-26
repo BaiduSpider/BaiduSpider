@@ -2,7 +2,7 @@ import math
 import os
 import re
 from datetime import datetime
-from typing import Union
+from typing import Optional
 
 import requests
 
@@ -59,14 +59,14 @@ class BaseSpider(object):
         return html.replace("\u00a0", "")
 
     def _get_response(
-        self, url: str, proxies: dict = {}, encoding: str = None
+        self, url: str, proxies: dict = {}, encoding: Optional[str] = None
     ) -> str:
         """获取网站响应，并返回源码
 
         Args:
             url (str): 要获取响应的链接
             proxies (dict): 代理相关设置
-            encoding (Union[str, None]): 目标网页编码
+            encoding (Optional[str]): 目标网页编码
 
         Returns:
             str: 获取到的网站HTML代码
@@ -98,7 +98,7 @@ class BaseSpider(object):
             #     '&title=%5BBUG%5D%20%E6%AD%A4%E5%A4%84%E5%A1%AB%E5%86%99%E4%BD%A0%E7%9A%84%E6%A0%87%E9%A2%98 提交一个新的issue。\033[31;m')
             return None
 
-    def _convert_time(self, time_str: str, as_list: bool = False) -> Union[datetime, bool]:
+    def _convert_time(self, time_str: str, as_list: bool = False) -> datetime:
         """转换有时间差的汉字表示的时间到`datetime.datetime`形式的时间
 
         Args:

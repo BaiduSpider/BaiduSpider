@@ -2,7 +2,7 @@
 
 此文件定义的所有现有的知道搜索返回值模型并编写了自动构建函数。
 """
-from typing import Union
+from typing import List, Optional
 
 from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_zhidao import *
@@ -81,7 +81,7 @@ class ZhidaoResult(ZhidaoResult):
             __returns.results.append(ZhidaoNormal._build_instance(p))
         return __returns
 
-    def __getitem__(self, key) -> Union[ZhidaoNormal, None]:
+    def __getitem__(self, key) -> Optional[ZhidaoNormal]:
         return self.results[key]
 
     def __repr__(self) -> str:

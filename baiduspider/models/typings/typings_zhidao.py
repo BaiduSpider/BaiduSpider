@@ -3,7 +3,7 @@
 此模块中定义了所有现有知道搜索内所有模块的结果模型类型注释类，便于现代编辑器自动补全，提供更好的编码体验。
 """
 from datetime import datetime
-from typing import List, Union
+from typing import List, Optional
 
 
 class ZhidaoNormal(object):
@@ -13,10 +13,10 @@ class ZhidaoNormal(object):
     """
 
     def __init__(self) -> None:
-        self.count: Union[int, None]
-        self.date: Union[datetime, None]
-        self.answer: Union[str, None]
-        self.question: Union[str, None]
+        self.count: Optional[int]
+        self.date: Optional[datetime]
+        self.answer: Optional[str]
+        self.question: Optional[str]
         self.agree: int
         self.answerer: str
         self.title: str

@@ -3,7 +3,6 @@ import os
 import re
 from datetime import datetime, timedelta
 from functools import wraps
-from typing import Union
 
 
 def handle_err(func):  # pragma: no cover
@@ -41,7 +40,7 @@ def handle_err(func):  # pragma: no cover
     return wrapper
 
 
-def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
+def convert_time(t: str, as_list: bool = False) -> datetime:
     """转换有时间差的汉字表示的时间到`datetime.datetime`形式的时间
 
     Args:

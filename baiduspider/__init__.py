@@ -10,7 +10,7 @@ import datetime
 import hashlib
 import random
 import time as time_lib
-from typing import Dict, Tuple, Union
+from typing import Dict, Optional, Tuple, Union
 from urllib.parse import quote
 
 from baiduspider._spider import BaseSpider
@@ -59,7 +59,7 @@ class BaiduSpider(BaseSpider):
         self: BaiduSpider,
         query: str,
         pn: int = 1,
-        time: Union[str, None] = None,
+        time: Optional[str] = None,
         proxies: Dict = None
     ) -> ZhidaoResult`: 百度知道搜索
 
@@ -124,7 +124,7 @@ class BaiduSpider(BaseSpider):
             请勿传入非法的Cookie。
 
         Args:
-            cookie (Union[str, None], optional): 浏览器抓包得到的cookie. Defaults to None.
+            cookie (Optional[str], optional): 浏览器抓包得到的cookie. Defaults to None.
         """
         super().__init__()
         # 爬虫名称（不是请求的，只是用来标识）
@@ -378,7 +378,7 @@ class BaiduSpider(BaseSpider):
             pn (int, optional): 爬取的页码. Defaults to 1.
             exclude (list, optional): 要屏蔽的控件. Defaults to [].
             time (Union[tuple, str, None]): 按时间筛选参数. Defaults to None.
-            proxies (Union[Dict, None]): 代理配置. Defaults to None.
+            proxies (Optional[Dict]): 代理配置. Defaults to None.
 
         Returns:
             WebResult: 爬取的返回值和搜索结果
@@ -491,7 +491,7 @@ class BaiduSpider(BaseSpider):
         Args:
             query (str): 要爬取的query
             pn (int, optional): 爬取的页码. Defaults to 1.
-            proxies (Union[Dict, None]): 代理配置. Defaults to None.
+            proxies (Optional[Dict]): 代理配置. Defaults to None.
 
         Returns:
             PicResult: 爬取的搜索结果
@@ -519,7 +519,7 @@ class BaiduSpider(BaseSpider):
         self,
         query: str,
         pn: int = 1,
-        time: Union[str, None] = None,
+        time: Optional[str] = None,
         proxies: Dict = None,
     ) -> ZhidaoResult:
         """百度知道搜索。
@@ -576,8 +576,8 @@ class BaiduSpider(BaseSpider):
         Args:
             query (str): 要搜索的query
             pn (int, optional): 搜索结果的页码. Defaults to 1.
-            time (Union[str, None], optional): 时间筛选参数. Defaults to None.
-            proxies (Union[Dict, None]): 代理配置. Defaults to None.
+            time (Optional[str], optional): 时间筛选参数. Defaults to None.
+            proxies (Optional[Dict]): 代理配置. Defaults to None.
 
         Returns:
             Dict: 搜索结果以及总页码
@@ -652,7 +652,7 @@ class BaiduSpider(BaseSpider):
         Args:
             query (str): 要搜索的query
             pn (int, optional): 搜索结果的页码. Defaults to 1.
-            proxies (Union[Dict, None]): 代理配置. Defaults to None.
+            proxies (Optional[Dict]): 代理配置. Defaults to None.
 
         Returns:
             VideoResult: 爬取的搜索结果
@@ -739,7 +739,7 @@ class BaiduSpider(BaseSpider):
             pn (int, optional): 搜索结果的页码. Defaults to 1.
             sort_by (str, optional): 搜索结果排序方式. Defaults to "focus".
             show (str, optional): 搜索结果筛选方式. Defaults to "all".
-            proxies (Union[Dict, None]): 代理配置. Defaults to None.
+            proxies (Optional[Dict]): 代理配置. Defaults to None.
 
         Returns:
             NewsResult: 爬取的搜索结果与总页码。
@@ -883,7 +883,7 @@ class BaiduSpider(BaseSpider):
             time (str, optional): 按时间筛选. Defaults to "all".
             page_range (Union[str, Tuple[int]]): 按页数筛选. Defaults to "all".
             sort_by (str): 排序方式. Defaults to "relation".
-            proxies (Union[Dict, None]): 代理配置. Defaults to None.
+            proxies (Optional[Dict]): 代理配置. Defaults to None.
 
         Returns:
             WenkuResult: 搜索结果和总计页数
@@ -1004,7 +1004,7 @@ class BaiduSpider(BaseSpider):
             query (str): 要搜索的关键词
             pn (int, optional): 搜索结果的页码. Defaults to 1.
             scope (str, optional): 筛选范围. Defaults to "all".
-            proxies (Union[Dict, None]): 代理配置. Defaults to None.
+            proxies (Optional[Dict]): 代理配置. Defaults to None.
 
         Returns:
             JingyanResult: 搜索结果以及总计的页码.
@@ -1065,7 +1065,7 @@ class BaiduSpider(BaseSpider):
 
         Args:
             query (str): 要搜索的关键词.
-            proxies (Union[Dict, None]): 代理配置. Defaults to None.
+            proxies (Optional[Dict]): 代理配置. Defaults to None.
 
         Returns:
             Dict: 搜索结果和总页数

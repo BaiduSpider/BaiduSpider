@@ -7,7 +7,7 @@ BaiduMobileSpider.search_web(
     self: BaiduMobileSpider,
     query: str,
     pn: int = 1,
-    proxies: Union[dict, None] = None,
+    proxies: Optional[dict] = None,
 ) -> WebResult
 ```
 
@@ -15,7 +15,7 @@ BaiduMobileSpider.search_web(
 
 - query `#!python str`: 需要查询的字符串
 - pn `#!python int`: 要爬取的页码，默认为`#!py 1`，可选
-- proxies `#!py Union[dict, None]`: 代理配置，默认为`#!py None`，可选
+- proxies `#!py Optional[dict]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 

@@ -2,7 +2,7 @@
 
 此文件定义的所有现有的图片搜索返回值模型并编写了自动构建函数。
 """
-from typing import Union
+from typing import List, Optional
 
 from baiduspider.models.typings.typings_pic import *
 
@@ -45,7 +45,7 @@ class PicResult(PicResult):
         results (List[PicNormal]): 普通搜索结果列表
         pages (int): 搜索结果页数
         total (int): 搜索结果总数
-        plain (list): 源搜索结果列表
+        plain (List): 源搜索结果列表
     """
 
     def __init__(self) -> None:
@@ -56,7 +56,7 @@ class PicResult(PicResult):
         self.plain = []
 
     @staticmethod
-    def _build_instance(plain: list, pages: int, total: int) -> PicResult:
+    def _build_instance(plain: List, pages: int, total: int) -> PicResult:
         __returns = PicResult()
         __returns.plain = plain
         __returns.pages = pages
@@ -65,7 +65,7 @@ class PicResult(PicResult):
             __returns.results.append(PicNormal._build_instance(p))
         return __returns
 
-    def __getitem__(self, key) -> Union[PicNormal, None]:
+    def __getitem__(self, key) -> Optional[PicNormal]:
         return self.results[key]
 
     def __repr__(self) -> str:
