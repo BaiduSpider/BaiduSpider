@@ -2,13 +2,13 @@
 
 此文件定义的所有现有的经验搜索返回值模型并编写了自动构建函数。
 """
-from typing import Optional
+from datetime import datetime
+from typing import Dict, List, Optional
 
 from baiduspider.models import convert_time
-from baiduspider.models.typings.typings_jingyan import *
 
 
-class JingyanPublisher(JingyanPublisher):
+class JingyanPublisher():
     """经验发布者模型
 
     这是一个遵照BaiduSpider经验搜索经验发布者结果模型创建的返回模型类。
@@ -16,17 +16,17 @@ class JingyanPublisher(JingyanPublisher):
     Attributes:
         name (str): 经验上传者用户名
         url (str): 经验上传者链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.name = ""
-        self.url = ""
-        self.plain = {}
+        self.name: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> JingyanPublisher:
+    def _build_instance(plain: dict) -> "JingyanPublisher":
         __returns = JingyanPublisher()
         __returns.plain = plain
         __returns.name = plain.get("name")
@@ -34,7 +34,7 @@ class JingyanPublisher(JingyanPublisher):
         return __returns
 
 
-class JingyanNormal(JingyanNormal):
+class JingyanNormal():
     """普通搜索结果模型
 
     这是一个遵照BaiduSpider经验搜索基本搜索结果结果模型创建的返回模型类。
@@ -54,19 +54,19 @@ class JingyanNormal(JingyanNormal):
 
     def __init__(self) -> None:
         super().__init__()
-        self.title = ""
-        self.url = ""
-        self.des = ""
-        self.pub_date = None
-        self.category = []
-        self.votes = 0
-        self.publisher = None
-        self.is_original = False
-        self.is_outstanding = False
-        self.plain = {}
+        self.title: str = ""
+        self.url: str = ""
+        self.des: str = ""
+        self.pub_date: datetime = None
+        self.category: List[str] = []
+        self.votes: int = 0
+        self.publisher: JingyanPublisher = None
+        self.is_original: bool = False
+        self.is_outstanding: bool = False
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> JingyanNormal:
+    def _build_instance(plain: dict) -> "JingyanNormal":
         __returns = JingyanNormal()
         __returns.plain = plain
         __returns.title = plain.get("title")
@@ -81,7 +81,7 @@ class JingyanNormal(JingyanNormal):
         return __returns
 
 
-class JingyanResult(JingyanResult):
+class JingyanResult():
     """经验搜索结果模型
 
     这是一个遵照BaiduSpider经验搜索结果结果模型创建的返回模型类。
@@ -95,13 +95,13 @@ class JingyanResult(JingyanResult):
 
     def __init__(self) -> None:
         super().__init__()
-        self.results = []
-        self.pages = 0
-        self.total = 0
-        self.plain = []
+        self.results: List[JingyanNormal] = []
+        self.pages: int = 0
+        self.total: int = 0
+        self.plain: Dict = []
 
     @staticmethod
-    def _build_instance(plain: list, pages: int, total: int) -> JingyanResult:
+    def _build_instance(plain: list, pages: int, total: int) -> "JingyanResult":
         __returns = JingyanResult()
         __returns.plain = plain
         __returns.pages = pages

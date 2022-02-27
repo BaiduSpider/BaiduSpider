@@ -2,10 +2,10 @@
 
 此文件定义了所有现有的搜索词预测模块内返回值模型并编写了自动构建函数。
 """
-from baiduspider.predictor.models.typings import TiebaPredictorResult
+from typing import Dict, List
 
 
-def get_attr(d: dict, t: str):
+def get_attr(d: Dict, t: str):
     """获取字典`d`下的`t`"""
     try:
         return d[t]
@@ -13,7 +13,7 @@ def get_attr(d: dict, t: str):
         return None
 
 
-class TiebaPredictorResult(TiebaPredictorResult):
+class TiebaPredictorResult():
     """贴吧搜索搜索结果预测结果模型类型注释类。
 
     这是一个遵照BaiduSpider百科搜索结果结果预测模型创建的返回模型类。
@@ -30,16 +30,16 @@ class TiebaPredictorResult(TiebaPredictorResult):
 
     def __init__(self) -> None:
         super().__init__()
-        self.classifiers = []
-        self.cover = ""
-        self.desc = ""
-        self.members = 0
-        self.name = ""
-        self.threads = 0
-        self.plain = {}
+        self.classifiers: List[str] = []
+        self.cover: str = ""
+        self.desc: str = ""
+        self.members: int = 0
+        self.name: str = ""
+        self.threads: int = 0
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> TiebaPredictorResult:
+    def _build_instance(plain: dict) -> "TiebaPredictorResult":
         __returns = TiebaPredictorResult()
         __returns.plain = plain
         __returns.classifiers = plain.get("classifiers")

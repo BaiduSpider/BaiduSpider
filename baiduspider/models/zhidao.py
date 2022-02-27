@@ -2,10 +2,10 @@
 
 此文件定义的所有现有的知道搜索返回值模型并编写了自动构建函数。
 """
-from typing import List, Optional
+from datetime import datetime
+from typing import Dict, List, Optional
 
 from baiduspider.models import convert_time
-from baiduspider.models.typings.typings_zhidao import *
 
 
 class ZhidaoNormal(ZhidaoNormal):
@@ -15,30 +15,30 @@ class ZhidaoNormal(ZhidaoNormal):
 
     Attributes:
         agree (int): 回答赞同数
-        answer (str | None): 回答简介
+        answer (Optional[str]): 回答简介
         answerer (str): 回答者
-        count (int | None): 回答总数
+        count (Optional[int]): 回答总数
         date (datetime.datetime): 回答发布日期
         title (str): 问题标题
-        question (str | None): 问题简介
+        question (Optional[str]): 问题简介
         url (str): 问题链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.date = None
-        self.answer = None
-        self.question = None
-        self.answerer = ""
-        self.count = None
-        self.title = ""
-        self.agree = 0
-        self.url = ""
-        self.plain = {}
+        self.date: Optional[datetime] = None
+        self.answer: Optional[str] = None
+        self.question: Optional[str] = None
+        self.answerer: str = ""
+        self.count: Optional[int] = None
+        self.title: str = ""
+        self.agree: int = 0
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> ZhidaoNormal:
+    def _build_instance(plain: Dict) -> "ZhidaoNormal":
         __returns = ZhidaoNormal()
         __returns.plain = plain
         __returns.title = plain.get("title")
@@ -61,18 +61,18 @@ class ZhidaoResult(ZhidaoResult):
         results (List[ZhidaoNormal]): 普通搜索结果列表
         pages (int): 搜索结果页数
         total (int): 搜索结果总数
-        plain (list): 源搜索结果列表
+        plain (List): 源搜索结果列表
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.results = []
-        self.pages = 0
-        self.total = 0
-        self.plain = []
+        self.results: List[ZhidaoNormal] = []
+        self.pages: int = 0
+        self.total: int = 0
+        self.plain: List[Dict] = []
 
     @staticmethod
-    def _build_instance(plain: list, pages: int, total: int) -> ZhidaoResult:
+    def _build_instance(plain: List, pages: int, total: int) -> "ZhidaoResult":
         __returns = ZhidaoResult()
         __returns.plain = plain
         __returns.pages = pages

@@ -2,12 +2,10 @@
 
 此文件定义的所有现有的图片搜索返回值模型并编写了自动构建函数。
 """
-from typing import List, Optional
-
-from baiduspider.models.typings.typings_pic import *
+from typing import Dict, List, Optional
 
 
-class PicNormal(PicNormal):
+class PicNormal():
     """普通搜索结果模型
 
     这是一个遵照BaiduSpider图片搜索基本搜索结果结果模型创建的返回模型类。
@@ -16,18 +14,18 @@ class PicNormal(PicNormal):
         host (str): 图片来源域名
         title (str): 图片标题
         url (str): 图片链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.host = ""
+        self.host: str = ""
         self.title = ""
-        self.url = ""
-        self.plain = {}
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> PicNormal:
+    def _build_instance(plain: dict) -> "PicNormal":
         __returns = PicNormal()
         __returns.plain = plain
         __returns.host = plain.get("host")
@@ -36,7 +34,7 @@ class PicNormal(PicNormal):
         return __returns
 
 
-class PicResult(PicResult):
+class PicResult():
     """图片搜索结果模型
 
     这是一个遵照BaiduSpider图片搜索结果结果模型创建的返回模型类。
@@ -50,13 +48,13 @@ class PicResult(PicResult):
 
     def __init__(self) -> None:
         super().__init__()
-        self.results = []
+        self.results: List[PicNormal] = []
         self.pages = 0
         self.total = 0
-        self.plain = []
+        self.plain: List[Dict] = []
 
     @staticmethod
-    def _build_instance(plain: List, pages: int, total: int) -> PicResult:
+    def _build_instance(plain: List, pages: int, total: int) -> "PicResult":
         __returns = PicResult()
         __returns.plain = plain
         __returns.pages = pages

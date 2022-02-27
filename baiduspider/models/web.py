@@ -2,13 +2,13 @@
 
 此文件定义的所有现有的网页搜索返回值模型并编写了自动构建函数。
 """
-from typing import Any
+from datetime import datetime, time
+from typing import Any, Dict, List, Optional
 
 from baiduspider.models import convert_time
-from baiduspider.models.typings.typings_web import *
 
 
-class WebNormal(WebNormal):
+class WebNormal():
     """普通搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索基本搜索结果结果模型创建的返回模型类。
@@ -25,16 +25,16 @@ class WebNormal(WebNormal):
 
     def __init__(self) -> None:
         super().__init__()
-        self.des = ""
-        self.origin = ""
-        self.title = ""
-        self.url = ""
-        self.time = None
-        self.snapshot = ""
-        self.plain = {}
+        self.des: str = ""
+        self.origin: str = ""
+        self.title: str = ""
+        self.url: str = ""
+        self.time: datetime = None
+        self.snapshot: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebNormal:
+    def _build_instance(plain: dict) -> "WebNormal":
         __returns = WebNormal()
         __returns.plain = plain
         __returns.des = plain.get("des")
@@ -46,7 +46,7 @@ class WebNormal(WebNormal):
         return __returns
 
 
-class WebCalc(WebCalc):
+class WebCalc():
     """计算搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索计算搜索结果结果模型创建的返回模型类。
@@ -54,17 +54,17 @@ class WebCalc(WebCalc):
     Attributes:
         process (str): 计算过程，如：12 + 21
         result (str): 计算结果，由于可能是`1e6`这样的形式，所以类型为`str`
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.process = ""
-        self.result = ""
-        self.plain = {}
+        self.process: str = ""
+        self.result: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebCalc:
+    def _build_instance(plain: Dict) -> "WebCalc":
         __returns = WebCalc()
         __returns.plain = plain
         __returns.process = plain.get("process")
@@ -72,7 +72,7 @@ class WebCalc(WebCalc):
         return __returns
 
 
-class WebNews(WebNews):
+class WebNews():
     """资讯搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索资讯搜索结果结果模型创建的返回模型类。
@@ -82,19 +82,19 @@ class WebNews(WebNews):
         time (datetime): 资讯发布时间
         url (str): 资讯链接
         des (str): 资讯简介
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.author = ""
-        self.time = None
-        self.url = ""
-        self.des = ""
-        self.plain = {}
+        self.author: str = ""
+        self.time: datetime = None
+        self.url: str = ""
+        self.des: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebNews:
+    def _build_instance(plain: dict) -> "WebNews":
         __returns = WebNews()
         __returns.plain = plain
         __returns.author = plain.get("author")
@@ -105,7 +105,7 @@ class WebNews(WebNews):
         return __returns
 
 
-class WebVideo(WebVideo):
+class WebVideo():
     """视频搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索视频搜索结果结果模型创建的返回模型类。
@@ -116,20 +116,20 @@ class WebVideo(WebVideo):
         length (str): 视频时长
         title (str): 视频标题
         url (str): 视频链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.cover = ""
-        self.origin = ""
-        self.length = ""
-        self.title = ""
-        self.url = ""
-        self.plain = {}
+        self.cover: str = ""
+        self.origin: str = ""
+        self.length: str = ""
+        self.title: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebVideo:
+    def _build_instance(plain: Dict) -> "WebVideo":
         __returns = WebVideo()
         __returns.plain = plain
         __returns.cover = plain.get("cover")
@@ -140,7 +140,7 @@ class WebVideo(WebVideo):
         return __returns
 
 
-class WebBaike(WebBaike):
+class WebBaike():
     """百科搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索百科搜索结果结果模型创建的返回模型类。
@@ -151,20 +151,20 @@ class WebBaike(WebBaike):
         des (str): 百科简介
         title (str): 百科标题
         url (str): 百科链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.cover = ""
-        self.cover_type = ""
-        self.des = ""
-        self.title = ""
-        self.url = ""
-        self.plain = {}
+        self.cover: str = ""
+        self.cover_type: str = ""
+        self.des: str = ""
+        self.title: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebBaike:
+    def _build_instance(plain: dict) -> "WebBaike":
         __returns = WebBaike()
         __returns.plain = plain
         __returns.cover = plain.get("cover")
@@ -175,7 +175,7 @@ class WebBaike(WebBaike):
         return __returns
 
 
-class WebTiebaHot(WebTiebaHot):
+class WebTiebaHot():
     """贴吧热门搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索贴吧热门搜索结果结果模型创建的返回模型类。
@@ -185,19 +185,19 @@ class WebTiebaHot(WebTiebaHot):
         replies (str): 帖子回复次数，可能会有形如`1万`的结果，故类型为`str`
         title (str): 帖子标题
         url (str): 帖子链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.clicks = ""
-        self.replies = ""
-        self.title = ""
-        self.url = ""
-        self.plain = {}
+        self.clicks: str = ""
+        self.replies: str = ""
+        self.title: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebTiebaHot:
+    def _build_instance(plain: dict) -> "WebTiebaHot":
         __returns = WebTiebaHot()
         __returns.plain = plain
         __returns.clicks = plain.get("clicks")
@@ -207,7 +207,7 @@ class WebTiebaHot(WebTiebaHot):
         return __returns
 
 
-class WebTieba(WebTieba):
+class WebTieba():
     """贴吧搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索贴吧搜索结果结果模型创建的返回模型类。
@@ -220,22 +220,22 @@ class WebTieba(WebTieba):
         total (str): 贴吧总帖子数，可能会有形如`1万`的结果，故类型为`str`
         hot (List[WebTiebaHot]): 贴吧热门帖子
         url (str): 贴吧链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.cover = ""
-        self.des = ""
-        self.title = ""
-        self.followers = ""
-        self.total = ""
-        self.url = ""
-        self.hot = []
-        self.plain = {}
+        self.cover: str = ""
+        self.des: str = ""
+        self.title: str = ""
+        self.followers: str = ""
+        self.total: str = ""
+        self.url: str = ""
+        self.hot: List[WebTiebaHot] = []
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebTieba:
+    def _build_instance(plain: Dict) -> "WebTieba":
         __returns = WebTieba()
         __returns.plain = plain
         __returns.cover = plain.get("cover")
@@ -250,7 +250,7 @@ class WebTieba(WebTieba):
         return __returns
 
 
-class WebBlogDetail(WebBlogDetail):
+class WebBlogDetail():
     """博客详情搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索博客详情搜索结果结果模型创建的返回模型类。
@@ -266,15 +266,15 @@ class WebBlogDetail(WebBlogDetail):
 
     def __init__(self) -> None:
         super().__init__()
-        self.title = ""
-        self.url = ""
-        self.des = ""
-        self.origin = ""
-        self.tags = []
-        self.plain = {}
+        self.title: str = ""
+        self.url: str = ""
+        self.des: str = ""
+        self.origin: str = ""
+        self.tags: List[str] = []
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebBlogDetail:
+    def _build_instance(plain: Dict) -> "WebBlogDetail":
         __returns = WebBlogDetail()
         __returns.plain = plain
         __returns.des = plain.get("des")
@@ -286,7 +286,7 @@ class WebBlogDetail(WebBlogDetail):
         return __returns
 
 
-class WebBlog(WebBlog):
+class WebBlog():
     """博客搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索博客搜索结果结果模型创建的返回模型类。
@@ -295,17 +295,17 @@ class WebBlog(WebBlog):
         title (str): 博客搜索结果标题
         url (str): 博客搜索结果链接
         blogs (List[WebBlogDetail]): 博客详情列表
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
-        self.title = ""
-        self.url = ""
-        self.blogs = []
-        self.plain = {}
+        self.title: str = ""
+        self.url: str = ""
+        self.blogs: List[str] = []
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebBlog:
+    def _build_instance(plain: dict) -> "WebBlog":
         __returns = WebBlog()
         __returns.plain = plain
         __returns.title = plain.get("title")
@@ -315,7 +315,7 @@ class WebBlog(WebBlog):
         return __returns
 
 
-class WebGitee(WebGitee):
+class WebGitee():
     """Gitee仓库搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索Gitee仓库搜索结果结果模型创建的返回模型类。
@@ -335,19 +335,19 @@ class WebGitee(WebGitee):
 
     def __init__(self) -> None:
         super().__init__()
-        self.title = ""
-        self.des = ""
-        self.url = ""
-        self.star = 0
-        self.fork = 0
-        self.watch = 0
-        self.license = ""
-        self.lang = ""
-        self.status = ""
-        self.plain = {}
+        self.title: str = ""
+        self.des: str = ""
+        self.url: str = ""
+        self.star: int = 0
+        self.fork: int = 0
+        self.watch: int = 0
+        self.license: str = ""
+        self.lang: str = ""
+        self.status: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebGitee:
+    def _build_instance(plain: dict) -> "WebGitee":
         __returns = WebGitee()
         __returns.plain = plain
         __returns.title = plain.get("title")
@@ -362,7 +362,7 @@ class WebGitee(WebGitee):
         return __returns
 
 
-class WebMusicSong(WebMusicSong):
+class WebMusicSong():
     """网页搜索音乐歌曲信息搜索结果结果模型
 
     这是一个遵照BaiduSpider网页搜索音乐歌曲信息搜索结果结果模型创建的返回模型类。
@@ -375,29 +375,29 @@ class WebMusicSong(WebMusicSong):
         name (str): 歌曲名称
         other_sites (List[str]): 歌曲其他网站链接
         poster (str): 歌曲海报图片链接
-        pub_company (str | None): 歌曲发布公司
-        pub_date (datetime.datetime | None): 歌曲发布日期
+        pub_company (Optional[str]): 歌曲发布公司
+        pub_date (datetime.Optional[datetime]): 歌曲发布日期
         site (str): 歌曲发布站点（拼音）
         url (str): 歌曲链接
         plain (dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
-        self.copyright = False
-        self.duration = None
-        self.is_original = False
-        self.labels = []
-        self.name = ""
-        self.other_sites = []
-        self.poster = ""
-        self.pub_company = None
-        self.pub_date = None
-        self.site = ""
-        self.url = ""
-        self.plain = {}
+        self.copyright: bool = False
+        self.duration: time = None
+        self.is_original: bool = False
+        self.labels: List[str] = []
+        self.name: str = ""
+        self.other_sites: List[str] = []
+        self.poster: str = ""
+        self.pub_company: Optional[str] = None
+        self.pub_date: Optional[str] = None
+        self.site: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebMusicSong:
+    def _build_instance(plain: dict) -> "WebMusicSong":
         __returns = WebMusicSong()
         __returns.plain = plain
         __returns.copyright = plain.get("copyright")
@@ -414,7 +414,7 @@ class WebMusicSong(WebMusicSong):
         return __returns
 
 
-class WebMusicAlbum(WebMusicAlbum):
+class WebMusicAlbum():
     """网页搜索音乐歌曲专辑搜索结果结果模型。
 
     这是一个遵照BaiduSpider网页搜索音乐歌曲专辑搜索结果结果模型创建的返回模型类。
@@ -422,16 +422,16 @@ class WebMusicAlbum(WebMusicAlbum):
     Attributes:
         name (str): 专辑名称
         url (str): 专辑链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
-        self.name = ""
-        self.url = ""
-        self.plain = {}
+        self.name: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebMusicAlbum:
+    def _build_instance(plain: Dict) -> "WebMusicAlbum":
         __returns = WebMusicAlbum()
         __returns.plain = plain
         __returns.name = plain.get("name")
@@ -439,7 +439,7 @@ class WebMusicAlbum(WebMusicAlbum):
         return __returns
 
 
-class WebMusicSinger(WebMusicSinger):
+class WebMusicSinger():
     """网页搜索音乐歌曲歌手搜索结果结果模型。
 
     这是一个遵照BaiduSpider网页搜索音乐歌曲歌手搜索结果结果模型创建的返回模型类。
@@ -447,16 +447,16 @@ class WebMusicSinger(WebMusicSinger):
     Attributes:
         name (str): 歌手名称
         url (str): 歌手链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
-        self.name = ""
-        self.url = ""
-        self.plain = {}
+        self.name: str = ""
+        self.url: str = ""
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebMusicSinger:
+    def _build_instance(plain: Dict) -> "WebMusicSinger":
         __returns = WebMusicSinger()
         __returns.plain = plain
         __returns.name = plain.get("name")
@@ -464,7 +464,7 @@ class WebMusicSinger(WebMusicSinger):
         return __returns
 
 
-class WebMusicSongs(WebMusicSongs):
+class WebMusicSongs():
     """网页搜索音乐歌曲搜索结果结果模型。
 
     这是一个遵照BaiduSpider网页搜索音乐歌曲搜索结果结果模型创建的返回模型类。
@@ -473,17 +473,17 @@ class WebMusicSongs(WebMusicSongs):
         album (WebMusicAlbum): 歌曲专辑
         singers (List[WebMusicSinger]): 歌曲歌手
         song (WebMusicSong): 歌曲信息
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
-        self.album = None
-        self.singers = []
-        self.song = None
-        self.plain = {}
+        self.album: WebMusicAlbum = None
+        self.singers: List[WebMusicSinger] = []
+        self.song: WebMusicSong = None
+        self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebMusicSongs:
+    def _build_instance(plain: Dict) -> "WebMusicSongs":
         __returns = WebMusicSongs()
         __returns.plain = plain
         __returns.album = WebMusicAlbum._build_instance(plain.get("album"))
@@ -493,7 +493,7 @@ class WebMusicSongs(WebMusicSongs):
         return __returns
 
 
-class WebMusic(WebMusic):
+class WebMusic():
     """网页搜索音乐搜索结果结果模型。
 
     这是一个遵照BaiduSpider网页搜索音乐搜索结果结果模型创建的返回模型类。
@@ -502,7 +502,7 @@ class WebMusic(WebMusic):
         songs (List[WebMusicSongs]): 歌曲信息
         title (str): 搜索结果标题
         url (str): 搜索结果链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -512,7 +512,7 @@ class WebMusic(WebMusic):
         self.plain = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> WebMusic:
+    def _build_instance(plain: Dict) -> "WebMusic":
         __returns = WebMusic()
         __returns.plain = plain
         __returns.title = plain.get("title")
@@ -522,7 +522,7 @@ class WebMusic(WebMusic):
         return __returns
 
 
-class WebResult(WebResult):
+class WebResult():
     """网页搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索结果结果模型创建的返回模型类。
@@ -531,14 +531,14 @@ class WebResult(WebResult):
         normal (List[WebNormal]): 普通搜索结果列表
         total (int): 搜索结果总数
         related (List[str]): 相关搜索结果列表
-        calc (WebCalc | None): 计算搜索结果
+        calc (Optional[WebCalc]): 计算搜索结果
         news (List[WebNews]): 资讯搜索结果列表
         video (List[WebVideo]): 视频搜索结果列表
-        baike (WebBaike | None): 百科搜索结果
-        tieba (WebTieba | None): 贴吧搜索结果
-        blog (WebBlog | None): 博客搜索结果
-        gitee (WebGitee | None): 码云仓库搜索结果
-        music (WebMusic | None): 音乐搜索结果
+        baike (Optional[WebBaike]): 百科搜索结果
+        tieba (Optional[WebTieba]): 贴吧搜索结果
+        blog (Optional[WebBlog]): 博客搜索结果
+        gitee (Optional[WebGitee]): 码云仓库搜索结果
+        music (Optional[WebMusic]): 音乐搜索结果
         pages (int): 搜索结果页数
         total (int): 搜索结果总数
         plain (list): 源搜索结果列表
@@ -546,23 +546,23 @@ class WebResult(WebResult):
 
     def __init__(self) -> None:
         super().__init__()
-        self.normal = []
-        self.total = 0
-        self.related = []
-        self.calc = None
-        self.news = []
-        self.video = []
-        self.baike = None
-        self.tieba = None
-        self.blog = None
-        self.gitee = None
-        self.music = None
-        self.pages = 0
-        self.plain = []
-        self.total = 0
+        self.normal: List[WebNormal] = []
+        self.total: int = 0
+        self.related: List[Dict] = []
+        self.calc: WebCalc = None
+        self.news: List[WebNews] = []
+        self.video: List[WebVideo] = []
+        self.baike: Optional[WebBaike] = None
+        self.tieba: Optional[WebTieba] = None
+        self.blog: Optional[WebBlog] = None
+        self.gitee: Optional[WebGitee] = None
+        self.music: Optional[WebMusic] = None
+        self.pages: int = 0
+        self.plain: List[str] = []
+        self.total: int = 0
 
     @staticmethod
-    def _build_instance(plain: list, pages: int, total: int) -> WebResult:
+    def _build_instance(plain: list, pages: int, total: int) -> "WebResult":
         __returns = WebResult()
         __returns.plain = plain
         __returns.pages = pages
