@@ -333,12 +333,11 @@ class Parser(BaseSpider):
             if error:
                 raise ParseError(str(error))
         soup = BeautifulSoup(content, "html.parser")
-        total = int(
-            soup.find("div", id="resultInfo")
-            .text.split("约")[-1]
-            .split("张")[0]
-            .replace(",", "")
-        )
+        total = "".join(re.findall('\d', soup.find("div", id="resultInfo").text))
+        if total:
+            total = int(total)
+        else:
+            total = 0
         results = []
         for _ in data["data"][:-1]:
             if _:
