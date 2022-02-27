@@ -12,7 +12,7 @@ BaiduSpider.search_wenku(
     time: str = "all",
     page_range: Union[Tuple[int], str] = "all",
     sort_by: str = "relation",
-    proxies: Optional[dict] = None,
+    proxies: Optional[Dict] = None,
 ) -> WenkuResult:
 ```
 
@@ -25,7 +25,7 @@ BaiduSpider.search_wenku(
 - time `#!py str`: 搜索结果时间筛选方式，默认为`#!py "all"`，可选
 - page_range `#!py Union[Tuple[int], str]`，搜索结果页码范围，默认为`#!py "all`，可选
 - sort_by `#!py str`: 搜索结果排序方式，默认为`#!py "relation"`，可选
-- proxies `#!py Optional[dict]`: 代理配置，默认为`#!py None`，可选
+- proxies `#!py Optional[Dict]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 

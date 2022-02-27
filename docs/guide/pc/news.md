@@ -9,7 +9,7 @@ BaiduSpider.search_news(
     pn: int = 1,
     sort_by: str = "focus",
     show: str = "all",
-    proxies: Optional[dict] = None,
+    proxies: Optional[Dict] = None,
 ) -> NewsResult:
 ```
 
@@ -19,7 +19,7 @@ BaiduSpider.search_news(
 - pn `#!py int`: 要爬取的页码，默认为`#!py 1`，可选
 - sort_by `#!py str`: 搜索结果排序方式，默认为`#!py "focus"`，可选
 - show `#!py str`: 搜索结果筛选方式，默认为`#!py "all"`，可选
-- proxies `#!py Optional[dict]`: 代理配置，默认为`#!py None`，可选
+- proxies `#!py Optional[Dict]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 

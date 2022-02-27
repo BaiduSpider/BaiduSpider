@@ -19,7 +19,7 @@ class VideoNormal():
         length (time): 视频时长
         title (str): 视频标题
         url (str): 视频链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -34,7 +34,7 @@ class VideoNormal():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "VideoNormal":
+    def _build_instance(plain: Dict) -> "VideoNormal":
         __returns = VideoNormal()
         __returns.plain = plain
         __returns.des = plain.get("des")

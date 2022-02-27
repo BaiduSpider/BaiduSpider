@@ -20,7 +20,7 @@ class WebNormal():
         url (str): 搜索结果链接
         time (datetime): 搜索结果发布时间
         snapshot (str): 搜索结果快照链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -34,7 +34,7 @@ class WebNormal():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "WebNormal":
+    def _build_instance(plain: Dict) -> "WebNormal":
         __returns = WebNormal()
         __returns.plain = plain
         __returns.des = plain.get("des")
@@ -94,7 +94,7 @@ class WebNews():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "WebNews":
+    def _build_instance(plain: Dict) -> "WebNews":
         __returns = WebNews()
         __returns.plain = plain
         __returns.author = plain.get("author")
@@ -164,7 +164,7 @@ class WebBaike():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "WebBaike":
+    def _build_instance(plain: Dict) -> "WebBaike":
         __returns = WebBaike()
         __returns.plain = plain
         __returns.cover = plain.get("cover")
@@ -197,7 +197,7 @@ class WebTiebaHot():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "WebTiebaHot":
+    def _build_instance(plain: Dict) -> "WebTiebaHot":
         __returns = WebTiebaHot()
         __returns.plain = plain
         __returns.clicks = plain.get("clicks")
@@ -261,7 +261,7 @@ class WebBlogDetail():
         des (str): 博客简介
         origin (str): 博客来源（作者）
         tags (List[str]): 博客标签
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -305,7 +305,7 @@ class WebBlog():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "WebBlog":
+    def _build_instance(plain: Dict) -> "WebBlog":
         __returns = WebBlog()
         __returns.plain = plain
         __returns.title = plain.get("title")
@@ -330,7 +330,7 @@ class WebGitee():
         license (str): 仓库使用的开源协议
         lang (str): 仓库使用的编程语言
         status (str): 仓库状态（码云指数）图片链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -347,7 +347,7 @@ class WebGitee():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "WebGitee":
+    def _build_instance(plain: Dict) -> "WebGitee":
         __returns = WebGitee()
         __returns.plain = plain
         __returns.title = plain.get("title")
@@ -379,7 +379,7 @@ class WebMusicSong():
         pub_date (datetime.Optional[datetime]): 歌曲发布日期
         site (str): 歌曲发布站点（拼音）
         url (str): 歌曲链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -397,7 +397,7 @@ class WebMusicSong():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "WebMusicSong":
+    def _build_instance(plain: Dict) -> "WebMusicSong":
         __returns = WebMusicSong()
         __returns.plain = plain
         __returns.copyright = plain.get("copyright")
@@ -541,7 +541,7 @@ class WebResult():
         music (Optional[WebMusic]): 音乐搜索结果
         pages (int): 搜索结果页数
         total (int): 搜索结果总数
-        plain (list): 源搜索结果列表
+        plain (List): 源搜索结果列表
     """
 
     def __init__(self) -> None:
@@ -562,7 +562,7 @@ class WebResult():
         self.total: int = 0
 
     @staticmethod
-    def _build_instance(plain: list, pages: int, total: int) -> "WebResult":
+    def _build_instance(plain: List, pages: int, total: int) -> "WebResult":
         __returns = WebResult()
         __returns.plain = plain
         __returns.pages = pages

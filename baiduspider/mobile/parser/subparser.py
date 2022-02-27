@@ -1,4 +1,5 @@
 import json
+from typing import Dict
 
 from baiduspider._spider import BaseSpider
 from baiduspider.util import handle_err
@@ -17,14 +18,14 @@ class WebSubParser(BaseSpider):
         self.spider_name = "WebSubSpider"
 
     @handle_err
-    def parse_video_block(self, video: BeautifulSoup) -> dict:
+    def parse_video_block(self, video: BeautifulSoup) -> Dict:
         """解析视频子块
 
         Args:
             video (BeautifulSoup): 从源HTML代码中提取的视频块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if not video:
             return []
@@ -91,14 +92,14 @@ class WebSubParser(BaseSpider):
         return {"results": results, "tags": tags, "url": v_url}
 
     @handle_err
-    def parse_short_video_block(self, short_video: BeautifulSoup) -> dict:
+    def parse_short_video_block(self, short_video: BeautifulSoup) -> Dict:
         """解析短视频子块
 
         Args:
             short_video (BeautifulSoup): 从源HTML代码中提取的短视频块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if not short_video:
             return []
@@ -150,14 +151,14 @@ class WebSubParser(BaseSpider):
         return {"results": results, "total": s_total, "url": s_url}
 
     @handle_err
-    def parse_baike_block(self, baike: BeautifulSoup) -> dict:
+    def parse_baike_block(self, baike: BeautifulSoup) -> Dict:
         """解析百科子块
 
         Args:
             baike (BeautifulSoup): 从源HTML代码中提取的百科块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if not baike:
             return []
@@ -192,14 +193,14 @@ class WebSubParser(BaseSpider):
         return {"result": result}
 
     @handle_err
-    def parse_reyi_block(self, reyi: BeautifulSoup) -> dict:
+    def parse_reyi_block(self, reyi: BeautifulSoup) -> Dict:
         """解析热议子块
 
         Args:
             reyi (BeautifulSoup): 从源HTML代码中提取的热议块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if not reyi:
             return []
@@ -262,14 +263,14 @@ class WebSubParser(BaseSpider):
         return {"results": posts, "url": r_url, "total": r_total}
 
     @handle_err
-    def parse_knowledge_block(self, knowledge: BeautifulSoup) -> dict:
+    def parse_knowledge_block(self, knowledge: BeautifulSoup) -> Dict:
         """解析相关知识子块
 
         Args:
             knowledge (BeautifulSoup): 从源HTML代码中提取的相关知识块BeautifulSoup对象
 
         Returns:
-            dict: 解析后自动生成的Python结果字典对象
+            Dict: 解析后自动生成的Python结果字典对象
         """
         if not knowledge:
             return []

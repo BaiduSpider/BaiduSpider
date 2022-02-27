@@ -25,7 +25,7 @@ class PicNormal():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "PicNormal":
+    def _build_instance(plain: Dict) -> "PicNormal":
         __returns = PicNormal()
         __returns.plain = plain
         __returns.host = plain.get("host")

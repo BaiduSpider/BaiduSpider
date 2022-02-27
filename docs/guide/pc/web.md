@@ -7,8 +7,8 @@ BaiduSpider.search_web(
     self: BaiduSpider,
     query: str,
     pn: int = 1,
-    exclude: list = [],
-    proxies: Optional[dict] = None,
+    exclude: List = [],
+    proxies: Optional[Dict] = None,
 ) -> WebResult
 ```
 
@@ -16,9 +16,9 @@ BaiduSpider.search_web(
 
 - query `#!python str`: 要查询网页搜索的字符串
 - pn `#!python int`: 要爬取的页码，默认为`#!py 1`，可选
-- exclude `#!python dict`: 要屏蔽的子部件列表，可选
+- exclude `#!python Dict`: 要屏蔽的子部件列表，可选
 - time `#!python str | List[datetime.datetime]`: 搜索时间范围
-- proxies `#!py Optional[dict]`: 代理配置，默认为`#!py None`，可选
+- proxies `#!py Optional[Dict]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 

@@ -18,7 +18,7 @@ class BaikeNormal():
         des (str): 百科简介
         title (str): 百科标题
         url (str): 百科链接
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -30,7 +30,7 @@ class BaikeNormal():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "BaikeNormal":
+    def _build_instance(plain: Dict) -> "BaikeNormal":
         __returns = BaikeNormal()
         __returns.plain = plain
         __returns.upd_date = convert_time(plain.get("upd_date"))
@@ -60,7 +60,7 @@ class BaikeResult():
         self.plain: List[Dict] = []
 
     @staticmethod
-    def _build_instance(plain: list, total: int) -> "BaikeResult":
+    def _build_instance(plain: List, total: int) -> "BaikeResult":
         __returns = BaikeResult()
         __returns.plain = plain
         __returns.total = total

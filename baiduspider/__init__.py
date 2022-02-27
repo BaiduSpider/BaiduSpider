@@ -10,7 +10,7 @@ import datetime
 import hashlib
 import random
 import time as time_lib
-from typing import Dict, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 from urllib.parse import quote
 
 from baiduspider._spider import BaseSpider
@@ -43,7 +43,7 @@ class BaiduSpider(BaseSpider):
         self: BaiduSpider,
         query: str,
         pn: int = 1,
-        exclude: list = [],
+        exclude: List = [],
         time: Union[tuple, str, None] = None,
         proxies: Dict = None
     ) -> WebResult`: 百度网页搜索
@@ -162,7 +162,7 @@ class BaiduSpider(BaseSpider):
         self,
         query: str,
         pn: int = 1,
-        exclude: list = [],
+        exclude: List = [],
         time: Union[tuple, str, None] = None,
         proxies: Dict = None,
     ) -> WebResult:

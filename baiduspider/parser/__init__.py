@@ -3,6 +3,7 @@ import math
 from datetime import datetime, time
 from html import unescape
 from time import localtime, strftime
+from typing import Dict, List
 
 from baiduspider._spider import BaseSpider
 from baiduspider.errors import ParseError
@@ -17,15 +18,15 @@ class Parser(BaseSpider):
         super().__init__()
         self.webSubParser = WebSubParser()
 
-    def parse_web(self, content: str, exclude: list) -> dict:
+    def parse_web(self, content: str, exclude: List) -> Dict:
         """解析百度网页搜索的页面源代码.
 
         Args:
             content (str): 已经转换为UTF-8编码的百度网页搜索HTML源码.
-            exclude (list): 要屏蔽的控件.
+            exclude (List): 要屏蔽的控件.
 
         Returns:
-            dict: 解析后的结果
+            Dict: 解析后的结果
         """
         soup = BeautifulSoup(content, "html.parser")
         if not soup.find("div", id="content_left"):
@@ -104,21 +105,21 @@ class Parser(BaseSpider):
             gitee = self.webSubParser.parse_gitee_block(gitee)
         # 加载贴吧
         if "tieba" not in exclude and tieba:
-            pre_results.append(dict(type="tieba", result=tieba))
+            pre_results.append(Dict(type="tieba", result=tieba))
         # 加载博客
         if "blog" not in exclude and blog:
-            pre_results.append(dict(type="blog", result=blog))
+            pre_results.append(Dict(type="blog", result=blog))
         # 加载码云
         if "gitee" not in exclude and gitee:
-            pre_results.append(dict(type="gitee", result=gitee))
+            pre_results.append(Dict(type="gitee", result=gitee))
         # 加载搜索结果总数
         # 已经移动到根字典中
         # if num != 0:
-        #     pre_results.append(dict(type="total", result=num))
+        #     pre_results.append(Dict(type="total", result=num))
         # 加载运算
         if "calc" not in exclude and calc:
             pre_results.append(
-                dict(
+                Dict(
                     type="calc",
                     process=str(
                         calc.find("p", class_="op_new_val_screen_process")
@@ -134,19 +135,19 @@ class Parser(BaseSpider):
             )
         # 加载相关搜索
         if "related" not in exclude and related:
-            pre_results.append(dict(type="related", results=related))
+            pre_results.append(Dict(type="related", results=related))
         # 加载资讯
         if "news" not in exclude and news_detail:
-            pre_results.append(dict(type="news", results=news_detail))
+            pre_results.append(Dict(type="news", results=news_detail))
         # 加载短视频
         if "video" not in exclude and video_results:
-            pre_results.append(dict(type="video", results=video_results))
+            pre_results.append(Dict(type="video", results=video_results))
         # 加载百科
         if "baike" not in exclude and baike:
-            pre_results.append(dict(type="baike", result=baike))
+            pre_results.append(Dict(type="baike", result=baike))
         # 加载音乐
         if "music" not in exclude and music:
-            pre_results.append(dict(type="music", result=music))
+            pre_results.append(Dict(type="music", result=music))
         # 预处理源码
         soup = BeautifulSoup(content, "html.parser")
         results = []
@@ -301,14 +302,14 @@ class Parser(BaseSpider):
         }
 
     @handle_err
-    def parse_pic(self, content: str) -> dict:
+    def parse_pic(self, content: str) -> Dict:
         """解析百度图片搜索的页面源代码.
 
         Args:
             content (str): 已经转换为UTF-8编码的百度图片搜索HTML源码
 
         Returns:
-            dict: 解析后的结果
+            Dict: 解析后的结果
         """
         # 从JavaScript中加载数据
         # 因为JavaScript很像JSON（JavaScript Object Notation），所以直接用json加载就行了
@@ -366,14 +367,14 @@ class Parser(BaseSpider):
             "total": total,
         }
 
-    def parse_zhidao(self, content: str) -> dict:
+    def parse_zhidao(self, content: str) -> Dict:
         """解析百度知道搜索的页面源代码.
 
         Args:
             content (str): 已经转换为UTF-8编码的百度知道搜索HTML源码
 
         Returns:
-            dict: 解析后的结果
+            Dict: 解析后的结果
         """
         bs = BeautifulSoup(self._minify(content), "html.parser")
         # 搜索结果总数
@@ -478,14 +479,14 @@ class Parser(BaseSpider):
             "total": total,
         }
 
-    def parse_video(self, content: str) -> dict:
+    def parse_video(self, content: str) -> Dict:
         """解析百度视频搜索的页面源代码.
 
         Args:
             content (str): 已经转换为UTF-8编码的百度视频搜索HTML源码
 
         Returns:
-            dict: 解析后的结果
+            Dict: 解析后的结果
         """
         bs = BeautifulSoup(content, "html.parser")
         # 锁定结果div
@@ -543,14 +544,14 @@ class Parser(BaseSpider):
             results.append(result)  # 加入结果
         return {"results": results}
 
-    def parse_news(self, content: str) -> dict:
+    def parse_news(self, content: str) -> Dict:
         """解析百度资讯搜索的页面源代码.
 
         Args:
             content (str): 已经转换为UTF-8编码的百度资讯搜索HTML源码
 
         Returns:
-            dict: 解析后的结果
+            Dict: 解析后的结果
         """
         bs = BeautifulSoup(self._format(content), "html.parser")
         # 搜索结果总数
@@ -634,14 +635,14 @@ class Parser(BaseSpider):
             return "XMIND"
         return "UNKNOWN"
 
-    def parse_wenku(self, content: str) -> dict:
+    def parse_wenku(self, content: str) -> Dict:
         """解析百度文库搜索的页面源代码。
 
         Args:
             content (str): 已经转换为UTF-8编码的百度文库搜索API接口JSON数据
 
         Returns:
-            dict: 解析后的结果
+            Dict: 解析后的结果
         """
         results = []
         pages = 0
@@ -684,14 +685,14 @@ class Parser(BaseSpider):
         )
         return {"results": results, "pages": pages}
 
-    def parse_jingyan(self, content: str) -> dict:
+    def parse_jingyan(self, content: str) -> Dict:
         """解析百度经验搜索的页面源代码.
 
         Args:
             content (str): 已经转换为UTF-8编码的百度经验搜索HTML源码
 
         Returns:
-            dict: 解析后的结果
+            Dict: 解析后的结果
         """
         # 最小化代码
         code = self._minify(content)
@@ -769,14 +770,14 @@ class Parser(BaseSpider):
         # pages = int(self._format(pages_[-1].text))
         return {"results": results, "total": total}
 
-    def parse_baike(self, content: str) -> dict:
+    def parse_baike(self, content: str) -> Dict:
         """解析百度百科搜索的页面源代码.
 
         Args:
             content (str): 已经转换为UTF-8编码的百度百科搜索HTML源码
 
         Returns:
-            dict: 解析后的结果
+            Dict: 解析后的结果
         """
         code = self._minify(content)
         # 创建BeautifulSoup对象

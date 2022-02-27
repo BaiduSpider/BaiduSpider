@@ -2,7 +2,7 @@ import math
 import os
 import re
 from datetime import datetime
-from typing import Optional
+from typing import Dict, Optional
 
 import requests
 
@@ -59,13 +59,13 @@ class BaseSpider(object):
         return html.replace("\u00a0", "")
 
     def _get_response(
-        self, url: str, proxies: dict = {}, encoding: Optional[str] = None
+        self, url: str, proxies: Dict = {}, encoding: Optional[str] = None
     ) -> str:
         """获取网站响应，并返回源码
 
         Args:
             url (str): 要获取响应的链接
-            proxies (dict): 代理相关设置
+            proxies (Dict): 代理相关设置
             encoding (Optional[str]): 目标网页编码
 
         Returns:

@@ -39,7 +39,7 @@ class TiebaPredictorResult():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "TiebaPredictorResult":
+    def _build_instance(plain: Dict) -> "TiebaPredictorResult":
         __returns = TiebaPredictorResult()
         __returns.plain = plain
         __returns.classifiers = plain.get("classifiers")

@@ -26,7 +26,7 @@ class JingyanPublisher():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "JingyanPublisher":
+    def _build_instance(plain: Dict) -> "JingyanPublisher":
         __returns = JingyanPublisher()
         __returns.plain = plain
         __returns.name = plain.get("name")
@@ -49,7 +49,7 @@ class JingyanNormal():
         publisher (JingyanPublisher): 经验发布者信息
         is_original (bool): 经验是否为原创
         is_outstanding (bool): 经验是否为优秀经验
-        plain (dict): 源搜索结果字典
+        plain (Dict): 源搜索结果字典
     """
 
     def __init__(self) -> None:
@@ -66,7 +66,7 @@ class JingyanNormal():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "JingyanNormal":
+    def _build_instance(plain: Dict) -> "JingyanNormal":
         __returns = JingyanNormal()
         __returns.plain = plain
         __returns.title = plain.get("title")
@@ -90,7 +90,7 @@ class JingyanResult():
         results (List[JingyanNormal]): 普通搜索结果列表
         pages (int): 搜索结果页数
         total (int): 搜索结果总数
-        plain (list): 源搜索结果列表
+        plain (List): 源搜索结果列表
     """
 
     def __init__(self) -> None:
@@ -101,7 +101,7 @@ class JingyanResult():
         self.plain: Dict = []
 
     @staticmethod
-    def _build_instance(plain: list, pages: int, total: int) -> "JingyanResult":
+    def _build_instance(plain: List, pages: int, total: int) -> "JingyanResult":
         __returns = JingyanResult()
         __returns.plain = plain
         __returns.pages = pages

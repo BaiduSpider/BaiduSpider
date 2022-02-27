@@ -8,7 +8,7 @@ BaiduSpider.search_zhidao(
     query: str,
     pn: int = 1,
     time: Optional[str] = None,
-    proxies: Optional[dict] = None,
+    proxies: Optional[Dict] = None,
 ) -> ZhidaoResult:
 ```
 
@@ -17,7 +17,7 @@ BaiduSpider.search_zhidao(
 - query `#!py str`: 要查询知道搜索的字符串
 - pn `#!py int`: 要爬取的页码，默认为`#!py 1`，可选
 - time `#!py Optional[str]`: 搜索结果时间筛选方式，默认为`#!py None`，可选
-- proxies `#!py Optional[dict]`: 代理配置，默认为`#!py None`，可选
+- proxies `#!py Optional[Dict]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 

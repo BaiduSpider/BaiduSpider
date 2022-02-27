@@ -1,3 +1,5 @@
+from typing import Dict
+
 from baiduspider._spider import BaseSpider
 from baiduspider.mobile.parser.subparser import WebSubParser
 from baiduspider.util import handle_err
@@ -18,14 +20,14 @@ class MobileParser(BaseSpider):
         self.WEB_KNOWLEDGE = "28339"
 
     @handle_err
-    def parse_web(self, content: str) -> dict:
+    def parse_web(self, content: str) -> Dict:
         """解析百度网页搜索的页面源代码.
 
         Args:
             content (str): 已经转换为UTF-8编码的百度网页搜索HTML源码
 
         Returns:
-            dict: 解析后的结果
+            Dict: 解析后的结果
         """
         soup = BeautifulSoup(content, "html.parser")
         res_normal_container = soup.findAll(
@@ -196,12 +198,12 @@ class MobileParser(BaseSpider):
         # 加载视频子块
         if video:
             pre_results.append(
-                dict(results=video["results"], tags=video["tags"], type="video")
+                Dict(results=video["results"], tags=video["tags"], type="video")
             )
         # 加载短视频子块
         if short_video:
             pre_results.append(
-                dict(
+                Dict(
                     results=short_video["results"],
                     total=short_video["total"],
                     type="short_video",
@@ -209,11 +211,11 @@ class MobileParser(BaseSpider):
             )
         # 加载百科子块
         if baike:
-            pre_results.append(dict(result=baike["result"], type="baike"))
+            pre_results.append(Dict(result=baike["result"], type="baike"))
         # 加载热议子块
         if reyi:
             pre_results.append(
-                dict(
+                Dict(
                     results=reyi["results"],
                     url=reyi["url"],
                     total=reyi["total"],
@@ -223,7 +225,7 @@ class MobileParser(BaseSpider):
         # 加载相关知识子块
         if knowledge:
             pre_results.append(
-                dict(
+                Dict(
                     results=knowledge["results"],
                     title=knowledge["title"],
                     type="knowledge",

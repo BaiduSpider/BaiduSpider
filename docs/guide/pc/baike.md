@@ -6,14 +6,14 @@
 BaiduSpider.search_baike(
     self: BaiduSpider,
     query: str,
-    proxies: Optional[dict, None] = None,
+    proxies: Optional[Dict, None] = None,
 ) -> BaikeResult
 ```
 
 ## 参数
 
 - query `#!python str`: 要查询视频搜索的字符串
-- proxies `#!py Optional[dict, None]`: 代理配置，默认为`#!py None`，可选
+- proxies `#!py Optional[Dict, None]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 

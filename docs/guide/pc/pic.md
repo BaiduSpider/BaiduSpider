@@ -7,7 +7,7 @@ BaiduSpider.search_pic(
     self: BaiduSpider,
     query: str,
     pn: int = 1,
-    proxies: Optional[dict] = None,
+    proxies: Optional[Dict] = None,
 ) -> PicResult
 ```
 
@@ -15,7 +15,7 @@ BaiduSpider.search_pic(
 
 - query `#!python str`: 要查询图片搜索的字符串
 - pn `#!python int`: 要爬取的页码，默认为`#!py 1`，可选
-- proxies `#!py Optional[dict]`: 代理配置，默认为`#!py None`，可选
+- proxies `#!py Optional[Dict]`: 代理配置，默认为`#!py None`，可选
 
 ## 实例
 

@@ -34,7 +34,7 @@ class NewsNormal():
         self.plain: Dict = {}
 
     @staticmethod
-    def _build_instance(plain: dict) -> "NewsNormal":
+    def _build_instance(plain: Dict) -> "NewsNormal":
         __returns = NewsNormal()
         __returns.plain = plain
         __returns.author = plain.get("author")
