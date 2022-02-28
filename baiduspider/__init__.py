@@ -130,7 +130,7 @@ class BaiduSpider(BaseSpider):
         # 爬虫名称（不是请求的，只是用来标识）
         self.spider_name = "BaiduSpider"
         # 解析Cookie
-        if cookie is not None:
+        if cookie:
             if "__yjs_duid" not in cookie:
                 cookie += "; __yjs_duid=1_" + str(hashlib.md5().hexdigest()) + "; "
             else:
@@ -149,7 +149,7 @@ class BaiduSpider(BaseSpider):
             "Connection": "Keep-Alive",
         }
         self.parser = Parser()
-        self.EMPTY = {"results": [], "pages": 0}
+        self.EMPTY = {"results": [], "pages": 0, "total": 0}
         self.RESULTS_PER_PAGE = {
             "web": 10,
             "pic": 20,
@@ -417,7 +417,7 @@ class BaiduSpider(BaseSpider):
         else:
             to = from_ = None
         if type(to) == datetime.datetime and type(from_) == datetime.datetime:
-            FORMAT = "%Y-%m-%d %H:%M:%S"
+            FORMAT = r"%Y-%m-%d %H:%M:%S"
             to = int(time_lib.mktime(time_lib.strptime(to.strftime(FORMAT), FORMAT)))
             from_ = int(
                 time_lib.mktime(time_lib.strptime(from_.strftime(FORMAT), FORMAT))
@@ -505,7 +505,7 @@ class BaiduSpider(BaseSpider):
             )
             content = self._get_response(url, proxies)
             result = self.parser.parse_pic(content)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:
@@ -599,7 +599,7 @@ class BaiduSpider(BaseSpider):
             # source.encoding = "gb2312"
             # code = source.text
             result = self.parser.parse_zhidao(code)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:
@@ -761,7 +761,7 @@ class BaiduSpider(BaseSpider):
             # 源码
             code = self._get_response(url, proxies)
             result = self.parser.parse_news(code)
-            result = result if result is not None else self.EMPTY
+            result = result if result else self.EMPTY
         except Exception as err:
             error = err
         finally:
@@ -777,7 +777,7 @@ class BaiduSpider(BaseSpider):
         scope: str = "all",
         format: str = "all",
         time: str = "all",
-        page_range: Union[Tuple[int], str] = "all",
+        page_range: Union[Tuple[int, int], str] = "all",
         sort_by: str = "relation",
         proxies: Dict = None,
     ) -> WenkuResult:

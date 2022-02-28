@@ -2,7 +2,6 @@ import json
 import math
 from datetime import datetime, time
 from html import unescape
-import re
 from time import localtime, strftime
 
 from baiduspider._spider import BaseSpider
@@ -29,13 +28,13 @@ class Parser(BaseSpider):
             dict: 解析后的结果
         """
         soup = BeautifulSoup(content, "html.parser")
-        if soup.find("div", id="content_left") is None:
+        if not soup.find("div", id="content_left"):
             return {"results": [], "pages": 0, "total": 0}
         # 获取搜索结果总数
         tmp1 = soup.findAll("div", class_="result-molecule")
         idx_ = 0
         ele = None
-        while ele is None and idx_ < len(tmp1):
+        while not ele and idx_ < len(tmp1):
             tmp = tmp1[idx_].findAll("span")
             found = False
             for t in tmp:
@@ -162,7 +161,7 @@ class Parser(BaseSpider):
             des = None
             try:
                 result["tpl"]
-            except:
+            except KeyError:
                 continue
             soup = BeautifulSoup(self._minify(str(result)), "html.parser")
             # 链接
@@ -172,8 +171,9 @@ class Parser(BaseSpider):
             # 时间
             try:
                 _ = soup.find("div", class_="c-span-last")
-                if _ is None: _ = soup.find("div", class_="c-gap-top-small")
-                if _ is not None:
+                if not _:
+                    _ = soup.find("div", class_="c-gap-top-small")
+                if _:
                     time = self._format(
                         _.find("span", class_="c-color-gray2")
                         .text
@@ -184,7 +184,7 @@ class Parser(BaseSpider):
                 # 简介
                 des = None
                 _ = soup.find("div", class_="c-span-last")
-                if _ is not None:
+                if _:
                     for des_ in _.findAll("span"):
                         try:
                             if des_["class"][0].startswith("content-right"):
@@ -194,7 +194,7 @@ class Parser(BaseSpider):
                             pass
                 else:
                     _ = soup.find("div", class_="c-gap-top-small")
-                    if _ is not None:
+                    if _:
                         for des_ in _.findAll("span"):
                             try:
                                 if des_["class"][0].startswith("content-right"):
@@ -203,7 +203,8 @@ class Parser(BaseSpider):
                             except KeyError:
                                 pass
                 soup = BeautifulSoup(str(result), "html.parser")
-                if des is not None: des = self._format(des)
+                if des:
+                    des = self._format(des)
             except IndexError:
                 try:
                     des = des.replace("mn", "")
@@ -213,12 +214,12 @@ class Parser(BaseSpider):
                 time = time.split("-")[0].strip()
             # 因为百度的链接是加密的了，所以需要一个一个去访问
             # 由于性能原因，分析链接部分暂略
-            # if href is not None:
+            # if href:
             #     try:
             #         # 由于性能原因，这里设置1秒超时
             #         r = requests.get(href, timeout=1)
             #         href = r.url
-            #     except:
+            #     except Exception:
             #         # 获取网页失败，默认换回原加密链接
             #         href = href
             #     # 分析链接
@@ -235,7 +236,7 @@ class Parser(BaseSpider):
             #         path = None
             try:
                 result["tpl"]
-            except:
+            except KeyError:
                 pass
             is_not_special = (
                 result["tpl"]
@@ -246,7 +247,7 @@ class Parser(BaseSpider):
                     "tieba_general",
                     "yl_music_song",
                 ]
-                and result.find("article") is None
+                and not result.find("article")
             )
             domain = None
             domain_ = result.findAll("div", class_="c-row")
@@ -258,11 +259,12 @@ class Parser(BaseSpider):
                             domain = _
                             flag = True
                             break
-                if flag: break
+                if flag:
+                    break
             domain = self._format(domain.find("a").text)
             # 百度快照
             snapshot = result.find("a", class_="kuaizhao")
-            if snapshot is not None:
+            if snapshot:
                 snapshot = self._format(snapshot["href"].replace("\n", "").replace(" ", ""))
             # 加入结果
             if title and href and is_not_special:
@@ -331,12 +333,11 @@ class Parser(BaseSpider):
             if error:
                 raise ParseError(str(error))
         soup = BeautifulSoup(content, "html.parser")
-        total = int(
-            soup.find("div", id="resultInfo")
-            .text.split("约")[-1]
-            .split("张")[0]
-            .replace(",", "")
-        )
+        total = "".join(re.findall('\d', soup.find("div", id="resultInfo").text))
+        if total:
+            total = int(total)
+        else:
+            total = 0
         results = []
         for _ in data["data"][:-1]:
             if _:
@@ -404,10 +405,10 @@ class Parser(BaseSpider):
                 url = item.find("dt").find("a")["href"]
             except KeyError:
                 url = item.find("dt").find("a")["data-href"]
-            if item.find("dd", class_="video-content") is not None:
+            if item.find("dd", class_="video-content"):
                 # 问题
                 __ = item.find("dd", class_="summary")
-                question = __.text.strip("问：") if __ is not None else None
+                question = __.text.strip("问：") if __ else None
                 item = item.find("div", class_="right")
                 tmp = item.findAll("div", class_="video-text")
                 # # 简介
@@ -425,14 +426,14 @@ class Parser(BaseSpider):
                 except ValueError:
                     agree = 0
                     answer = tmp[2].text.strip()
-                type_ = "video"
+                # type_ = "video"
             else:
                 # 回答
                 __ = item.find("dd", class_="answer")
-                answer = __.text.strip("答：") if __ is not None else None
+                answer = __.text.strip("答：") if __ else None
                 # 问题
                 __ = item.find("dd", class_="summary")
-                question = __.text.strip("问：") if __ is not None else None
+                question = __.text.strip("问：") if __ else None
                 tmp = item.find("dd", class_="explain").findAll("span", class_="mr-8")
                 # 发布日期
                 date = (
@@ -441,14 +442,14 @@ class Parser(BaseSpider):
                 # 回答总数
                 try:
                     count = int(str(tmp[-1].text).strip("\n").strip("个回答"))
-                except:
+                except Exception:
                     count = None
                 # 回答者
                 answerer = tmp[(-2 if len(tmp) >= 2 else -1)].text.strip("\n").strip("回答者:\xa0")
                 # 赞同数
                 __ = item.find("dd", class_="explain").find("span", class_="ml-10")
-                agree = int(__.text.strip()) if __ is not None else 0
-                type_ = "normal"
+                agree = int(__.text.strip()) if __ else 0
+                # type_ = "normal"
             # 生成结果
             result = {
                 "title": title,
@@ -588,7 +589,7 @@ class Parser(BaseSpider):
             # 封面图片
             try:
                 cover = res.find("div", class_="c-img-radius-large").find("img")["src"]
-            except:
+            except Exception:
                 cover = None
             # 生成结果
             result = {
@@ -656,7 +657,7 @@ class Parser(BaseSpider):
                 .replace(" - 百度文库", "")
             )
             des = info["content"].replace("<em>", "").replace("</em>", "")
-            pub_date = strftime("%Y-%m-%d", localtime(int(info["createTime"])))
+            pub_date = strftime(r"%Y-%m-%d", localtime(int(info["createTime"])))
             page_num = info["pageNum"]
             score = info["qualityScore"]
             downloads = info["downloadCount"]
@@ -737,13 +738,13 @@ class Parser(BaseSpider):
             try:
                 res.find("span", class_="i-original").text
                 original = True
-            except:
+            except Exception:
                 original = False
             # 是否为优秀经验
             try:
                 res.find("span", class_="i-good-exp").text
                 outstanding = True
-            except:
+            except Exception:
                 outstanding = False
             # 生成结果
             result = {

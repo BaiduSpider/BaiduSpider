@@ -26,7 +26,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        if video is None:
+        if not video:
             return []
         video = video.find("article")
         tags_container = (
@@ -49,7 +49,7 @@ class WebSubParser(BaseSpider):
             poster = _.find("img")["src"]
             labels = []
             __ = _.find("span", class_="c-label-radius")
-            if __ is not None:
+            if __:
                 labels.append(self._format(__.text))
             duration = None
             video_num = None
@@ -69,9 +69,9 @@ class WebSubParser(BaseSpider):
                 else:
                     pub_time = None
                 __ = _.find("span", class_="c-label-radius")
-                if __ is not None:
+                if __:
                     labels.append(__.text)
-            except:
+            except Exception:
                 author_avatar = None
                 author = None
                 pub_time = None
@@ -100,7 +100,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        if short_video is None:
+        if not short_video:
             return []
         s_total = self._reformat_big_num(
             short_video.find("div", class_="middle")
@@ -118,11 +118,11 @@ class WebSubParser(BaseSpider):
             _ = vid.find("div", class_="c-color-white")
             try:
                 author_avatar = _.find("img")["src"]
-            except:
+            except Exception:
                 author_avatar = None
             author = _.find("span", class_="c-color-white").text
             play_times = _.findAll("span")[-1].text
-            if play_times is not None and "次播放" in play_times:
+            if play_times and "次播放" in play_times:
                 delta = 1
                 if "万" in play_times:
                     delta = 10000
@@ -159,7 +159,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        if baike is None:
+        if not baike:
             return []
         b_url = json.loads(baike["data-log"])["mu"]
         baike = baike.find("article")
@@ -167,7 +167,7 @@ class WebSubParser(BaseSpider):
         baike = baike.find("section")
         try:
             poster = baike.find("img", class_="c-img-img")["src"]
-        except:
+        except Exception:
             poster = None
         des = baike.find("div", class_="c-abstract").text
         section_container = baike.findAll("a", class_="c-slink")
@@ -201,7 +201,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        if reyi is None:
+        if not reyi:
             return []
         reyi = reyi.find("section")
         r_url = reyi.find("a", class_="c-blocka")["href"]
@@ -224,11 +224,11 @@ class WebSubParser(BaseSpider):
             for img in __:
                 try:
                     images.append(img["data-lazy-src"])
-                except:
+                except Exception:
                     pass
             try:
                 origin = _.find("div", class_="origin-content-new").text
-            except:
+            except Exception:
                 origin = None
             ___ = post.findAll("i", class_=["c-icon", "c-gap-inner-right-small"])
             __ = []
@@ -240,11 +240,11 @@ class WebSubParser(BaseSpider):
             __ = __[1:]
             try:
                 comments = int(__[0].find_next_sibling("span").text.strip())
-            except:
+            except Exception:
                 comments = 0
             try:
                 likes = int(__[1].find_next_sibling("span").text.strip())
-            except:
+            except Exception:
                 likes = 0
             posts.append(
                 {
@@ -271,9 +271,7 @@ class WebSubParser(BaseSpider):
         Returns:
             dict: 解析后自动生成的Python结果字典对象
         """
-        from pprint import pprint
-
-        if knowledge is None:
+        if not knowledge:
             return []
         knowledge = knowledge.find("article")
         k_title = knowledge.find("header").find("h3").text

@@ -21,7 +21,7 @@ def handle_err(func):  # pragma: no cover
                 if "block" in func.__name__
                 else None
             )
-            if func_name is not None:
+            if func_name:
                 print(
                     f"\033[33mWARNING: An error occurred while parsing the {func_name} subcomponent of BaiduSpider.{inspect.stack()[1][0].f_code.co_name}, "
                     "which is currently ignored. However, the rest of the parsing process is still being executed normally. "
@@ -51,7 +51,7 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
     Returns:
         datetime: 转换后的`datetime.datetime`结果
     """
-    if t is None or t.strip() == "":
+    if not t or not t.strip():
         return None
 
     t = t.strip()
@@ -77,7 +77,7 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
     # elif '年' in t:
     #     s = (datetime.now() - timedelta(days=365 * delta))
     elif "年" in t and "月" in t and "日" in t:
-        s = datetime.strptime(t, "%Y年%m月%d日")
+        s = datetime.strptime(t, r"%Y年%m月%d日")
     else:
         s = datetime.now()
 

@@ -69,7 +69,7 @@ class VideoResult(VideoResult):
     def _build_instance(plain: list) -> VideoResult:
         __returns = VideoResult()
         __returns.plain = plain
-        if plain is None:
+        if not plain:
             __returns.is_last = True
             return __returns
         for p in plain:

@@ -9,7 +9,7 @@ def get_attr(d: dict, t: str):
     """获取字典`d`下的`t`"""
     try:
         return d[t]
-    except:
+    except KeyError:
         return None
 
 

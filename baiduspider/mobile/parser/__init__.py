@@ -42,11 +42,11 @@ class MobileParser(BaseSpider):
             # 链接
             try:
                 url = _["rl-link-href"]
-            except:
+            except Exception:
                 url = header.find("a")["href"]
             __ = header.find("h3").find("span", class_="c-text-public")
             # “官方”标签
-            if __ is not None:
+            if __:
                 labels.append(__.text)
             section = _.find("section").find("section")
             _ = section.find("div", role="text")
@@ -54,12 +54,12 @@ class MobileParser(BaseSpider):
             try:
                 date_ = _.find("span", class_="c-color-gray").text
                 date = date_.replace("年", "-").replace("月", "-").replace("日", "")
-            except:
+            except Exception:
                 date = None
             __ = res.find("section").find("div", class_="c-flexbox")
             ___ = __.find("span", class_="c-text-box")
             # 热度标签
-            if ___ is not None:
+            if ___:
                 labels.append(___.text)
             # 简介
             des = ""
@@ -69,30 +69,30 @@ class MobileParser(BaseSpider):
                     try:
                         if t.find("span").text:
                             continue
-                    except:
+                    except Exception:
                         pass
                     try:
                         if "c-color-gray" in t["class"]:
                             continue
-                    except:
+                    except Exception:
                         pass
                     des += t.text
                 des += "\n"
             des = des.strip("\n")
             # 来源（作者）
             origin = __.find("span", class_="c-footer-showurl")
-            if origin is not None:
+            if origin:
                 origin = origin.text
             else:
                 origin = __.find("div", class_="single-text")
-                if origin is not None:
+                if origin:
                     origin = origin.text
             _ = section.find("a").find("div", role="img")
             # 封面图片链接
-            if _ is not None and _.find("img") is not None:
+            if _ and _.find("img"):
                 try:
                     img = _.find("img")["data-lazy-src"].replace("&amp;", "&")
-                except:
+                except Exception:
                     img = _.find("img")["src"].replace("&amp;", "&")
             else:
                 img = None
@@ -153,14 +153,14 @@ class MobileParser(BaseSpider):
             labels = []
             _ = res.find("div", class_="c-img-radius-tl")
             __ = _.find("span", class_="c-label-radius")
-            if __ is not None:
+            if __:
                 labels.append(self._format(__.text))
             _ = res.find("div", class_="c-source-new")
             origin = _.find("div", class_="single-text").text
             __ = res.find("section").find("div", class_="c-flexbox")
             ___ = __.find("span", class_="c-text-box")
             # 热度标签
-            if ___ is not None:
+            if ___:
                 labels.append(___.text)
             res_video_normal.append(
                 {
