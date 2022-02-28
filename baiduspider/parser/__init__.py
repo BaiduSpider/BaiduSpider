@@ -800,7 +800,7 @@ class Parser(BaseSpider):
             url_pre = self._format(res.find("a", class_="result-title")["href"])
             url = (
                 "https://baike.baidu.com"
-                if url_pre.startswith("https://baike.baidu.com")
+                if url_pre.startswith("/")
                 else ""
             ) + url_pre
             # 标题
