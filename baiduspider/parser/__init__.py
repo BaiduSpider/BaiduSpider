@@ -558,12 +558,12 @@ class Parser(BaseSpider):
             .find("span", class_="nums")
             .text.split("资讯", 1)[-1]
             .split("篇", 1)[0]
+            .split("个", 1)[0]
             .replace(",", "")
         )
         # 搜索结果容器
         data = (
             bs.find("div", id="content_left")
-            .findAll("div")[1]
             .findAll("div", class_="result-op")
         )
         results = []
@@ -800,7 +800,7 @@ class Parser(BaseSpider):
             url_pre = self._format(res.find("a", class_="result-title")["href"])
             url = (
                 "https://baike.baidu.com"
-                if url_pre.startswith("https://baike.baidu.com")
+                if url_pre.startswith("/")
                 else ""
             ) + url_pre
             # 标题
