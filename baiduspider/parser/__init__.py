@@ -150,7 +150,7 @@ class Parser(BaseSpider):
         # 预处理源码
         soup = BeautifulSoup(content, "html.parser")
         results = []
-        for res in soup.findAll("div", class_="result-op"):
+        for res in soup.findAll("div", class_="result"):
             try:
                 if res["srcid"] in ["1599"]:
                     results.append(res)
