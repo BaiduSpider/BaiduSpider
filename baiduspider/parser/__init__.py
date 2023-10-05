@@ -74,7 +74,10 @@ class Parser(BaseSpider):
                     related.append(self._format(_.text))
         # 预处理百科
         if "baike" not in exclude:
-            baike = soup.find("div", class_="c-container", tpl="bk_polysemy")
+            #先筛选tpl="sg_kg_entity_san"的百科，如果没有再筛选tpl="bk_polysemy"的百科
+            baike = soup.find("div", class_="c-container", tpl="sg_kg_entity_san")
+            if baike is None:
+                baike = soup.find("div", class_="c-container", tpl="bk_polysemy")
             baike = self.webSubParser.parse_baike_block(baike)
         # 预处理贴吧
         if "tieba" not in exclude:
@@ -150,7 +153,7 @@ class Parser(BaseSpider):
         # 预处理源码
         soup = BeautifulSoup(content, "html.parser")
         results = []
-        for res in soup.findAll("div", class_="result-op"):
+        for res in soup.findAll("div", class_="c-container"):
             try:
                 if res["srcid"] in ["1599"]:
                     results.append(res)
