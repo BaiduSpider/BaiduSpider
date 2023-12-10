@@ -264,7 +264,10 @@ class Parser(BaseSpider):
                             break
                 if flag:
                     break
-            domain = self._format(domain.find("a").text)
+            try:
+                domain = self._format(domain.find("a").text)
+            except:
+                domain = None
             # 百度快照
             snapshot = result.find("a", class_="kuaizhao")
             if snapshot:
