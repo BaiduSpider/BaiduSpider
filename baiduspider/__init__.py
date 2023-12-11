@@ -26,7 +26,6 @@ from baiduspider.parser import Parser
 
 __all__ = ["BaiduSpider"]
 
-
 class BaiduSpider(BaseSpider):
     """爬取百度的搜索结果.
 
