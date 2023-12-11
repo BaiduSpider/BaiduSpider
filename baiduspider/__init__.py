@@ -165,6 +165,7 @@ class BaiduSpider(BaseSpider):
         exclude: list = [],
         time: Union[tuple, str, None] = None,
         proxies: Dict = None,
+        normal_all=False,
     ) -> WebResult:
         """百度网页搜索。
 
@@ -439,7 +440,10 @@ class BaiduSpider(BaseSpider):
                     cookie = _[0] + "__yjs_duid=1_" + str(___.hexdigest()) + __
             self.headers["Cookie"] = cookie
             content = self._get_response(url, proxies)
-            results = self.parser.parse_web(content, exclude=exclude)
+            if not normal_all:
+                results = self.parser.parse_web(content, exclude=exclude)
+            else:
+                results = self.parser.parse_web_normal(content, exclude=exclude)
         except Exception as err:
             error = err
         finally:
