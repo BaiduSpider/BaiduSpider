@@ -377,3 +377,32 @@ class WebSubParser(BaseSpider):
             m_songs.append({"song": s_song, "singer": s_singer, "album": s_album})
         music = {"title": m_title, "url": m_url, "songs": m_songs}
         return music
+
+    @handle_err
+    def parse_bullet_block(self, bullet: BeautifulSoup) -> Dict:
+        """解析弹幕子块
+
+        Args:
+            bullet (BeautifulSoup): 从源HTML代码中提取的弹幕块BeautifulSoup对象
+
+        Returns:
+            Dict: 解析后自动生成的Python结果字典对象
+        """
+        if bullet:
+            bullet_chat_list = bullet.find_all('div', class_='danmakuItem_p8cJv')
+            bullet_results = []
+            bu_contents = []
+            for bu in bullet_chat_list:
+                if bu.find('div', class_='content_dYHhc').text in bu_contents:
+                    continue
+                else:
+                    bu_content = self._format(bu.find('div', class_='content_dYHhc').text)
+                    bu_contents.append(bu_content)
+                    bu_follow = self._format(bu.find('span', class_='count_q5aHN').text)
+                    bullet_results.append({
+                        "content": bu_content,
+                        "follow": bu_follow
+                    })
+        else:
+            bullet_results = []
+        return bullet_results
