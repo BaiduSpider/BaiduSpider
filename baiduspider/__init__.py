@@ -323,7 +323,21 @@ class BaiduSpider(BaseSpider):
                         },
                         'type': 'music'
                         # 这类搜索结果仅会在搜索词有相关音乐时出现，不一定每个搜索结果都会出现的
-                    }
+                    },
+                    {
+                        'results': [
+                            {
+                                'content': str,  # 弹幕内容
+                                'follow': str,  # 弹幕点赞数量
+                            },
+                            { ... },
+                            { ... },
+                            { ... },
+                            ...
+                        ],
+                        'type': 'bullet'
+                        # 这类搜索结果仅会在搜索词有相关话题时出现，不一定每个搜索结果都会出现的
+                    },
                     {
                         'des': str,  # 搜索结果简介
                         'origin': str,  # 搜索结果的来源，可能是域名，也可能是名称
@@ -350,7 +364,7 @@ class BaiduSpider(BaseSpider):
             ```python
             BaiduSpider().search_web('搜索词', exclude=['要屏蔽的子部件列表'])
             ```
-            可选值：`['news', 'video', 'baike', 'tieba', 'blog', 'gitee', 'related', 'calc', 'music']`，
+            可选值：`['news', 'video', 'baike', 'tieba', 'blog', 'gitee', 'related', 'calc', 'music', 'bullet']`,
             分别表示：资讯，视频，百科，贴吧，博客，Gitee代码仓库，相关搜索，计算。
             当`exclude=['all']`时，将仅保留基本搜索结果和搜索结果总数。
             如果`all`在`exclude`列表里，则将忽略列表中的剩余部件，返回`exclude=['all']`时的结果。
@@ -396,6 +410,7 @@ class BaiduSpider(BaseSpider):
                 "calc",
                 "related",
                 "music",
+                "bullet",
             ]
         # 按时间筛选
         if type(time) == str:
