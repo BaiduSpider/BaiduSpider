@@ -58,8 +58,11 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
     days_in_chinese = {"昨天": 1, "前天": 2, "今天": 0}
     if t in days_in_chinese:
         return datetime.now() - timedelta(days=days_in_chinese[t])
-
-    delta = int(re.findall(r"\d+", t)[0])
+    try:
+        delta = int(re.findall(r"\d+", t)[0])
+    except:
+        s = datetime.now()
+            
     # print( t.replace(str(delta), "").strip(), delta)
     if "秒" in t:
         s = datetime.now() - timedelta(seconds=delta)
