@@ -9,6 +9,7 @@ from baiduspider.errors import ParseError
 from baiduspider.parser.subparser import WebSubParser
 from baiduspider.util import handle_err
 from bs4 import BeautifulSoup
+import warnings
 
 
 class Parser(BaseSpider):
@@ -325,6 +326,7 @@ class Parser(BaseSpider):
         """
         soup = BeautifulSoup(content, "html.parser")
         if not soup.find("div", id="content_left"):
+            warnings.warn("未找到搜索结果，请更改查询词后重试")
             return {"results": [], "pages": 0, "total": 0}
         # 获取搜索结果总数
         tmp1 = soup.findAll("div", class_="result-molecule")
@@ -359,6 +361,8 @@ class Parser(BaseSpider):
 
         for id,result in enumerate(results):
             des = None
+
+            #如果没有tpl，则跳过这个res
             try:
                 tpl=result["tpl"]
             except KeyError:
@@ -369,6 +373,7 @@ class Parser(BaseSpider):
                 continue
 
             soup = BeautifulSoup(self._minify(str(result)), "html.parser")
+
             #遍历res中所有的span，若某个span的text为“广告”，则跳过这个res
             flag=False
             for span in soup.findAll('span'):
@@ -377,6 +382,8 @@ class Parser(BaseSpider):
                     break
             if flag:
                 continue
+
+
             #顺序
             id=id
             # 链接
@@ -469,8 +476,8 @@ class Parser(BaseSpider):
                         "type": "result",
                     }
                 )
-        soup = BeautifulSoup(content, "html.parser")
-        soup = BeautifulSoup(str(soup.findAll("div", id="page")[0]), "html.parser")
+        # soup = BeautifulSoup(content, "html.parser")
+        # soup = BeautifulSoup(str(soup.findAll("div", id="page")[0]), "html.parser")
         # 设置最终结果
         result = res
         return {
