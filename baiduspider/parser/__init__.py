@@ -80,11 +80,16 @@ class Parser(BaseSpider):
         if "tieba" not in exclude:
             tieba = BeautifulSoup(content, "html.parser").find("div", srcid="10")
             tieba = self.webSubParser.parse_tieba_block(tieba)
+        # 预处理音乐
         if "music" not in exclude:
             music = BeautifulSoup(content, "html.parser").find(
                 "div", class_="result-op", tpl="yl_music_song"
             )
             music = self.webSubParser.parse_music_block(music)
+        # 预处理弹幕
+        if "bullet" not in exclude:
+            bullet = BeautifulSoup(content, "html.parser").find("div", class_="danmakuBody_XlNPd")
+            bullet = self.webSubParser.parse_bullet_block(bullet)
         # 预处理博客
         article_tags = BeautifulSoup(content, "html.parser").findAll("article")
         if "blog" not in exclude:
@@ -147,6 +152,9 @@ class Parser(BaseSpider):
         # 加载音乐
         if "music" not in exclude and music:
             pre_results.append(dict(type="music", result=music))
+        # 加载弹幕
+        if "bullet" not in exclude and bullet:
+            pre_results.append(dict(type="bullet", result=bullet))
         # 预处理源码
         soup = BeautifulSoup(content, "html.parser")
         results = []
