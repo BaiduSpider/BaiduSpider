@@ -275,7 +275,7 @@ class Parser(BaseSpider):
             try:
                 domain = self._format(domain.find("a").text)
             except:
-                domain = None
+                domain = ''
             # 百度快照
             snapshot = result.find("a", class_="kuaizhao")
             if snapshot:
@@ -293,8 +293,8 @@ class Parser(BaseSpider):
                         "type": "result",
                     }
                 )
-        soup = BeautifulSoup(content, "html.parser")
-        soup = BeautifulSoup(str(soup.findAll("div", id="page")[0]), "html.parser")
+        # soup = BeautifulSoup(content, "html.parser")
+        # soup = BeautifulSoup(str(soup.findAll("div", id="page")[0]), "html.parser")
         # 分页
         # pages_ = soup.findAll("span", class_="pc")
         # pages = []

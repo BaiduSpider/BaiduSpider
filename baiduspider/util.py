@@ -89,7 +89,7 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
 
     except:
         s = datetime.now()
-        warnings.warn(f"无法解析时间字符串: {t}，默认返回当前时间: {s}")
+        warnings.warn("无法解析时间字符串: {}，默认返回当前时间: {}".format(str(t), str(s)))
         return s
             
 
