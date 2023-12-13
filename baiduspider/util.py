@@ -62,6 +62,7 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
         delta = int(re.findall(r"\d+", t)[0])
     except:
         s = datetime.now()
+        return s
             
     # print( t.replace(str(delta), "").strip(), delta)
     if "秒" in t:
