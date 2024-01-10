@@ -6,7 +6,7 @@ from typing import Any
 
 from baiduspider.models import convert_time
 from baiduspider.models.typings.typings_web import *
-
+from baiduspider.get_content_utils import *
 
 class WebNormal(WebNormal):
     """普通搜索结果模型
@@ -45,8 +45,12 @@ class WebNormal(WebNormal):
         __returns.snapshot = plain.get("snapshot")
         return __returns
 
+    def get_web_content(self:WebNormal, headers=None)->str:
+        return get_normal_text(self, headers)
 
-class WebCalc(WebCalc):
+
+
+class WebCalc(WebCalc,WebNormal):
     """计算搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索计算搜索结果结果模型创建的返回模型类。
@@ -72,7 +76,7 @@ class WebCalc(WebCalc):
         return __returns
 
 
-class WebNews(WebNews):
+class WebNews(WebNews,WebNormal):
     """资讯搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索资讯搜索结果结果模型创建的返回模型类。
@@ -105,7 +109,7 @@ class WebNews(WebNews):
         return __returns
 
 
-class WebVideo(WebVideo):
+class WebVideo(WebVideo,WebNormal):
     """视频搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索视频搜索结果结果模型创建的返回模型类。
@@ -140,7 +144,7 @@ class WebVideo(WebVideo):
         return __returns
 
 
-class WebBaike(WebBaike):
+class WebBaike(WebBaike,WebNormal):
     """百科搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索百科搜索结果结果模型创建的返回模型类。
@@ -174,8 +178,25 @@ class WebBaike(WebBaike):
         __returns.url = plain.get("url")
         return __returns
 
+    # # 为WebBaike增加一个函数，get_text()
+    # def get_web_content(self: WebBaike, headers=None) -> str:
+    #     url = self.url
+    #     if hasattr(self, 'html'):
+    #         html = self.html
+    #     else:
+    #         # 获取response
+    #         res = requests.get(url, headers=headers, timeout=10)
+    #         res.encoding = 'utf-8'
+    #         html = res.text
+    #         res.close()
+    #
+    #     bs = BeautifulSoup(html, 'html.parser')
+    #     text = parse_baidu_baike(bs)
+    #     self.web_content = text
+    #     return text
 
-class WebTiebaHot(WebTiebaHot):
+
+class WebTiebaHot(WebTiebaHot,WebNormal):
     """贴吧热门搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索贴吧热门搜索结果结果模型创建的返回模型类。
@@ -207,7 +228,7 @@ class WebTiebaHot(WebTiebaHot):
         return __returns
 
 
-class WebTieba(WebTieba):
+class WebTieba(WebTieba,WebNormal):
     """贴吧搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索贴吧搜索结果结果模型创建的返回模型类。
@@ -250,7 +271,7 @@ class WebTieba(WebTieba):
         return __returns
 
 
-class WebBlogDetail(WebBlogDetail):
+class WebBlogDetail(WebBlogDetail,WebNormal):
     """博客详情搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索博客详情搜索结果结果模型创建的返回模型类。
@@ -286,7 +307,7 @@ class WebBlogDetail(WebBlogDetail):
         return __returns
 
 
-class WebBlog(WebBlog):
+class WebBlog(WebBlog,WebNormal):
     """博客搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索博客搜索结果结果模型创建的返回模型类。
@@ -315,7 +336,7 @@ class WebBlog(WebBlog):
         return __returns
 
 
-class WebGitee(WebGitee):
+class WebGitee(WebGitee,WebNormal):
     """Gitee仓库搜索结果模型
 
     这是一个遵照BaiduSpider网页搜索Gitee仓库搜索结果结果模型创建的返回模型类。
@@ -362,7 +383,7 @@ class WebGitee(WebGitee):
         return __returns
 
 
-class WebMusicSong(WebMusicSong):
+class WebMusicSong(WebMusicSong,WebNormal):
     """网页搜索音乐歌曲信息搜索结果结果模型
 
     这是一个遵照BaiduSpider网页搜索音乐歌曲信息搜索结果结果模型创建的返回模型类。
@@ -414,7 +435,7 @@ class WebMusicSong(WebMusicSong):
         return __returns
 
 
-class WebMusicAlbum(WebMusicAlbum):
+class WebMusicAlbum(WebMusicAlbum,WebNormal):
     """网页搜索音乐歌曲专辑搜索结果结果模型。
 
     这是一个遵照BaiduSpider网页搜索音乐歌曲专辑搜索结果结果模型创建的返回模型类。
@@ -439,7 +460,7 @@ class WebMusicAlbum(WebMusicAlbum):
         return __returns
 
 
-class WebMusicSinger(WebMusicSinger):
+class WebMusicSinger(WebMusicSinger,WebNormal):
     """网页搜索音乐歌曲歌手搜索结果结果模型。
 
     这是一个遵照BaiduSpider网页搜索音乐歌曲歌手搜索结果结果模型创建的返回模型类。
@@ -464,7 +485,7 @@ class WebMusicSinger(WebMusicSinger):
         return __returns
 
 
-class WebMusicSongs(WebMusicSongs):
+class WebMusicSongs(WebMusicSongs,WebNormal):
     """网页搜索音乐歌曲搜索结果结果模型。
 
     这是一个遵照BaiduSpider网页搜索音乐歌曲搜索结果结果模型创建的返回模型类。
@@ -493,7 +514,7 @@ class WebMusicSongs(WebMusicSongs):
         return __returns
 
 
-class WebMusic(WebMusic):
+class WebMusic(WebMusic,WebNormal):
     """网页搜索音乐搜索结果结果模型。
 
     这是一个遵照BaiduSpider网页搜索音乐搜索结果结果模型创建的返回模型类。

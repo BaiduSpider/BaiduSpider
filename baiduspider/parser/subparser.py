@@ -113,27 +113,51 @@ class WebSubParser(BaseSpider):
 
         b_title = self._format(baike.find("h3").text)
         b_url = baike.find("a")["href"]
-        b_des = self._format(
-            baike.find("div", class_="c-span-last")
-            .find("div", class_="c-font-normal")
-            .text
-        )
-        try:
-            b_cover = baike.find("div", class_="c-span3").find("img")["src"]
-            b_cover_type = "image"
-        except (TypeError, AttributeError):
+        
+        # 如果百科的tpl==bk_polysemy
+        if baike["tpl"] == "bk_polysemy":
+            b_des = self._format(
+                baike.find("div", class_="c-span-last")
+                .find("div", class_="c-font-normal")
+                .text
+            )
             try:
-                b_cover = (
-                    baike.find("div", class_="op-bk-polysemy-imgWrap")
-                    .find("div", class_="c-img")["style"]
-                    .split("url", 1)[-1]
-                    .split(")", 1)[0]
-                    .strip("(")
-                )
-                b_cover_type = "video"
-            except TypeError:
+                b_cover = baike.find("div", class_="c-span3").find("img")["src"]
+                b_cover_type = "image"
+            except (TypeError, AttributeError):
+                try:
+                    b_cover = (
+                        baike.find("div", class_="op-bk-polysemy-imgWrap")
+                        .find("div", class_="c-img")["style"]
+                        .split("url", 1)[-1]
+                        .split(")", 1)[0]
+                        .strip("(")
+                    )
+                    b_cover_type = "video"
+                except (TypeError):
+                    b_cover = None
+                    b_cover_type = None
+                    
+        # 如果百科的tpl==sg_kg_entity_san
+        elif baike["tpl"] == "sg_kg_entity_san":
+            b_des = self._format(
+                baike.find("div", class_="description_1rAFH")
+                .find("p", class_="cu-font-normal")
+                .text
+            )
+            try:
+                b_cover = baike.find("div", class_="_image_1gdgv_1").find("img")["src"]
+                # 如果能找到class==cos-icon的i标签，则说明是视频，否则是图片
+                b_cover_type = "video" if baike.find("i", class_="cos-icon") else "image"
+            except (TypeError, AttributeError):
                 b_cover = None
                 b_cover_type = None
+
+        else:
+            b_des = None
+            b_cover = None
+            b_cover_type = None
+            
         baike = {
             "title": b_title,
             "url": b_url,
@@ -142,6 +166,7 @@ class WebSubParser(BaseSpider):
             "cover-type": b_cover_type,
         }
         return baike
+
 
     @handle_err
     def parse_tieba_block(self, tieba: BeautifulSoup) -> Dict:

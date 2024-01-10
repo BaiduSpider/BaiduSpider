@@ -167,6 +167,8 @@ spider = BaiduSpider()
 # 搜索网页
 pprint(spider.search_web(query='Python'))
 ```
+## 新功能（测试版，可能有未知bug）
+获取网页正文
 
 _更多样例和配置，请参照[文档](https://baiduspider.github.io)_
 

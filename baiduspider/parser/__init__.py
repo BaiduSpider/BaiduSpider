@@ -9,6 +9,7 @@ from baiduspider.errors import ParseError
 from baiduspider.parser.subparser import WebSubParser
 from baiduspider.util import handle_err
 from bs4 import BeautifulSoup
+import warnings
 
 
 class Parser(BaseSpider):
@@ -72,10 +73,16 @@ class Parser(BaseSpider):
             for _ in _related:
                 if _.text:
                     related.append(self._format(_.text))
+
         # 预处理百科
         if "baike" not in exclude:
-            baike = soup.find("div", class_="c-container", tpl="bk_polysemy")
+            #先筛选tpl="sg_kg_entity_san"的百科，如果没有再筛选tpl="bk_polysemy"的百科
+            baike = soup.find("div", class_="c-container", tpl="sg_kg_entity_san")
+            if baike is None:
+                baike = soup.find("div", class_="c-container", tpl="bk_polysemy")
             baike = self.webSubParser.parse_baike_block(baike)
+
+
         # 预处理贴吧
         if "tieba" not in exclude:
             tieba = BeautifulSoup(content, "html.parser").find("div", srcid="10")
@@ -102,6 +109,8 @@ class Parser(BaseSpider):
                     gitee = tmp
                     break
             gitee = self.webSubParser.parse_gitee_block(gitee)
+
+
         # 加载贴吧
         if "tieba" not in exclude and tieba:
             pre_results.append(dict(type="tieba", result=tieba))
@@ -147,10 +156,13 @@ class Parser(BaseSpider):
         # 加载音乐
         if "music" not in exclude and music:
             pre_results.append(dict(type="music", result=music))
+
+
         # 预处理源码
         soup = BeautifulSoup(content, "html.parser")
         results = []
-        for res in soup.findAll("div", class_="result-op"):
+        for res in soup.findAll("div", class_="c-container"):
+
             try:
                 if res["srcid"] in ["1599"]:
                     results.append(res)
@@ -160,7 +172,7 @@ class Parser(BaseSpider):
         for result in results:
             des = None
             try:
-                result["tpl"]
+                tpl=result["tpl"]
             except KeyError:
                 continue
             soup = BeautifulSoup(self._minify(str(result)), "html.parser")
@@ -212,12 +224,12 @@ class Parser(BaseSpider):
                     des = None
             if time:
                 time = time.split("-")[0].strip()
-            # 因为百度的链接是加密的了，所以需要一个一个去访问
-            # 由于性能原因，分析链接部分暂略
+            # # 因为百度的链接是加密的了，所以需要一个一个去访问
+            # # 由于性能原因，分析链接部分暂略
             # if href:
             #     try:
             #         # 由于性能原因，这里设置1秒超时
-            #         r = requests.get(href, timeout=1)
+            #         r = requests.get(href, timeout=5)
             #         href = r.url
             #     except Exception:
             #         # 获取网页失败，默认换回原加密链接
@@ -246,8 +258,7 @@ class Parser(BaseSpider):
                     "bk_polysemy",
                     "tieba_general",
                     "yl_music_song",
-                ]
-                and not result.find("article")
+                ] and not result.find("article")
             )
             domain = None
             domain_ = result.findAll("div", class_="c-row")
@@ -261,7 +272,10 @@ class Parser(BaseSpider):
                             break
                 if flag:
                     break
-            domain = self._format(domain.find("a").text)
+            try:
+                domain = self._format(domain.find("a").text)
+            except:
+                domain = ''
             # 百度快照
             snapshot = result.find("a", class_="kuaizhao")
             if snapshot:
@@ -279,8 +293,8 @@ class Parser(BaseSpider):
                         "type": "result",
                     }
                 )
-        soup = BeautifulSoup(content, "html.parser")
-        soup = BeautifulSoup(str(soup.findAll("div", id="page")[0]), "html.parser")
+        # soup = BeautifulSoup(content, "html.parser")
+        # soup = BeautifulSoup(str(soup.findAll("div", id="page")[0]), "html.parser")
         # 分页
         # pages_ = soup.findAll("span", class_="pc")
         # pages = []
@@ -298,6 +312,183 @@ class Parser(BaseSpider):
             # 最大页数
             # "pages": max(pages),
             "total": num,
+        }
+
+    def parse_web_normal(self, content: str, exclude: list) -> dict:
+        """解析百度网页搜索的页面源代码.
+
+        Args:
+            content (str): 已经转换为UTF-8编码的百度网页搜索HTML源码.
+            exclude (list): 要屏蔽的控件.
+
+        Returns:
+            dict: 解析后的结果
+        """
+        soup = BeautifulSoup(content, "html.parser")
+        if not soup.find("div", id="content_left"):
+            warnings.warn("未找到搜索结果，请更改查询词后重试")
+            return {"results": [], "pages": 0, "total": 0}
+        # 获取搜索结果总数
+        tmp1 = soup.findAll("div", class_="result-molecule")
+        idx_ = 0
+        ele = None
+        while not ele and idx_ < len(tmp1):
+            tmp = tmp1[idx_].findAll("span")
+            found = False
+            for t in tmp:
+                if "百度为您找到相关结果" in t.text:
+                    ele = t
+                    found = True
+                    break
+            if found:
+                break
+            idx_ += 1
+        try:
+            num = int(
+                str(ele.text).strip("百度为您找到相关结果").strip("约").strip("个").replace(",", "")
+            )
+        except:
+            warnings.warn("未找到搜索结果数量")
+
+        # 定义预结果（运算以及相关搜索）
+        pre_results = []
+        # 预处理源码
+        soup = BeautifulSoup(content, "html.parser")
+        results = []
+        for res in soup.findAll("div", class_="c-container"):
+            try:
+                srcid=res["srcid"]
+                results.append(res)
+            except KeyError:
+                pass
+        res = []
+
+        for id,result in enumerate(results):
+            des = None
+
+            #如果没有tpl，则跳过这个res
+            try:
+                tpl=result["tpl"]
+            except KeyError:
+                continue
+
+            #如果tpl中包含“video”或“music”，则跳过这个res
+            if "video" in tpl or "music" in tpl or "recommend" in tpl:
+                continue
+
+            soup = BeautifulSoup(self._minify(str(result)), "html.parser")
+
+            #遍历res中所有的span，若某个span的text为“广告”，则跳过这个res
+            flag=False
+            for span in soup.findAll('span'):
+                if span.text=='广告' or span.text=='推广':
+                    flag=True
+                    break
+            if flag:
+                continue
+
+
+            #顺序
+            id=id
+            # 链接
+            href = soup.find("a").get("href").strip()
+            # 标题
+            title = self._format(str(soup.find("a").text))
+            # 时间
+            try:
+                _ = soup.find("div", class_="c-span-last")
+                if not _:
+                    _ = soup.find("div", class_="c-gap-top-small")
+                if _:
+                    time = self._format(
+                        _.find("span", class_="c-color-gray2")
+                        .text
+                    )
+                else:
+                    time=None
+            except (AttributeError, IndexError):
+                time = None
+            try:
+                # 简介
+                des = None
+                _ = soup.find("div", class_="c-span-last")
+                if _:
+                    for des_ in _.findAll("span"):
+                        try:
+                            if des_["class"][0].startswith("content-right"):
+                                des = des_.text
+                                break
+                        except KeyError:
+                            pass
+                else:
+                    _ = soup.find("div", class_="c-gap-top-small")
+                    if _:
+                        for des_ in _.findAll("span"):
+                            try:
+                                if des_["class"][0].startswith("content-right"):
+                                    des = des_.text
+                                    break
+                            except KeyError:
+                                pass
+                soup = BeautifulSoup(str(result), "html.parser")
+                if des:
+                    des = self._format(des)
+            except IndexError:
+                try:
+                    des = des.replace("mn", "")
+                except (UnboundLocalError, AttributeError):
+                    des = None
+            if time:
+                time = time.split("-")[0].strip()
+
+            try:
+                result["tpl"]
+            except KeyError:
+                pass
+
+            domain = None
+            domain_ = result.findAll("div", class_="c-row")
+            for _ in domain_:
+                flag = False
+                if _.has_attr("class"):
+                    for __ in _["class"]:
+                        if __.startswith("source"):
+                            domain = _
+                            flag = True
+                            break
+                if flag:
+                    break
+            try:
+                domain = self._format(domain.find("a").text)
+            except:
+                domain = None
+            # 百度快照
+            snapshot = result.find("a", class_="kuaizhao")
+            if snapshot:
+                snapshot = self._format(snapshot["href"].replace("\n", "").replace(" ", ""))
+            # 加入结果
+            if title and href:
+                res.append(
+                    {
+                        "id":id,
+                        "title": title,
+                        "des": des,
+                        "origin": domain,
+                        "url": href,
+                        "time": time,
+                        "snapshot": snapshot,
+                        "type": "result",
+                    }
+                )
+        # soup = BeautifulSoup(content, "html.parser")
+        # soup = BeautifulSoup(str(soup.findAll("div", id="page")[0]), "html.parser")
+        # 设置最终结果
+        result = res
+        return {
+            "results": result,
+            # 最大页数
+            # "pages": max(pages),
+            "total": len(result),
         }
 
     @handle_err

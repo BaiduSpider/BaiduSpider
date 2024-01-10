@@ -4,6 +4,7 @@ import re
 from datetime import datetime, timedelta
 from functools import wraps
 from typing import Union
+import warnings
 
 
 def handle_err(func):  # pragma: no cover
@@ -58,30 +59,37 @@ def convert_time(t: str, as_list: bool = False) -> Union[datetime, bool]:
     days_in_chinese = {"昨天": 1, "前天": 2, "今天": 0}
     if t in days_in_chinese:
         return datetime.now() - timedelta(days=days_in_chinese[t])
+    try:
+        delta = int(re.findall(r"\d+", t)[0])
+        # print( t.replace(str(delta), "").strip(), delta)
+        if "秒" in t:
+            s = datetime.now() - timedelta(seconds=delta)
+        elif "分钟" in t:
+            s = datetime.now() - timedelta(minutes=delta)
+        elif "小时" in t:
+            s = datetime.now() - timedelta(hours=delta)
+        elif t.replace(str(delta), "").split(":")[0].strip() in days_in_chinese:
+            _ = int(re.findall(r"\d+", t)[-1])
+            __ = t.replace(str(delta), "").split(":")[0].strip()
+            s = datetime.now() - timedelta(days=days_in_chinese[__])
+            s = datetime(s.year, s.month, s.day, delta, _)
+        elif "天" in t:
+            s = datetime.now() - timedelta(days=delta)
+        # elif '年' in t:
+        #     s = (datetime.now() - timedelta(days=365 * delta))
+        elif "年" in t and "月" in t and "日" in t:
+            s = datetime.strptime(t, r"%Y年%m月%d日")
+        else:
+            s = datetime.now()
 
-    delta = int(re.findall(r"\d+", t)[0])
-    # print( t.replace(str(delta), "").strip(), delta)
-    if "秒" in t:
-        s = datetime.now() - timedelta(seconds=delta)
-    elif "分钟" in t:
-        s = datetime.now() - timedelta(minutes=delta)
-    elif "小时" in t:
-        s = datetime.now() - timedelta(hours=delta)
-    elif t.replace(str(delta), "").split(":")[0].strip() in days_in_chinese:
-        _ = int(re.findall(r"\d+", t)[-1])
-        __ = t.replace(str(delta), "").split(":")[0].strip()
-        s = datetime.now() - timedelta(days=days_in_chinese[__])
-        s = datetime(s.year, s.month, s.day, delta, _)
-    elif "天" in t:
-        s = datetime.now() - timedelta(days=delta)
-    # elif '年' in t:
-    #     s = (datetime.now() - timedelta(days=365 * delta))
-    elif "年" in t and "月" in t and "日" in t:
-        s = datetime.strptime(t, r"%Y年%m月%d日")
-    else:
+        if not as_list:
+            return s
+        else:
+            return (s.year, s.month, s.day, s.hour, s.minute, s.second)
+
+    except:
         s = datetime.now()
-
-    if not as_list:
+        warnings.warn("无法解析时间字符串: {}，默认返回当前时间: {}".format(str(t), str(s)))
         return s
-    else:
-        return (s.year, s.month, s.day, s.hour, s.minute, s.second)
+            
+
